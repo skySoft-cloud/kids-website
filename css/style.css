@@ -1063,6 +1063,145 @@ section[id] { scroll-margin-top: 64px; }
   .cat-nav a { padding: var(--space-6) var(--space-12); font-size: 11px; }
 }
 
+/* ===== Kindergarten Meal Plan ===== */
+.meal-week-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-16);
+}
+.meal-day-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.meal-day-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-10);
+  padding: var(--space-12) var(--space-16);
+  background: var(--c-primary-light);
+  border-bottom: 1px solid var(--c-border);
+}
+.meal-day-num {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  background: var(--c-primary);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.meal-day-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--c-text);
+}
+.meal-day-body {
+  padding: var(--space-8) var(--space-12);
+}
+.meal-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-10);
+  padding: var(--space-8) 0;
+  border-bottom: 1px solid var(--c-border);
+}
+.meal-item:last-child { border-bottom: none; }
+.meal-item-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--c-text-muted);
+  white-space: nowrap;
+  min-width: 36px;
+  padding-top: 2px;
+}
+.meal-item-text {
+  font-size: 13px;
+  color: var(--c-text-secondary);
+  line-height: 1.5;
+}
+.meal-item-text strong {
+  color: var(--c-text);
+}
+
+.nutrient-ref-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.nutrient-ref-table th,
+.nutrient-ref-table td {
+  padding: var(--space-10) var(--space-12);
+  text-align: left;
+  border-bottom: 1px solid var(--c-border);
+}
+.nutrient-ref-table th {
+  background: var(--c-surface-muted);
+  font-weight: 600;
+  color: var(--c-text);
+  font-size: 12px;
+}
+.nutrient-ref-table td {
+  color: var(--c-text-secondary);
+}
+.nutrient-ref-table .nutrient-name {
+  font-weight: 600;
+  color: var(--c-primary);
+}
+
+.meal-schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.meal-schedule-table th,
+.meal-schedule-table td {
+  padding: var(--space-10) var(--space-12);
+  text-align: left;
+  border-bottom: 1px solid var(--c-border);
+}
+.meal-schedule-table th {
+  background: var(--c-surface-muted);
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.compare-table th,
+.compare-table td {
+  padding: var(--space-10) var(--space-12);
+  text-align: left;
+  border-bottom: 1px solid var(--c-border);
+  vertical-align: top;
+}
+.compare-table th {
+  background: var(--c-surface-muted);
+  font-weight: 600;
+  font-size: 12px;
+}
+.compare-table .compare-dim {
+  font-weight: 600;
+  color: var(--c-text);
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .meal-week-grid { grid-template-columns: 1fr; }
+  .meal-day-body { padding: var(--space-8) var(--space-10); }
+  .nutrient-ref-table th, .nutrient-ref-table td,
+  .meal-schedule-table th, .meal-schedule-table td,
+  .compare-table th, .compare-table td { padding: 8px; font-size: 12px; }
+}
+
 /* ===== Floating Quick Nav ===== */
 .fab-nav {
   position: fixed;
