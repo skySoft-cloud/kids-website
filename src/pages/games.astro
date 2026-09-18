@@ -1,0 +1,107 @@
+---
+// 亲子游戏库：28 个游戏，场景 × 能力双维筛选，数据来自 src/data/games.json
+import { Icon } from 'astro-icon/components';
+import Base from '../layouts/Base.astro';
+import gamesData from '../data/games.json';
+
+const scenes = gamesData.scenes;
+const skills = gamesData.skills;
+const allGames = gamesData.games;
+---
+
+<Base title="亲子游戏库">
+  <div class="container">
+    <div class="legacy-content">
+      <div class="page-header has-art">
+        <img class="header-art" src="/art/games.svg" alt="" width="480" height="360" loading="lazy" />
+        <div class="ph-text">
+          <div class="breadcrumb">
+            <a href="/">首页</a> <span>/</span> 亲子游戏
+          </div>
+          <h1>亲子游戏库</h1>
+          <p class="subtitle">28 个零门槛游戏，按「此刻的场景」找——晨起、放学、餐桌、睡前、周末、旅途、生病在家都有得玩</p>
+        </div>
+      </div>
+
+      <nav class="sub-nav">
+        {scenes.map((s) => (
+          <a href={`#scene-${s.id}`}>{s.name}</a>
+        ))}
+      </nav>
+
+      <div class="recipe-filter">
+        <button class="filter-btn active" onclick="filterGames(this, 'all')">全部能力</button>
+        {skills.map((s) => (
+          <button class="filter-btn" onclick={`filterGames(this, '${s}')`}>{s}</button>
+        ))}
+        <button class="filter-btn" onclick="filterGames(this, 'elder')">老人友好</button>
+      </div>
+
+      {scenes.map((scene, idx) => (
+        <section class="section game-scene" id={`scene-${scene.id}`}>
+          <h2 class="section-title">
+            <span class="num">{idx + 1}</span>{scene.name}
+            <span class="game-chip">{allGames.filter((g) => g.scene === scene.id).length} 个</span>
+          </h2>
+          <div class="game-grid">
+            {allGames.filter((g) => g.scene === scene.id).map((g) => (
+              <div class="game-card" data-skills={g.skills.join(',')} data-elder={g.elder ? '1' : ''}>
+                <div class="game-badge-row">
+                  {g.skills.map((s) => <span class="game-skill">{s}</span>)}
+                  <span class="game-chip"><Icon name="ph:clock" />{g.duration}</span>
+                  <span class="game-chip"><Icon name="ph:users-three" />{g.players}</span>
+                  <span class="game-chip"><Icon name="ph:package" />{g.prep}</span>
+                  {g.elder && <span class="game-elder"><Icon name="ph:hand-heart" />老人友好</span>}
+                </div>
+                <div class="game-name">{g.name}</div>
+                <p class="game-desc">{g.desc}</p>
+                <div class="game-steps">
+                  {g.steps.map((s, i) => <div class="step"><b>{i + 1}.</b>{s}</div>)}
+                </div>
+                <div class="game-tip"><strong>小贴士：</strong>{g.tips}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
+
+      <div class="tip-box">
+        <div class="tip-label">使用建议</div>
+        <p>不必每个游戏都玩一遍——挑 2-3 个固定下来变成日常仪式，比每天换花样更有价值。玩游戏时放下手机全情投入 10 分钟，效果远胜心不在焉的一小时。发现她特别喜欢某个游戏，就在旁边加个小记号，慢慢就攒出你们家的「招牌节目」了。</p>
+      </div>
+    </div>
+  </div>
+</Base>
+
+<script is:inline>
+  function filterGames(btn, tag) {
+    document.querySelectorAll('.recipe-filter .filter-btn').forEach(function (b) {
+      b.classList.remove('active');
+    });
+    btn.classList.add('active');
+
+    document.querySelectorAll('.game-card').forEach(function (card) {
+      var show;
+      if (tag === 'all') {
+        show = true;
+      } else if (tag === 'elder') {
+        show = card.dataset.elder === '1';
+      } else {
+        show = (card.dataset.skills || '').split(',').indexOf(tag) >= 0;
+      }
+      card.style.display = show ? '' : 'none';
+    });
+
+    // 隐藏被筛空的场景章节
+    document.querySelectorAll('.game-scene').forEach(function (sec) {
+      var visible = sec.querySelectorAll('.game-card:not([style*="display: none"])').length;
+      sec.style.display = visible > 0 ? '' : 'none';
+    });
+
+    // 二级导航与隐藏章节同步，避免点到空锚点
+    document.querySelectorAll('.sub-nav a[href^="#scene-"]').forEach(function (a) {
+      var target = document.querySelector(a.getAttribute('href'));
+      a.style.display = target && target.style.display === 'none' ? 'none' : '';
+    });
+  }
+</script>

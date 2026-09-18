@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360">
+  <rect width="480" height="360" fill="#FBF5EA"/>
+  <ellipse cx="240" cy="300" rx="200" ry="34" fill="#F0E7D2"/>
+  <circle cx="72" cy="60" r="20" fill="#F2CE7B" opacity="0.8"/>
+  <!-- 热气 -->
+  <path d="M206 108q-8-14 0-26M240 100q-8-16 0-30M274 108q-8-14 0-26" stroke="#D8C7A8" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <!-- 饭团 -->
+  <path d="M168 190q34-52 72-52t72 52q8 12-8 12H176q-16 0-8-12Z" fill="#FFFDF6"/>
+  <!-- 碗 -->
+  <path d="M148 196h184q4 0 4 5-1 52-48 66H192q-47-14-48-66 0-5 4-5Z" fill="#C0693F"/>
+  <path d="M148 196h184q4 0 4 5-1 20-14 33H158q-13-13-14-33 0-5 4-5Z" fill="#D97941"/>
+  <rect x="196" y="264" width="88" height="14" rx="7" fill="#A5522F"/>
+  <!-- 配菜：西兰花 -->
+  <g>
+    <circle cx="366" cy="204" r="17" fill="#8A9B7A"/>
+    <circle cx="350" cy="212" r="12" fill="#8A9B7A"/>
+    <circle cx="382" cy="212" r="12" fill="#8A9B7A"/>
+    <circle cx="358" cy="198" r="9" fill="#9BAD89"/>
+    <circle cx="374" cy="198" r="9" fill="#9BAD89"/>
+    <rect x="361" y="222" width="10" height="20" rx="5" fill="#9BAD89"/>
+  </g>
+  <!-- 胡萝卜 -->
+  <g transform="rotate(24 120 220)">
+    <path d="M120 196l12 44q-12 6-24 0Z" fill="#E08A4E"/>
+    <path d="M112 192q8-6 16 0l-8 10Z" fill="#8A9B7A"/>
+  </g>
+  <!-- 小番茄 -->
+  <circle cx="330" cy="160" r="13" fill="#D95F4B"/>
+  <path d="M325 150q5-4 10 0" stroke="#8A9B7A" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+  <!-- 勺子 -->
+  <g transform="rotate(-18 408 240)">
+    <rect x="402" y="212" width="12" height="66" rx="6" fill="#D9A648"/>
+    <ellipse cx="408" cy="204" rx="17" ry="21" fill="#D9A648"/>
+    <ellipse cx="408" cy="202" rx="10" ry="13" fill="#F2CE7B"/>
+  </g>
+  <path d="M96 120c0-5 4-9 9-9s9 4 9 9c0 6-9 12-9 12s-9-6-9-12Z" fill="#D97B57" opacity="0.5"/>
+  <path d="M398 84c0-4 3.5-8 8-8s8 4 8 8c0 6-8 11-8 11s-8-5-8-11Z" fill="#8A9B7A" opacity="0.55"/>
+</svg>

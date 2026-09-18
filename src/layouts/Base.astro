@@ -1,0 +1,48 @@
+---
+import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import QuickNav from '../components/QuickNav.astro';
+import SiteEnhance from '../components/SiteEnhance.astro';
+import { SITE } from '../data/site';
+
+interface Props {
+  /** 页面标题（自动拼接站名） */
+  title: string;
+  description?: string;
+}
+
+const { title, description = SITE.description } = Astro.props;
+const fullTitle = title === SITE.name ? title : `${title} | ${SITE.name}`;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <ClientRouter />
+    <!-- 衬线字体：非阻塞加载，加载失败时回退系统宋体/衬线 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;600;700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+  </head>
+  <body>
+    <SiteHeader />
+    <main class="page-wrap">
+      <slot />
+    </main>
+    <SiteFooter />
+    <QuickNav />
+    <SiteEnhance />
+  </body>
+</html>

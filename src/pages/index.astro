@@ -1,0 +1,366 @@
+---
+import { Icon } from 'astro-icon/components';
+import Base from '../layouts/Base.astro';
+import { SITE } from '../data/site';
+
+/** 首页专栏（改文案直接改这里）—— focus 卡通栏展示，isNew 显示新栏目徽章 */
+const pillars = [
+  {
+    no: '01',
+    kicker: '本期连载',
+    title: '教育启蒙',
+    focus: true,
+    isNew: false,
+    icon: 'ph:book-open',
+    desc: '幼儿园适应全记录：入园物品、能力训练、心理建设、第一周逐日安排与家校沟通。入园三周适应良好，专题进入日常维护模式。',
+    tags: ['入园清单', '第一周逐日', '分离焦虑', '家校沟通'],
+    links: [{ href: '/kindergarten/', label: '阅读专题' }],
+  },
+  {
+    no: '02',
+    kicker: '每周上新',
+    title: '亲子游戏',
+    focus: false,
+    isNew: true,
+    icon: 'ph:puzzle-piece',
+    desc: '28 个零门槛游戏，按「此刻的场景」找：晨起唤醒、放学衔接、餐桌互动、睡前陪伴、周末户外，老人也能独立带玩。',
+    tags: ['放学衔接', '睡前 20 分钟', '周末户外', '老人友好'],
+    links: [{ href: '/games/', label: '进入游戏库' }],
+  },
+  {
+    no: '03',
+    kicker: '常备手册',
+    title: '无敏食谱',
+    focus: false,
+    isNew: false,
+    icon: 'ph:cooking-pot',
+    desc: '过敏体质的一日三餐与加餐搭配，59+ 道无蛋无奶食谱，可直接转发给老人参考。',
+    tags: ['快手早餐', '晚餐', '加餐', '补钙'],
+    links: [{ href: '/meals/', label: '阅读专题' }],
+  },
+  {
+    no: '04',
+    kicker: '健康档案',
+    title: '健康守护',
+    focus: false,
+    isNew: false,
+    icon: 'ph:heartbeat',
+    desc: '体检疫苗记录、口腔视力护理、安全急救与生病照护：就医信号、喂药技巧、病中饮食。',
+    tags: ['定期体检', '过敏管理', '生病照护'],
+    links: [{ href: '/health/', label: '阅读专题' }],
+  },
+  {
+    no: '05',
+    kicker: '家庭档案',
+    title: '家庭生活与长期规划',
+    focus: false,
+    isNew: false,
+    icon: 'ph:house-line',
+    desc: '老人带娃分工协调、周末假期安排，以及储蓄保险、证件资料与成长记录。',
+    tags: ['分工协调', '证件管理', '育儿书单'],
+    links: [
+      { href: '/family/', label: '家庭生活' },
+      { href: '/planning/', label: '长期规划' },
+    ],
+  },
+];
+---
+
+<Base title={SITE.name}>
+  <div class="container">
+    <!-- 刊首 -->
+    <section class="hero">
+      <div class="hero-text">
+        <p class="hero-kicker">FAMILY GROWTH · 三岁半</p>
+        <h1 class="hero-title">
+          陪她慢慢长大，<br />也把日子过成值得翻阅的样子
+        </h1>
+        <p class="hero-lead">
+          幼儿园适应、亲子游戏、无敏食谱、健康守护、家庭规划——一份持续更新的家庭成长指南，可分享给家人，手机电脑都能看。
+        </p>
+        <p class="hero-edition">
+          <span class="dash" aria-hidden="true"></span>
+          {SITE.edition} · {SITE.lastUpdated}更新
+        </p>
+      </div>
+      <img class="hero-art" src="/art/hero.svg" alt="母亲牵着女儿散步的黏土风插画" width="480" height="360" />
+    </section>
+
+    <!-- 专栏 -->
+    <section class="pillar-grid" aria-label="内容专栏">
+      {
+        pillars.map((p) => (
+          <section class:list={['pillar-card', { focal: p.focus }]}>
+            <p class="pillar-no">
+              {p.no} · {p.kicker}
+            </p>
+            <div class="pillar-title-row">
+              {p.icon && <Icon name={p.icon} class="pillar-icon" />}
+              <h2 class="pillar-title">{p.title}</h2>
+              {p.focus && <span class="badge">当前重点</span>}
+              {p.isNew && <span class="badge badge-new">新栏目</span>}
+            </div>
+            <p class="pillar-desc">{p.desc}</p>
+            <div class="pillar-tags">
+              {p.tags.map((t) => (
+                <span class="tag">{t}</span>
+              ))}
+            </div>
+            <div class="pillar-links">
+              {p.links.map((l) => (
+                <a href={l.href}>
+                  {l.label} <span aria-hidden="true">→</span>
+                </a>
+              ))}
+            </div>
+          </section>
+        ))
+      }
+    </section>
+
+    <!-- 编后记 -->
+    <aside class="site-note">
+      <p class="note-label">使用说明</p>
+      <p>
+        本站兼容手机与电脑浏览，可分享给家人查看；食谱页面可直接转发给老人参考。每个板块持续更新，欢迎收藏域名随时访问。
+      </p>
+    </aside>
+  </div>
+</Base>
+
+<style>
+  /* ---- 刊首 ---- */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: var(--space-40);
+    align-items: center;
+    padding-top: var(--space-64);
+  }
+
+  .hero-art {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    border: 1px solid var(--c-line);
+    box-shadow: var(--shadow);
+  }
+
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: 1fr;
+      gap: var(--space-16);
+    }
+
+    .hero-art {
+      order: -1;
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      object-position: 50% 38%;
+    }
+  }
+
+  .hero-text {
+    min-width: 0;
+  }
+
+  .hero-kicker {
+    display: flex;
+    align-items: center;
+    gap: var(--space-12);
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: var(--c-clay);
+  }
+
+  .hero-kicker::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--c-line-strong);
+  }
+
+  .hero-title {
+    font-size: clamp(30px, 5.5vw, 44px);
+    letter-spacing: 1px;
+    margin: var(--space-16) 0 var(--space-12);
+  }
+
+  .hero-lead {
+    font-size: 15px;
+    color: var(--c-ink-2);
+    max-width: 56ch;
+  }
+
+  .hero-edition {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    margin-top: var(--space-20);
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--c-ink-3);
+  }
+
+  .hero-edition .dash {
+    width: 20px;
+    height: 1px;
+    background: var(--c-clay);
+  }
+
+  /* ---- 专栏卡片 ---- */
+  .pillar-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-16);
+    margin-top: var(--space-32);
+  }
+
+  @media (max-width: 640px) {
+    .pillar-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .pillar-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--c-surface);
+    border: 1px solid var(--c-line);
+    border-radius: var(--radius);
+    padding: var(--space-20) var(--space-20) var(--space-16);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+
+  .pillar-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .pillar-card.focal {
+    border-color: color-mix(in srgb, var(--c-clay) 45%, var(--c-line));
+    box-shadow: inset 3px 0 0 var(--c-clay);
+  }
+
+  .pillar-no {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-8);
+    font-family: var(--font-serif);
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--c-ink-3);
+  }
+
+  .pillar-no::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--c-line);
+  }
+
+  .focal .pillar-no {
+    color: var(--c-clay);
+  }
+
+  .pillar-title-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    margin: var(--space-12) 0 var(--space-4);
+  }
+
+  .pillar-title {
+    font-size: 20px;
+    letter-spacing: .5px;
+  }
+
+  .badge {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--c-surface);
+    background: var(--c-clay);
+    border-radius: var(--radius-full);
+    padding: 2px 10px;
+    white-space: nowrap;
+  }
+
+  .badge.badge-new {
+    color: #9A6B1F;
+    background: var(--c-honey-light);
+  }
+
+  .focal {
+    grid-column: 1 / -1;
+  }
+
+  .focal .pillar-desc {
+    max-width: 62ch;
+  }
+
+  .pillar-desc {
+    font-size: 14px;
+    color: var(--c-ink-2);
+    flex: 1;
+  }
+
+  .pillar-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: var(--space-12) 0 var(--space-16);
+  }
+
+  .tag {
+    font-size: 12px;
+    color: var(--c-ink-2);
+    background: var(--c-sage-light);
+    border-radius: var(--radius-full);
+    padding: 2px 10px;
+  }
+
+  .focal .tag:nth-child(odd) {
+    background: var(--c-clay-light);
+  }
+
+  .pillar-links {
+    display: flex;
+    gap: var(--space-16);
+    font-size: 13px;
+  }
+
+  .pillar-links a {
+    color: var(--c-sage);
+    font-weight: 600;
+    letter-spacing: .5px;
+  }
+
+  .focal .pillar-links a {
+    color: var(--c-clay);
+  }
+
+  /* ---- 编后记 ---- */
+  .site-note {
+    margin-top: var(--space-40);
+    border-top: 1px solid var(--c-line-strong);
+    padding-top: var(--space-16);
+  }
+
+  .note-label {
+    font-family: var(--font-serif);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--c-clay);
+    margin-bottom: var(--space-4);
+  }
+
+  .site-note p:last-child {
+    font-size: 13px;
+    color: var(--c-ink-3);
+    max-width: 70ch;
+  }
+</style>

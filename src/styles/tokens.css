@@ -1,0 +1,70 @@
+/* ============================================
+   设计 Tokens —— 温暖杂志风
+   一处定义，全局生效；改版只动这个文件
+   ============================================ */
+:root {
+  /* ---- 底色 · 暖纸感 ---- */
+  --c-bg: #FAF6EF;             /* 页面底 · 暖米白 */
+  --c-surface: #FFFCF7;        /* 卡片面 · 奶油白 */
+  --c-surface-muted: #F3EDE2;  /* 次级面 · 亚麻 */
+  --c-paper-edge: #F1EBE0;     /* 浏览器条 / 页头底 */
+
+  /* ---- 文字 · 深褐墨色 ---- */
+  --c-ink: #2E2A24;
+  --c-ink-2: #6E655A;
+  --c-ink-3: #9C9184;
+
+  /* ---- 线条 ---- */
+  --c-line: #E8DFD1;
+  --c-line-strong: #D8CDBB;
+
+  /* ---- 品牌色 · 大地色系 ---- */
+  --c-clay: #B4593B;           /* 陶土橘 · 主色（行动/重点） */
+  --c-clay-dark: #9A4830;
+  --c-clay-light: #F5E6DC;
+  --c-sage: #75876B;           /* 鼠尾草绿 · 辅色（次级链接/成功） */
+  --c-sage-light: #EAEEE3;
+  --c-honey: #C99B3F;          /* 蜂蜜黄 · 点缀（标签/高亮） */
+  --c-honey-light: #F5EAD2;
+
+  /* ---- 语义色（沿用原站语义，色调拉入暖色系） ---- */
+  --c-warning: #C9822A;
+  --c-warning-light: #F7ECD9;
+  --c-danger: #B3402F;
+  --c-danger-light: #F7E3DE;
+  --c-success: #6E8B5E;
+  --c-success-light: #E9EFE2;
+  --c-info: #5E7A8B;
+  --c-info-light: #E4ECEF;
+
+  /* ---- 字体 ---- */
+  --font-serif: "Noto Serif SC", "Songti SC", "STSong", Georgia, "SimSun", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC",
+    "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+
+  /* ---- 圆角 ---- */
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 20px;
+  --radius-full: 999px;
+
+  /* ---- 间距 ---- */
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-64: 64px;
+
+  /* ---- 阴影 · 暖调 ---- */
+  --shadow-sm: 0 1px 2px rgba(70, 55, 35, .05), 0 1px 3px rgba(70, 55, 35, .04);
+  --shadow: 0 2px 8px rgba(70, 55, 35, .07), 0 1px 3px rgba(70, 55, 35, .04);
+  --shadow-lg: 0 4px 20px rgba(70, 55, 35, .10), 0 2px 6px rgba(70, 55, 35, .05);
+
+  /* ---- 布局 ---- */
+  --max-width: 960px;
+  --header-h: 60px;
+}

@@ -1,0 +1,201 @@
+---
+import { mainNav } from '../data/site';
+
+const currentPath = Astro.url.pathname;
+
+/** 判断导航项是否为当前页（kg-* 系列页归入「幼儿园适应」） */
+function isActive(href: string): boolean {
+  if (href === '/') return currentPath === '/';
+  if (href === '/kindergarten/') {
+    return currentPath.startsWith('/kindergarten') || currentPath.startsWith('/kg-');
+  }
+  return currentPath.startsWith(href);
+}
+---
+
+<header class="site-header">
+  <div class="nav-bar">
+    <a href="/" class="nav-logo">
+      <span class="logo-mark">育</span>
+      <span class="logo-name">亲子育儿规划</span>
+    </a>
+
+    <nav class="nav-links" id="nav-links" aria-label="主导航">
+      {
+        mainNav.map((item) => (
+          <a href={item.href} class:list={[{ active: isActive(item.href) }]}>
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <button class="nav-toggle" aria-label="打开菜单" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: color-mix(in srgb, var(--c-surface) 92%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--c-line);
+  }
+
+  .nav-bar {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--space-20);
+    height: var(--header-h);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: var(--c-ink);
+  }
+
+  .nav-logo:hover {
+    text-decoration: none;
+  }
+
+  .logo-mark {
+    width: 30px;
+    height: 30px;
+    border-radius: var(--radius-full);
+    background: var(--c-clay);
+    color: var(--c-surface);
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: var(--space-20);
+    font-size: 14px;
+  }
+
+  .nav-links a {
+    color: var(--c-ink-2);
+    padding: var(--space-4) 0;
+    position: relative;
+  }
+
+  .nav-links a:hover {
+    color: var(--c-ink);
+    text-decoration: none;
+  }
+
+  .nav-links a.active {
+    color: var(--c-clay);
+    font-weight: 600;
+  }
+
+  .nav-links a.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 2px;
+    border-radius: var(--radius-full);
+    background: var(--c-clay);
+  }
+
+  /* ---- 移动端汉堡 ---- */
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+  }
+
+  .nav-toggle span {
+    display: block;
+    height: 2px;
+    border-radius: var(--radius-full);
+    background: var(--c-ink);
+    transition: transform .2s ease, opacity .2s ease;
+  }
+
+  .nav-toggle.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .nav-toggle.open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-toggle.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  @media (max-width: 768px) {
+    .nav-toggle {
+      display: flex;
+    }
+
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: var(--header-h);
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      gap: 0;
+      padding: var(--space-8) var(--space-20) var(--space-16);
+      background: var(--c-surface);
+      border-bottom: 1px solid var(--c-line);
+      box-shadow: var(--shadow);
+    }
+
+    .nav-links.open {
+      display: flex;
+    }
+
+    .nav-links a {
+      padding: var(--space-12) 0;
+      border-bottom: 1px solid var(--c-line);
+      font-size: 15px;
+    }
+
+    .nav-links a:last-child {
+      border-bottom: none;
+    }
+
+    .nav-links a.active::after {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  // 事件委托：View Transitions 换页后无需重绑，对新 DOM 依然生效
+  document.addEventListener('click', (e) => {
+    const toggle = (e.target as HTMLElement).closest('.nav-toggle');
+    if (!toggle) return;
+    const links = document.getElementById('nav-links');
+    if (!links) return;
+    const open = links.classList.toggle('open');
+    toggle.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+</script>

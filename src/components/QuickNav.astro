@@ -1,0 +1,298 @@
+---
+// 浮动快捷导航：滚动后出现，点开抽屉可跳转章节/专题
+// 移植自旧站 fab-nav.js，样式按暖杂志风重制
+---
+
+<style is:global>
+  /* JS 动态创建节点，样式需全局作用 */
+  .fab-nav {
+    position: fixed;
+    right: var(--space-20);
+    bottom: var(--space-24);
+    z-index: 90;
+    width: 46px;
+    height: 46px;
+    border-radius: var(--radius-full);
+    background: var(--c-clay);
+    color: var(--c-surface);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px);
+    transition: opacity .2s ease, transform .2s ease;
+  }
+
+  .fab-nav.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+
+  .fab-nav:active {
+    background: var(--c-clay-dark);
+  }
+
+  .fab-nav svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+  }
+
+  .fab-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 95;
+    background: rgba(46, 42, 36, .4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease;
+  }
+
+  .fab-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .fab-sheet {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 96;
+    background: var(--c-surface);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    padding: var(--space-8) var(--space-24) calc(var(--space-24) + env(safe-area-inset-bottom));
+    max-height: 70vh;
+    overflow-y: auto;
+    transform: translateY(100%);
+    transition: transform .25s ease;
+  }
+
+  .fab-sheet.show {
+    transform: none;
+  }
+
+  .fab-sheet-handle {
+    width: 36px;
+    height: 4px;
+    border-radius: var(--radius-full);
+    background: var(--c-line-strong);
+    margin: var(--space-4) auto var(--space-12);
+  }
+
+  .fab-sheet-title {
+    font-family: var(--font-serif);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--c-ink);
+    padding: var(--space-4) 0 var(--space-8);
+  }
+
+  .fab-sheet-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fab-sheet-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-12);
+    padding: var(--space-8) 4px;
+    border-bottom: 1px solid var(--c-line);
+    font-size: 14px;
+    color: var(--c-ink-2);
+  }
+
+  .fab-sheet-item:last-child {
+    border-bottom: none;
+  }
+
+  .fab-sheet-item:hover {
+    color: var(--c-clay);
+    text-decoration: none;
+  }
+
+  .fab-sheet-item .fab-num {
+    width: 22px;
+    height: 22px;
+    border-radius: var(--radius-full);
+    background: var(--c-surface-muted);
+    color: var(--c-ink-3);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .fab-sheet-top .fab-num {
+    background: var(--c-clay-light);
+    color: var(--c-clay);
+  }
+
+  .fab-sheet-divider {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--c-ink-3);
+    padding: var(--space-12) 4px var(--space-4);
+  }
+</style>
+
+<script>
+  (function () {
+    var SCROLL_THRESHOLD = 300;
+
+    function detectSections() {
+      var links = [];
+
+      var subNavAnchors = document.querySelectorAll('.sub-nav a[href^="#"]');
+      if (subNavAnchors.length > 0) {
+        subNavAnchors.forEach(function (a) {
+          var href = a.getAttribute('href');
+          var id = href.slice(1);
+          var target = document.getElementById(id);
+          var label = a.textContent.trim();
+          var num = '';
+          if (target) {
+            var numEl = target.querySelector('.section-title .num, .num');
+            if (numEl) num = numEl.textContent.trim();
+          }
+          links.push({ href: href, label: label, num: num, type: 'anchor' });
+        });
+      } else {
+        var sections = document.querySelectorAll('section.section, section[id]');
+        sections.forEach(function (sec, i) {
+          if (!sec.id) sec.id = 'fab-sec-' + (i + 1);
+          var titleEl = sec.querySelector('.section-title, h2');
+          var label = '';
+          var num = '';
+          if (titleEl) {
+            var numEl = titleEl.querySelector('.num');
+            if (numEl) num = numEl.textContent.trim();
+            label = titleEl.textContent.replace(/^[\d\.]+/, '').trim();
+          }
+          if (!label) label = '章节 ' + (i + 1);
+          links.push({ href: '#' + sec.id, label: label, num: num, type: 'section' });
+        });
+      }
+
+      var pages = [];
+      document.querySelectorAll('.sub-nav a:not([href^="#"])').forEach(function (a) {
+        if (a.classList.contains('active')) return;
+        pages.push({ href: a.getAttribute('href'), label: a.textContent.trim() });
+      });
+
+      return { sections: links, pages: pages };
+    }
+
+    function closeFab() {
+      var overlay = document.querySelector('.fab-overlay');
+      var sheet = document.querySelector('.fab-sheet');
+      if (overlay) overlay.classList.remove('show');
+      if (sheet) sheet.classList.remove('show');
+      document.body.style.overflow = '';
+      setTimeout(function () {
+        var fab = document.querySelector('.fab-nav');
+        if (fab && window.scrollY > SCROLL_THRESHOLD) fab.classList.add('show');
+      }, 300);
+    }
+
+    function inject() {
+      // View Transitions 换页后 body 会被替换，先清理旧节点再重建
+      document.querySelectorAll('.fab-nav, .fab-overlay, .fab-sheet').forEach(function (n) { n.remove(); });
+
+      var fab = document.createElement('button');
+      fab.className = 'fab-nav';
+      fab.setAttribute('aria-label', '快捷导航');
+      fab.innerHTML = '<svg viewBox="0 0 24 24"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>';
+      document.body.appendChild(fab);
+
+      var overlay = document.createElement('div');
+      overlay.className = 'fab-overlay';
+      document.body.appendChild(overlay);
+
+      var sheet = document.createElement('div');
+      sheet.className = 'fab-sheet';
+      var html = '<div class="fab-sheet-handle"></div>';
+      html += '<div class="fab-sheet-title">快速跳转</div>';
+      html += '<div class="fab-sheet-list">';
+      html += '<a href="#top" class="fab-sheet-item fab-sheet-top"><span class="fab-num"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg></span><span class="fab-label">回到顶部</span></a>';
+
+      var detected = detectSections();
+      detected.sections.forEach(function (s) {
+        html += '<a href="' + s.href + '" class="fab-sheet-item">';
+        html += '<span class="fab-num">' + (s.num || '·') + '</span>';
+        html += '<span class="fab-label">' + s.label + '</span>';
+        html += '</a>';
+      });
+
+      if (detected.pages.length > 0) {
+        html += '<div class="fab-sheet-divider">相关页面</div>';
+        detected.pages.forEach(function (p) {
+          html += '<a href="' + p.href + '" class="fab-sheet-item">';
+          html += '<span class="fab-num">›</span>';
+          html += '<span class="fab-label">' + p.label + '</span>';
+          html += '</a>';
+        });
+      }
+
+      html += '</div>';
+      sheet.innerHTML = html;
+      document.body.appendChild(sheet);
+
+      fab.addEventListener('click', function () {
+        fab.classList.remove('show');
+        overlay.classList.add('show');
+        sheet.classList.add('show');
+        document.body.style.overflow = 'hidden';
+      });
+
+      overlay.addEventListener('click', closeFab);
+
+      sheet.querySelectorAll('.fab-sheet-item').forEach(function (item) {
+        item.addEventListener('click', function (e) {
+          if (this.classList.contains('fab-sheet-top')) {
+            e.preventDefault();
+            closeFab();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          } else {
+            closeFab();
+          }
+        });
+      });
+    }
+
+    // document/window 级监听只绑一次（元素级随节点销毁重建）
+    if (!window.__fabBound) {
+      window.__fabBound = true;
+      document.addEventListener('keydown', function (e) {
+        var sheet = document.querySelector('.fab-sheet');
+        if (e.key === 'Escape' && sheet && sheet.classList.contains('show')) closeFab();
+      });
+
+      var ticking = false;
+      window.addEventListener('scroll', function () {
+        if (!ticking) {
+          window.requestAnimationFrame(function () {
+            var st = window.scrollY;
+            var fab = document.querySelector('.fab-nav');
+            var sheet = document.querySelector('.fab-sheet');
+            if (st > SCROLL_THRESHOLD && !(sheet && sheet.classList.contains('show'))) {
+              if (fab) fab.classList.add('show');
+            } else if (fab) {
+              fab.classList.remove('show');
+            }
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }, { passive: true });
+    }
+
+    // astro:page-load：首次加载与每次 VT 换页后都会触发
+    document.addEventListener('astro:page-load', inject);
+  })();
+</script>

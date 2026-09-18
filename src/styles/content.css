@@ -1,0 +1,1210 @@
+/* ============================================
+   内容样式桥接 —— 旧页面结构类名的暖杂志风重定义
+   迁移页面的正文放在 .legacy-content 中，
+   旧 HTML 类名在此获得新设计语言的样式。
+   ============================================ */
+
+/* ---- 页头（面包屑 + 标题 + 副题） ---- */
+.page-header {
+  padding: var(--space-40) 0 var(--space-24);
+  border-bottom: 1px solid var(--c-line);
+  margin-bottom: var(--space-32);
+}
+
+.page-header h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(26px, 4.5vw, 34px);
+  font-weight: 700;
+  letter-spacing: .5px;
+  margin-bottom: var(--space-8);
+}
+
+.page-header .subtitle {
+  color: var(--c-ink-2);
+  font-size: 14px;
+  max-width: 62ch;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: var(--c-ink-3);
+  margin-bottom: var(--space-12);
+}
+
+.breadcrumb a {
+  color: var(--c-ink-3);
+}
+
+.breadcrumb a:hover {
+  color: var(--c-clay);
+}
+
+.breadcrumb span {
+  margin: 0 var(--space-8);
+  color: var(--c-line-strong);
+}
+
+/* ---- 章节 ---- */
+.section {
+  margin-bottom: var(--space-40);
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  margin-bottom: var(--space-16);
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.section-title .num {
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-full);
+  background: var(--c-clay);
+  color: var(--c-surface);
+  font-family: var(--font-serif);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.block-title {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--c-ink);
+  margin-bottom: var(--space-12);
+}
+
+.section-desc {
+  font-size: 14px;
+  color: var(--c-ink-2);
+  margin-bottom: var(--space-20);
+  line-height: 1.7;
+}
+
+/* ---- 清单 ---- */
+.checklist {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-12);
+  padding: var(--space-12) var(--space-16);
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius);
+}
+
+.check-box {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--c-line-strong);
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.check-item.done .check-box {
+  background: var(--c-sage);
+  border-color: var(--c-sage);
+}
+
+.check-item.done .check-box::after {
+  content: '';
+  width: 6px;
+  height: 10px;
+  border: solid var(--c-surface);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  margin: 2px auto 0;
+  display: block;
+}
+
+.check-text {
+  flex: 1;
+  font-size: 14px;
+}
+
+.check-text .check-label {
+  font-weight: 600;
+}
+
+.check-text .check-desc {
+  color: var(--c-ink-3);
+  font-size: 13px;
+  margin-top: 2px;
+}
+
+/* ---- 时间线 ---- */
+.timeline {
+  position: relative;
+  padding-left: var(--space-24);
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  background: var(--c-line);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: var(--space-24);
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -21px;
+  top: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-full);
+  background: var(--c-clay);
+  border: 2px solid var(--c-surface);
+  box-shadow: 0 0 0 2px var(--c-line);
+}
+
+.timeline-label {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--c-clay);
+  margin-bottom: var(--space-4);
+}
+
+.timeline-content {
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius);
+  padding: var(--space-16);
+}
+
+.timeline-content p {
+  font-size: 14px;
+  color: var(--c-ink-2);
+  margin-bottom: var(--space-8);
+}
+
+.timeline-content ul {
+  margin-top: var(--space-8);
+}
+
+.timeline-content ul li {
+  font-size: 14px;
+  color: var(--c-ink-2);
+  padding: 4px 0 4px var(--space-16);
+  position: relative;
+}
+
+.timeline-content ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 13px;
+  width: 5px;
+  height: 5px;
+  border-radius: var(--radius-full);
+  background: var(--c-line-strong);
+}
+
+/* ---- 信息卡片 ---- */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-16);
+}
+
+.info-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius);
+  padding: var(--space-20);
+}
+
+.info-card h3 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: var(--space-8);
+}
+
+.info-card p,
+.info-card li {
+  font-size: 14px;
+  color: var(--c-ink-2);
+  line-height: 1.7;
+}
+
+.info-card ul li {
+  padding: 4px 0 4px var(--space-16);
+  position: relative;
+}
+
+.info-card ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 13px;
+  width: 5px;
+  height: 5px;
+  border-radius: var(--radius-full);
+  background: var(--c-honey);
+}
+
+/* ---- 提示框 ---- */
+.tip-box {
+  background: var(--c-clay-light);
+  border-left: 3px solid var(--c-clay);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: var(--space-16) var(--space-20);
+  margin: var(--space-16) 0;
+}
+
+.tip-box .tip-label {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--c-clay-dark);
+  margin-bottom: var(--space-4);
+}
+
+.tip-box p {
+  font-size: 14px;
+  color: var(--c-ink-2);
+  line-height: 1.7;
+}
+
+.tip-box.warning {
+  background: var(--c-warning-light);
+  border-left-color: var(--c-warning);
+}
+
+.tip-box.warning .tip-label {
+  color: var(--c-warning);
+}
+
+/* ---- 数据表 ---- */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  background: var(--c-surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.data-table th {
+  background: var(--c-surface-muted);
+  font-weight: 600;
+  text-align: left;
+  padding: var(--space-12) var(--space-16);
+  border-bottom: 1px solid var(--c-line);
+  font-size: 13px;
+  color: var(--c-ink);
+  white-space: nowrap;
+}
+
+.data-table td {
+  padding: var(--space-12) var(--space-16);
+  border-bottom: 1px solid var(--c-line);
+  color: var(--c-ink-2);
+}
+
+.data-table tr:last-child td {
+  border-bottom: none;
+}
+
+.data-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ---- 选项卡 ---- */
+.tabs {
+  display: flex;
+  gap: var(--space-4);
+  margin-bottom: var(--space-24);
+  border-bottom: 1px solid var(--c-line);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--c-ink-3);
+  padding: var(--space-12) var(--space-16);
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color .15s, border-color .15s;
+}
+
+.tab-btn:hover {
+  color: var(--c-ink);
+}
+
+.tab-btn.active {
+  color: var(--c-clay);
+  border-bottom-color: var(--c-clay);
+  font-weight: 600;
+}
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ---- 二级导航（页内锚点 / 专题互链） ---- */
+.sub-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  margin-bottom: var(--space-24);
+}
+
+.sub-nav a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--c-ink-2);
+  padding: 8px var(--space-16);
+  border-radius: var(--radius-full);
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  transition: all .15s;
+}
+
+.sub-nav a:hover {
+  border-color: var(--c-clay);
+  color: var(--c-clay);
+  text-decoration: none;
+}
+
+.sub-nav a.active {
+  background: var(--c-clay);
+  border-color: var(--c-clay);
+  color: var(--c-surface);
+  font-weight: 600;
+}
+
+/* ---- 分类导航（食谱页吸顶） ---- */
+.cat-nav {
+  display: flex;
+  gap: var(--space-8);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: var(--space-24);
+  position: sticky;
+  top: var(--header-h);
+  z-index: 50;
+  background: var(--c-bg);
+  padding: var(--space-12) 0 var(--space-8);
+}
+
+.cat-nav a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--c-ink-2);
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius-full);
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  white-space: nowrap;
+  transition: all .15s;
+  flex-shrink: 0;
+}
+
+.cat-nav a:hover {
+  border-color: var(--c-clay);
+  color: var(--c-clay);
+  text-decoration: none;
+}
+
+/* ---- 食谱卡片 ---- */
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-16);
+}
+
+.recipe-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius);
+  padding: var(--space-20);
+  transition: border-color .2s, box-shadow .2s, transform .2s;
+}
+
+.recipe-card:hover {
+  border-color: var(--c-line-strong);
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+
+.recipe-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px var(--space-8);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-8);
+}
+
+/* 徽章暖色系映射 */
+.recipe-badge.breakfast { background: var(--c-honey-light); color: #9A6B1F; }
+.recipe-badge.lunch    { background: var(--c-sage-light); color: #4E6146; }
+.recipe-badge.dinner   { background: var(--c-info-light); color: #3F5A6B; }
+.recipe-badge.snack    { background: var(--c-clay-light); color: var(--c-clay-dark); }
+.recipe-badge.staple   { background: var(--c-honey-light); color: #9A6B1F; }
+.recipe-badge.steamed  { background: var(--c-sage-light); color: #4E6146; }
+.recipe-badge.fried    { background: var(--c-info-light); color: #3F5A6B; }
+.recipe-badge.braised  { background: var(--c-danger-light); color: var(--c-danger); }
+.recipe-badge.soup     { background: var(--c-sage-light); color: #4E6146; }
+.recipe-badge.drink    { background: var(--c-honey-light); color: #9A6B1F; }
+.recipe-badge.fruit    { background: var(--c-honey-light); color: #9A6B1F; }
+
+.recipe-name {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+}
+
+.recipe-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-12);
+  font-size: 12px;
+  color: var(--c-ink-3);
+  margin-bottom: var(--space-12);
+}
+
+.recipe-meta span {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.recipe-ingredients {
+  font-size: 13px;
+  color: var(--c-ink-2);
+  margin-bottom: var(--space-12);
+  line-height: 1.7;
+}
+
+.recipe-ingredients strong {
+  color: var(--c-ink);
+  font-weight: 600;
+}
+
+.recipe-steps {
+  font-size: 13px;
+  color: var(--c-ink-2);
+  line-height: 1.8;
+}
+
+.recipe-badge-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  margin-bottom: var(--space-8);
+  flex-wrap: wrap;
+}
+
+.recipe-serving {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--c-clay-dark);
+  background: var(--c-clay-light);
+  padding: 2px var(--space-8);
+  border-radius: var(--radius-full);
+}
+
+.recipe-tag {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px var(--space-8);
+  border-radius: var(--radius-full);
+}
+
+.recipe-tag.split  { background: var(--c-honey-light); color: #9A6B1F; }
+.recipe-tag.family { background: var(--c-sage-light); color: #4E6146; }
+.recipe-tag.scene  { background: var(--c-info-light); color: #3F5A6B; }
+
+.recipe-split {
+  background: var(--c-honey-light);
+  border: 1px dashed var(--c-honey);
+  border-radius: var(--radius-sm);
+  padding: var(--space-8) var(--space-12);
+  margin: var(--space-8) 0;
+  font-size: 13px;
+  color: #9A6B1F;
+  font-weight: 500;
+}
+
+.recipe-adult {
+  background: var(--c-clay-light);
+  border-left: 3px solid var(--c-clay);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: var(--space-8) var(--space-12);
+  margin-top: var(--space-8);
+  font-size: 13px;
+  color: var(--c-clay-dark);
+  line-height: 1.7;
+}
+
+.recipe-adult strong {
+  font-weight: 600;
+}
+
+.recipe-cat-title {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 700;
+  margin-top: var(--space-32);
+  margin-bottom: var(--space-12);
+  padding-bottom: var(--space-8);
+  border-bottom: 2px solid var(--c-clay-light);
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  scroll-margin-top: 120px;
+}
+
+.recipe-cat-title .cat-count {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--c-ink-3);
+  background: var(--c-surface-muted);
+  padding: 2px var(--space-8);
+  border-radius: var(--radius-full);
+}
+
+.recipe-filter {
+  display: flex;
+  gap: var(--space-8);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-20);
+}
+
+.filter-btn {
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-full);
+  padding: 8px var(--space-16);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--c-ink-2);
+  cursor: pointer;
+  transition: all .15s;
+  white-space: nowrap;
+}
+
+.filter-btn:hover {
+  border-color: var(--c-clay);
+  color: var(--c-clay);
+}
+
+.filter-btn.active {
+  background: var(--c-clay);
+  border-color: var(--c-clay);
+  color: var(--c-surface);
+}
+
+/* ---- 过敏警示卡 ---- */
+.allergy-card {
+  background: var(--c-surface);
+  border: 2px solid var(--c-danger);
+  border-radius: var(--radius);
+  padding: var(--space-24);
+  max-width: 480px;
+  margin: 0 auto var(--space-24);
+}
+
+.allergy-card .ac-header {
+  text-align: center;
+  margin-bottom: var(--space-16);
+  padding-bottom: var(--space-12);
+  border-bottom: 1px solid var(--c-line);
+}
+
+.allergy-card .ac-header h3 {
+  font-size: 18px;
+  color: var(--c-danger);
+  margin-bottom: var(--space-4);
+}
+
+.allergy-card .ac-row {
+  display: flex;
+  padding: var(--space-8) 0;
+  border-bottom: 1px solid var(--c-line);
+  font-size: 14px;
+}
+
+.allergy-card .ac-row:last-child {
+  border-bottom: none;
+}
+
+.allergy-card .ac-label {
+  width: 80px;
+  font-weight: 600;
+  color: var(--c-ink);
+  flex-shrink: 0;
+}
+
+.allergy-card .ac-value {
+  color: var(--c-ink-2);
+  flex: 1;
+}
+
+.allergy-card .ac-alert {
+  background: var(--c-danger-light);
+  border: 1px solid var(--c-danger);
+  border-radius: var(--radius);
+  padding: var(--space-12);
+  margin-top: var(--space-12);
+  font-size: 13px;
+  color: var(--c-danger);
+  font-weight: 500;
+  text-align: center;
+}
+
+/* ---- 逐日卡片 ---- */
+.day-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: var(--space-16);
+}
+
+.day-card .day-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-16) var(--space-20);
+  border-bottom: 1px solid var(--c-line);
+}
+
+.day-card .day-num {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background: var(--c-clay);
+  color: var(--c-surface);
+  font-family: var(--font-serif);
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.day-card .day-num.hard { background: var(--c-honey); }
+.day-card .day-num.good { background: var(--c-sage); }
+
+.day-card .day-title {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.day-card .day-mood {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--c-ink-3);
+}
+
+.day-card .day-body {
+  padding: var(--space-16) var(--space-20);
+}
+
+.day-card .day-slot {
+  margin-bottom: var(--space-12);
+}
+
+.day-card .day-slot:last-child {
+  margin-bottom: 0;
+}
+
+.day-card .day-slot-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--c-clay);
+  margin-bottom: var(--space-4);
+}
+
+.day-card .day-slot p {
+  font-size: 14px;
+  color: var(--c-ink-2);
+  line-height: 1.7;
+}
+
+/* ---- 情景对话 ---- */
+.role-play {
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius);
+  padding: var(--space-20);
+  margin-bottom: var(--space-16);
+}
+
+.role-play h3 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: var(--space-12);
+}
+
+.role-play .rp-line {
+  display: flex;
+  gap: var(--space-8);
+  margin-bottom: var(--space-8);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.role-play .rp-who {
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.role-play .rp-who.parent  { color: var(--c-clay); }
+.role-play .rp-who.child   { color: var(--c-sage); }
+.role-play .rp-who.teacher { color: var(--c-honey); }
+
+.role-play .rp-text {
+  color: var(--c-ink-2);
+}
+
+/* ---- 进度追踪 ---- */
+.tracker-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+}
+
+.tracker-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-8) var(--space-12);
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius);
+}
+
+.tracker-week {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--c-clay-dark);
+  background: var(--c-clay-light);
+  padding: 2px var(--space-8);
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+  width: 48px;
+  text-align: center;
+}
+
+.tracker-text {
+  font-size: 14px;
+  color: var(--c-ink-2);
+  flex: 1;
+}
+
+.tracker-status {
+  font-size: 12px;
+  color: var(--c-ink-3);
+  flex-shrink: 0;
+}
+
+/* ---- 幼儿园一周食谱 ---- */
+.meal-week-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-16);
+}
+
+.meal-day-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.meal-day-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-12) var(--space-16);
+  background: var(--c-clay-light);
+  border-bottom: 1px solid var(--c-line);
+}
+
+.meal-day-num {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  background: var(--c-clay);
+  color: var(--c-surface);
+  font-family: var(--font-serif);
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.meal-day-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--c-ink);
+}
+
+.meal-day-body {
+  padding: var(--space-8) var(--space-12);
+}
+
+.meal-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-8);
+  padding: var(--space-8) 0;
+  border-bottom: 1px solid var(--c-line);
+}
+
+.meal-item:last-child {
+  border-bottom: none;
+}
+
+.meal-item-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--c-ink-3);
+  white-space: nowrap;
+  min-width: 36px;
+  padding-top: 2px;
+}
+
+.meal-item-text {
+  font-size: 13px;
+  color: var(--c-ink-2);
+  line-height: 1.6;
+}
+
+.meal-item-text strong {
+  color: var(--c-ink);
+}
+
+/* ---- 敬请期待 ---- */
+.coming-soon {
+  text-align: center;
+  padding: var(--space-40) var(--space-20);
+  color: var(--c-ink-3);
+}
+
+.coming-soon .icon {
+  font-size: 40px;
+  margin-bottom: var(--space-16);
+}
+
+.coming-soon h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--c-ink-2);
+  margin-bottom: var(--space-8);
+}
+
+.coming-soon p {
+  font-size: 14px;
+}
+
+/* ---- 亲子游戏卡片 ---- */
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-16);
+}
+
+.game-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius);
+  padding: var(--space-20);
+  transition: border-color .2s, box-shadow .2s, transform .2s;
+}
+
+.game-card:hover {
+  border-color: var(--c-line-strong);
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+
+.game-badge-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  margin-bottom: var(--space-10);
+  flex-wrap: wrap;
+}
+
+.game-skill {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px var(--space-8);
+  border-radius: var(--radius-full);
+  background: var(--c-sage-light);
+  color: #4E6146;
+}
+
+.game-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px var(--space-8);
+  border-radius: var(--radius-full);
+  background: var(--c-surface-muted);
+  border: 1px solid var(--c-line);
+  color: var(--c-ink-3);
+}
+
+.game-elder {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px var(--space-8);
+  border-radius: var(--radius-full);
+  background: var(--c-honey-light);
+  color: #9A6B1F;
+}
+
+/* 图标尺寸（astro-icon 构建期内联 SVG） */
+.game-chip svg,
+.game-elder svg {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+.recipe-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.recipe-meta span svg {
+  width: 13px;
+  height: 13px;
+  color: var(--c-clay);
+}
+
+.game-name {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+}
+
+.game-desc {
+  font-size: 13px;
+  color: var(--c-ink-3);
+  margin-bottom: var(--space-12);
+  line-height: 1.7;
+}
+
+.game-steps {
+  font-size: 13px;
+  color: var(--c-ink-2);
+  line-height: 1.8;
+}
+
+.game-steps .step b {
+  color: var(--c-clay);
+  font-weight: 700;
+  margin-right: 2px;
+}
+
+.game-tip {
+  background: var(--c-sage-light);
+  border-left: 3px solid var(--c-sage);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: var(--space-8) var(--space-12);
+  margin-top: var(--space-12);
+  font-size: 13px;
+  color: #4E6146;
+  line-height: 1.7;
+}
+
+.game-tip strong { font-weight: 600; }
+
+/* ---- 锚点定位留出吸顶高度 ---- */
+.section[id] {
+  scroll-margin-top: calc(var(--header-h) + 16px);
+}
+
+/* ---- 提示框标签图标（CSS mask 内联，零请求） ---- */
+.tip-label::before {
+  content: '';
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-right: 6px;
+  vertical-align: -2px;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18h6M10 21h4M12 3a6.5 6.5 0 0 0-4 11.6c.7.6 1 1.4 1 2.4h6c0-1 .3-1.8 1-2.4A6.5 6.5 0 0 0 12 3Z'/%3E%3C/svg%3E") no-repeat center / contain;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18h6M10 21h4M12 3a6.5 6.5 0 0 0-4 11.6c.7.6 1 1.4 1 2.4h6c0-1 .3-1.8 1-2.4A6.5 6.5 0 0 0 12 3Z'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+
+/* ---- 页面头图（暖色黏土风插画，懒加载） ---- */
+.page-header.has-art {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: var(--space-32);
+}
+
+.page-header.has-art .ph-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.page-header.has-art .header-art {
+  width: 210px;
+  height: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--c-line);
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+@media (max-width: 899px) {
+  .page-header.has-art {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-16);
+  }
+
+  .page-header.has-art .header-art {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    align-self: auto;
+  }
+}
+
+/* ---- 移动端 ---- */
+@media (max-width: 640px) {
+  .page-header {
+    padding: var(--space-24) 0 var(--space-16);
+    margin-bottom: var(--space-24);
+  }
+
+  .page-header h1 { font-size: 22px; }
+  .page-header .subtitle { font-size: 13px; }
+  .section { margin-bottom: var(--space-32); }
+  .section-title { font-size: 17px; }
+
+  .sub-nav {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: var(--space-20);
+  }
+
+  .sub-nav a {
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding: 8px var(--space-14);
+  }
+
+  /* 可滚动行右缘渐隐，暗示可滑动 */
+  .sub-nav,
+  .cat-nav,
+  .recipe-filter {
+    -webkit-mask: linear-gradient(90deg, #000 0%, #000 calc(100% - 16px), transparent 100%);
+    mask: linear-gradient(90deg, #000 0%, #000 calc(100% - 16px), transparent 100%);
+  }
+
+  /* 筛选按钮移动端改为一行横滑，避免换行占满一屏 */
+  .recipe-filter {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .recipe-filter::-webkit-scrollbar {
+    display: none;
+  }
+
+  .recipe-filter .filter-btn {
+    flex-shrink: 0;
+  }
+
+  .tab-btn { padding: 10px var(--space-14); font-size: 13px; }
+
+  .recipe-grid,
+  .game-grid,
+  .info-grid,
+  .meal-week-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+  }
+
+  .recipe-card,
+  .game-card,
+  .info-card,
+  .role-play { padding: var(--space-16); }
+
+  .tip-box { padding: var(--space-12) var(--space-16); margin: var(--space-12) 0; }
+  .tip-box p { font-size: 13px; }
+
+  .data-table { font-size: 13px; }
+  .data-table th { padding: var(--space-8) var(--space-12); font-size: 12px; }
+  .data-table td { padding: var(--space-8) var(--space-12); }
+
+  .check-item { padding: var(--space-8) var(--space-12); }
+  .check-text { font-size: 13px; }
+  .check-text .check-desc { font-size: 12px; }
+
+  .timeline { padding-left: var(--space-20); }
+  .timeline-item { margin-bottom: var(--space-16); }
+  .timeline-content { padding: var(--space-12); }
+
+  .day-card .day-head { padding: var(--space-12) var(--space-16); gap: var(--space-8); }
+  .day-card .day-num { width: 32px; height: 32px; font-size: 13px; }
+  .day-card .day-body { padding: var(--space-12) var(--space-16); }
+
+  .allergy-card { padding: var(--space-16); }
+  .allergy-card .ac-label { width: 64px; }
+
+  .tracker-week { width: 42px; font-size: 11px; }
+  .recipe-cat-title { font-size: 16px; margin-top: var(--space-24); }
+}

@@ -1,0 +1,1035 @@
+---
+// 食谱库已数据化：77 道食谱存于 src/data/recipes.json，加菜改菜直接编辑该文件
+// 页面其余区块由 scripts/migrate.mjs 从 _legacy/meals.html 迁移生成
+import { Icon } from 'astro-icon/components';
+import Base from '../layouts/Base.astro';
+import recipesData from '../data/recipes.json';
+
+const cats = recipesData.categories;
+const allRecipes = recipesData.recipes;
+---
+
+<Base title="无敏食谱搭配">
+  <div class="container">
+    <div class="legacy-content">
+<div class="page-header has-art">
+      <img class="header-art" src="/art/meals.svg" alt="" width="480" height="360" loading="lazy" />
+      <div class="ph-text">
+        <div class="breadcrumb">
+          <a href="/">首页</a> <span>/</span> 健康守护 <span>/</span> 无敏食谱搭配
+        </div>
+        <h1>无敏食谱搭配</h1>
+        <p class="subtitle">牛奶蛋白+鸡蛋过敏儿童的家庭餐桌——77道家常食谱 + 幼儿园小中大班无敏食谱参考，全家份量，一锅两吃，四川味道，超市食材，老人也能轻松操作</p>
+      </div>
+    </div>
+
+    <nav class="sub-nav">
+      <a href="#sec1">营养速查</a>
+      <a href="#sec2">买菜参考</a>
+      <a href="#sec3">食谱库</a>
+      <a href="#sec4">搭配公式</a>
+      <a href="#sec5">一周模板</a>
+      <a href="#sec6">幼儿园加餐</a>
+      <a href="#sec7">隐藏过敏原</a>
+      <a href="#sec8">调味料安全</a>
+      <a href="#sec9">安全清单</a>
+      <a href="#sec10">外出就餐</a>
+      <a href="#sec11">烘焙替代</a>
+      <a href="#sec12">挑食应对</a>
+      <a href="#sec13">幼儿园食谱</a>
+    </nav>
+
+    <div class="tip-box">
+      <div class="tip-label">核心原则</div>
+      <p>严格回避牛奶蛋白和鸡蛋。<strong>全家一锅出，孩子先盛</strong>——做菜时在加辣调味前先盛出孩子的份，大人继续加豆瓣酱、干辣椒、花椒。蛋白质靠肉、鱼、虾、豆腐替代；钙靠豆腐、深绿蔬菜、强化植物奶；做菜以蒸、煮、炖、炒为主，食材超市都能买到。</p>
+    </div>
+
+    <!-- 营养替代方案 -->
+    <section class="section" id="sec1">
+      <h2 class="section-title"><span class="num">1</span>营养替代速查</h2>
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab(this,'tab-protein')">蛋白质</button>
+        <button class="tab-btn" onclick="switchTab(this,'tab-calcium')">钙</button>
+        <button class="tab-btn" onclick="switchTab(this,'tab-vitamin')">维生素/铁/锌</button>
+      </div>
+
+      <div class="tab-panel active" id="tab-protein">
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr><th>替代来源</th><th>适合做法</th><th>参考量（3-4人份）</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>瘦肉（猪、牛、鸡）</td><td>肉末、肉丸、蒸肉饼、肉丝、焖饭</td><td>150-250克/餐</td></tr>
+              <tr><td>鱼虾</td><td>清蒸鱼、虾仁、鱼丸、烧鱼</td><td>1条鱼或150克虾/餐</td></tr>
+              <tr><td>大豆制品</td><td>豆腐、豆干、豆浆、腐竹</td><td>1块豆腐或1杯豆浆/餐</td></tr>
+              <tr><td>谷物</td><td>燕麦、小米、玉米、藜麦</td><td>2杯米/餐</td></tr>
+              <tr><td>植物奶</td><td>豆浆、燕麦奶、米奶（强化钙）</td><td>每人1-2杯/天</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-calcium">
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>豆腐（北豆腐/老豆腐）</h3>
+            <p>钙含量较高，每餐可用半块到1块。蒸、炖、煮、炒均可。</p>
+          </div>
+          <div class="info-card">
+            <h3>深绿色蔬菜</h3>
+            <p>小油菜、小白菜、菠菜焯水后、藤菜尖。每餐保证1-2种。</p>
+          </div>
+          <div class="info-card">
+            <h3>芝麻酱</h3>
+            <p>拌面、抹馒头、蘸料。热量高，每人一小勺即可。</p>
+          </div>
+          <div class="info-card">
+            <h3>强化植物奶</h3>
+            <p>选配料表强化钙和维生素D的豆浆、燕麦奶。</p>
+          </div>
+          <div class="info-card">
+            <h3>小鱼小虾</h3>
+            <p>银鱼、虾皮，注意盐分，汤里少量添加。</p>
+          </div>
+          <div class="info-card">
+            <h3>钙剂补充</h3>
+            <p>如食物摄入不足，由医生评估后补充。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-vitamin">
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr><th>营养素</th><th>可替代食物</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>维生素A</td><td>胡萝卜、南瓜、红薯、菠菜、西兰花</td></tr>
+              <tr><td>B族维生素</td><td>全谷物、杂粮、豆类、瘦肉</td></tr>
+              <tr><td>维生素D</td><td>适量晒太阳、强化食品、遵医嘱补充</td></tr>
+              <tr><td>铁</td><td>瘦红肉、动物肝脏少量、豆腐、黑木耳</td></tr>
+              <tr><td>锌</td><td>瘦肉、鱼类、豆类、坚果碎（防呛咳）</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 四川家庭买菜参考 -->
+    <section class="section" id="sec2">
+      <h2 class="section-title"><span class="num">2</span>四川家庭买菜参考</h2>
+      <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--space-16);">超市和菜市场都能买到，以下是一周采买建议量（3-4人家庭）。</p>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>蔬菜（每天买）</h3>
+          <ul>
+            <li>藤菜/空心菜、莲花白、小油菜、菠菜</li>
+            <li>土豆、红薯、南瓜、山药、莲藕</li>
+            <li>胡萝卜、白萝卜、莴笋、冬瓜</li>
+            <li>番茄、茄子、西兰花、丝瓜</li>
+            <li>姜、蒜、葱（常备）</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>肉蛋水产（2-3天买）</h3>
+          <ul>
+            <li>瘦猪肉/排骨 500克</li>
+            <li>鸡胸肉/鸡腿 2-3个</li>
+            <li>鲈鱼/黔鱼 1条</li>
+            <li>鲜虾 300克</li>
+            <li>牛腩 500克（周末炖）</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>豆制品（2天买一次）</h3>
+          <ul>
+            <li>老豆腐/嫩豆腐 2块</li>
+            <li>豆干 4块</li>
+            <li>黄豆 1袋（打豆浆）</li>
+            <li>腐竹 1包（常备）</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>常备干货/调味</h3>
+          <ul>
+            <li>大米、小米、面条（注意无蛋）</li>
+            <li>芝麻酱、虾皮（补钙）</li>
+            <li>生抽、老抽、醋、白糖、淀粉</li>
+            <li>豆瓣酱、干辣椒、花椒（大人用）</li>
+            <li>蒸肉米粉、糯米粉</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tip-box warning">
+        <div class="tip-label">买面条/抄手皮注意</div>
+        <p>四川超市的面条和抄手皮大部分不加蛋，但一定要看配料表——有些品牌会加鸡蛋液增色。买的时候翻到背面看一眼，有"鸡蛋""蛋清""蛋黄"字样就不买。无蛋面条和抄手皮在永辉、红旗等超市都能找到。</p>
+      </div>
+
+      <h3 style="font-size:15px;font-weight:600;margin:var(--space-24) 0 var(--space-12);">季节性买菜参考</h3>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr><th>季节</th><th>当季蔬菜（便宜又好）</th><th>当季水果</th><th>买菜重点</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>春季（3-5月）</td>
+              <td>菠菜、莴笋、莲花白、豌豆尖、芹菜、春笋</td>
+              <td>草莓、枇杷、樱桃</td>
+              <td>绿叶菜最多，趁便宜多买多吃</td>
+            </tr>
+            <tr>
+              <td>夏季（6-8月）</td>
+              <td>藤菜、丝瓜、冬瓜、番茄、茄子、苦瓜、黄瓜</td>
+              <td>西瓜、桃子、葡萄、李子</td>
+              <td>瓜类上市，清凉解暑，多煮瓜汤</td>
+            </tr>
+            <tr>
+              <td>秋季（9-11月）</td>
+              <td>莲藕、山药、南瓜、红薯、白萝卜、西兰花</td>
+              <td>苹果、梨、石榴、猕猴桃</td>
+              <td>根茎类上市，适合蒸、炖、焖饭</td>
+            </tr>
+            <tr>
+              <td>冬季（12-2月）</td>
+              <td>大白菜、萝卜、花菜、蒜苗、莴笋、土豆</td>
+              <td>橙子、柚子、甘蔗</td>
+              <td>根茎类耐储存，多炖汤暖胃</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tip-box">
+        <div class="tip-label">省钱小技巧</div>
+        <p>当季菜最便宜也最营养。四川夏天藤菜1把不到2元，秋天南瓜红薯论斤买更划算。冬天大白菜一次买3-4颗，放阳台能吃一周。反季节菜（如冬天的番茄、夏天的菠菜）价格翻倍且口感差，不建议。</p>
+      </div>
+    </section>
+
+    <!-- 家常食谱库 -->
+    <section class="section" id="sec3">
+      <h2 class="section-title"><span class="num">3</span>无敏家常食谱库</h2>
+      <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--space-16);">77道食谱，全部无牛奶无鸡蛋，按全家3-4人份设计。<strong>橙色标记"一锅两吃"</strong>的食谱在关键步骤会提醒先盛孩子的份；<strong>绿色标记"全家统一"</strong>的食谱大人小孩吃一样的。<strong>蓝色标记</strong>是新场景系列：早餐、班级分享（生日会/节日带去幼儿园的无敏零食）、生病照护（对症食疗）。</p>
+
+      <div class="recipe-filter" id="recipeFilter">
+        <button class="filter-btn active" onclick="filterRecipes(this,'all')">全部</button>
+        <button class="filter-btn" onclick="filterRecipes(this,'split')">一锅两吃</button>
+        <button class="filter-btn" onclick="filterRecipes(this,'family')">全家统一</button>
+        <button class="filter-btn" onclick="filterRecipes(this,'quick')">10分钟快手</button>
+        <button class="filter-btn" onclick="filterRecipes(this,'calcium')">补钙</button>
+        <button class="filter-btn" onclick="filterRecipes(this,'protein')">高蛋白</button>
+        <button class="filter-btn" onclick="filterRecipes(this,'breakfast')">早餐</button>
+        <button class="filter-btn" onclick="filterRecipes(this,'share')">班级分享</button>
+        <button class="filter-btn" onclick="filterRecipes(this,'sick')">生病照护</button>
+      </div>
+
+      <div class="cat-nav" id="catNav">
+        <a href="#cat-quick">10分钟快手</a>
+        <a href="#cat-staple">主食</a>
+        <a href="#cat-steamed">蒸菜</a>
+        <a href="#cat-fried">炒菜</a>
+        <a href="#cat-braised">烧菜/炖菜</a>
+        <a href="#cat-snack">小食/点心</a>
+        <a href="#cat-soup">汤品</a>
+        <a href="#cat-drink">饮品</a>
+        <a href="#cat-fruit">水果</a>
+      </div>
+
+      <!-- 10分钟快手菜 -->
+      {cats.map((cat) => (
+      <div>
+        <h3 class="recipe-cat-title" id={'cat-' + cat.id}>
+          {cat.name} <span class="cat-count">{cat.count}</span>
+        </h3>
+        <div class="recipe-grid">
+          {allRecipes.filter((r) => r.cat === cat.id).map((r) => (
+            <div class="recipe-card" data-scene={r.scene}>
+              <div class="recipe-badge-row">
+                <span class:list={['recipe-badge', r.badge ?? cat.badge]}>
+                  {r.badgeLabel ?? cat.badgeLabel}
+                </span>
+                <span class="recipe-serving">{r.serving}</span>
+                {r.tag && (
+                  <span class={'recipe-tag ' + r.tag}>
+                    {r.tag === 'split' ? '一锅两吃' : '全家统一'}
+                  </span>
+                )}
+                {r.scene && <span class="recipe-tag scene">{r.scene}</span>}
+              </div>
+              <div class="recipe-name">{r.name}</div>
+              <div class="recipe-meta">{r.meta.map((mItem, i) => <span>{i === 0 && mItem.indexOf('分钟') >= 0 && <Icon name="ph:clock" />}{mItem}</span>)}</div>
+              <div class="recipe-ingredients"><strong>食材：</strong>{r.ingredients}</div>
+              <div class="recipe-steps">
+                {r.steps.map((s) =>
+                  typeof s === 'string' ? (
+                    <div>{s}</div>
+                  ) : s.split ? (
+                    <div class="recipe-split"><Fragment set:html={s.split} /></div>
+                  ) : (
+                    <div class="recipe-adult"><Fragment set:html={s.adult} /></div>
+                  )
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}</section>
+
+    <!-- 每日搭配公式 -->
+    <section class="section" id="sec4">
+      <h2 class="section-title"><span class="num">4</span>家庭每日搭配公式</h2>
+      <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--space-16);">全家一锅出，不用单独给孩子做。按"1主食 + 1-2菜 + 1汤 + 1水果/饮品"组合。</p>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>早餐</h3>
+          <ul>
+            <li>主食：小米粥、燕麦粥、红薯粥、馒头、面条</li>
+            <li>蛋白：鸡肉丝、豆腐、豆浆、肉末</li>
+            <li>搭配：蒸红薯/南瓜、香蕉</li>
+            <li>饮品：豆浆、植物奶</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>午餐</h3>
+          <ul>
+            <li>主食：米饭、杂粮饭、土豆焖饭</li>
+            <li>菜1（荤）：清蒸鱼、肉末豆腐、虾仁炒青豆玉米</li>
+            <li>菜2（素）：蒜蓉炒藤菜、清炒莲花白</li>
+            <li>汤：番茄豆腐汤、青菜豆腐汤</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>晚餐</h3>
+          <ul>
+            <li>主食：粥、面条、面片</li>
+            <li>菜：蒸菜为主（蒸肉饼、蒸南瓜）</li>
+            <li>汤：冬瓜排骨汤、萝卜骨头汤</li>
+            <li>量比午餐略少，不要太油腻</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>加餐</h3>
+          <ul>
+            <li>上午：水果（苹果、梨、香蕉）</li>
+            <li>下午：蒸南瓜/红薯、米糕、小饼</li>
+            <li>饮品：豆浆、银耳羹</li>
+            <li>少量坚果碎（防呛咳）</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 一周食谱 -->
+    <section class="section" id="sec5">
+      <h2 class="section-title"><span class="num">5</span>家庭一周食谱模板</h2>
+      <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--space-16);">全家共做一锅，在加辣前先给孩子盛。大人菜谱中标注的"加辣"为大人单独调味。</p>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>星期</th>
+              <th>早餐</th>
+              <th>午餐</th>
+              <th>晚餐</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>周一</td>
+              <td>小米南瓜粥 + 蒸红薯 + 豆浆</td>
+              <td>杂粮饭 + 番茄炒豆腐 + 蒜蓉炒藤菜（先盛）+ 青菜豆腐汤</td>
+              <td>青菜肉末抄手（先盛）+ 蒸南瓜</td>
+            </tr>
+            <tr>
+              <td>周二</td>
+              <td>燕麦粥（植物奶煮）+ 香蕉片</td>
+              <td>土豆焖饭 + 青豆玉米炒虾仁 + 紫菜虾皮汤</td>
+              <td>蔬菜烩面片 + 蒸肉饼</td>
+            </tr>
+            <tr>
+              <td>周三</td>
+              <td>红薯粥 + 馒头 + 鸡丝</td>
+              <td>米饭 + 清蒸鲈鱼（先盛）+ 清炒莲花白（先盛）+ 番茄豆腐汤</td>
+              <td>山药瘦肉粥 + 蒸红薯</td>
+            </tr>
+            <tr>
+              <td>周四</td>
+              <td>南瓜小米饭 + 豆浆 + 蒸胡萝卜</td>
+              <td>米饭 + 豆腐肉末蒸碗 + 蒜蓉炒西兰花 + 菌菇豆腐汤</td>
+              <td>番茄牛肉面（先盛）+ 蒸南瓜</td>
+            </tr>
+            <tr>
+              <td>周五</td>
+              <td>小米南瓜粥 + 无蛋香蕉米糕</td>
+              <td>米饭 + 土豆烧鸡（先盛）+ 糖醋土豆 + 萝卜炖排骨</td>
+              <td>红薯粥 + 蔬菜肉丸</td>
+            </tr>
+            <tr>
+              <td>周六</td>
+              <td>南瓜发糕 + 红枣核桃豆浆</td>
+              <td>米饭 + 红烧肉末豆腐（先盛）+ 莴笋炒肉丝 + 冬瓜排骨汤</td>
+              <td>番茄牛肉面（先盛）+ 蒸山药</td>
+            </tr>
+            <tr>
+              <td>周日</td>
+              <td>水果粥 + 香煎土豆饼</td>
+              <td>米饭 + 粉蒸肉（先盛）+ 肉丝炒胡萝卜 + 莲藕排骨汤</td>
+              <td>小米南瓜粥 + 豆腐蔬菜饼</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tip-box">
+        <div class="tip-label">一锅两吃操作要点</div>
+        <p>标注"先盛"的菜在炒到8成熟或调味前，先给孩子盛出一碟，然后大人的锅再加豆瓣酱、干辣椒、花椒。汤类和蒸菜大多全家统一，不用分开。面条/抄手类在调味前先盛孩子的，大人碗里加辣椒油。</p>
+      </div>
+    </section>
+
+    <!-- 幼儿园加餐/带饭方案 -->
+    <section class="section" id="sec6">
+      <h2 class="section-title"><span class="num">6</span>幼儿园加餐/带饭方案</h2>
+      <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--space-16);">过敏孩子在幼儿园不能吃园里统一发的含奶含蛋间餐，需要自己准备安全加餐。以下方案适用于间餐时间和放学后。</p>
+      <div class="tip-box warning">
+        <div class="tip-label">入园前必须做</div>
+        <p>和班主任确认：1.幼儿园是否提供间餐/点心；2.间餐内容是否含奶蛋；3.能否自带安全零食替代；4.孩子对什么过敏——给老师一份过敏信息卡。</p>
+      </div>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>可带的安全加餐清单</h3>
+          <ul>
+            <li><strong>水果类：</strong>苹果块、香蕉、梨、葡萄（切小）</li>
+            <li><strong>主食类：</strong>无蛋米糕、红薯干、小米糕块</li>
+            <li><strong>坚果类：</strong>核桃碎、腰果碎（防呛咳，磨碎给）</li>
+            <li><strong>饮品类：</strong>豆浆粉冲杯、植物奶小盒装</li>
+            <li><strong>干货类：</strong>无糖无奶饼干（看配料表）、米饼</li>
+            <li><strong>自制类：</strong>蔬菜小饼、红薯小饼、豆腐蔬菜饼</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>绝对不能带的</h3>
+          <ul>
+            <li>含奶蛋糕、面包、饼干</li>
+            <li>含蛋的蛋糕、蛋卷、沙琪玛</li>
+            <li>酸奶、奶酪棒</li>
+            <li>巧克力（大多含奶粉）</li>
+            <li>陌生品牌的零食（没看过配料表）</li>
+            <li>整颗坚果（3岁半呛咳风险高）</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>加餐准备原则</h3>
+          <ul>
+            <li>每次带2-3种，分量小</li>
+            <li>独立小袋包装，贴姓名</li>
+            <li>选择不易变质、不怕压的</li>
+            <li>和老师说好"这是孩子的加餐，不吃园里的"</li>
+            <li>每周更新种类，孩子不腻</li>
+            <li>放书包侧袋，孩子自己能拿到</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>一周加餐参考</h3>
+          <ul>
+            <li><strong>周一：</strong>苹果块 + 无蛋米糕2块</li>
+            <li><strong>周二：</strong>香蕉 + 核桃碎小袋</li>
+            <li><strong>周三：</strong>葡萄几颗 + 红薯干</li>
+            <li><strong>周四：</strong>梨块 + 无奶饼干2片</li>
+            <li><strong>周五：</strong>豆浆冲杯 + 蔬菜小饼</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tip-box">
+        <div class="tip-label">给老人的准备提醒</div>
+        <p>奶奶/外婆每周日晚上提前分装好5天的加餐小袋，每袋贴标签注明星期几。水果类当天早上切，不放过夜。米糕、饼干类可以周末做一批，密封保存。</p>
+      </div>
+    </section>
+
+    <!-- 隐藏过敏原 -->
+    <section class="section" id="sec7">
+      <h2 class="section-title"><span class="num">7</span>隐藏过敏原速查</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>牛奶蛋白隐藏词</h3>
+          <ul>
+            <li>奶粉、脱脂奶粉、全脂奶粉</li>
+            <li>乳清蛋白、乳清粉、脱盐乳清粉</li>
+            <li>酪蛋白、酪蛋白酸钠</li>
+            <li>乳糖、乳固体、乳脂</li>
+            <li>黄油、奶油、稀奶油、炼乳</li>
+            <li>奶酪、酸奶、奶饮料</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>鸡蛋隐藏词</h3>
+          <ul>
+            <li>蛋清、蛋黄、全蛋</li>
+            <li>蛋黄酱、沙拉酱</li>
+            <li>卵磷脂（部分来自蛋黄）</li>
+            <li>溶菌酶（常与蛋清相关）</li>
+            <li>蛋卷、蛋糕、沙琪玛、蛋挞</li>
+            <li>"蛋香""鸡蛋风味"等描述</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>买零食安全原则</h3>
+          <ul>
+            <li>配料表越短越好</li>
+            <li>没有"乳、奶、酪、乳清、蛋黄、蛋清"等字</li>
+            <li>明确标注"无牛奶""无鸡蛋"</li>
+            <li>非油炸、少糖少盐</li>
+            <li>不买"可能含有"交叉污染的产品</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>给老人的"三看三做"</h3>
+          <ul>
+            <li><strong>三看：</strong>看配料表、看过敏原提示、看加工深度</li>
+            <li><strong>三做：</strong>做菜前先查配料表、新零食先查再给、家长先把关</li>
+            <li>越加工越容易藏奶蛋：肉丸、饼干、蛋糕、浓汤宝、沙拉酱</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 调味料/酱料安全清单 -->
+    <section class="section" id="sec8">
+      <h2 class="section-title"><span class="num">8</span>调味料/酱料安全清单</h2>
+      <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--space-16);">很多加工调味料藏有牛奶或鸡蛋成分。给老人一份"能用/不能用"清单，做饭时不踩坑。</p>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr><th>调味料</th><th>安全性</th><th>说明</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>生抽/老抽</td><td style="color:var(--c-success);font-weight:600;">安全</td><td>主要原料大豆/小麦，一般不含奶蛋</td></tr>
+            <tr><td>醋（米醋/陈醋）</td><td style="color:var(--c-success);font-weight:600;">安全</td><td>粮食发酵，不含奶蛋</td></tr>
+            <tr><td>盐/白糖/冰糖</td><td style="color:var(--c-success);font-weight:600;">安全</td><td>纯品，无过敏原</td></tr>
+            <tr><td>豆瓣酱（郫县）</td><td style="color:var(--c-success);font-weight:600;">安全</td><td>蚕豆/辣椒发酵，大人用</td></tr>
+            <tr><td>花椒/干辣椒</td><td style="color:var(--c-success);font-weight:600;">安全</td><td>纯香料，大人用</td></tr>
+            <tr><td>姜/蒜/葱</td><td style="color:var(--c-success);font-weight:600;">安全</td><td>天然香料</td></tr>
+            <tr><td>淀粉/藕粉</td><td style="color:var(--c-success);font-weight:600;">安全</td><td>纯淀粉，可做黏合剂</td></tr>
+            <tr><td>芝麻酱</td><td style="color:var(--c-success);font-weight:600;">安全</td><td>纯芝麻，补钙佳品</td></tr>
+            <tr><td>蚝油</td><td style="color:var(--c-warning);font-weight:600;">需看配料</td><td>大部分安全，个别品牌可能加乳清粉增稠</td></tr>
+            <tr><td>料酒/醪糟</td><td style="color:var(--c-success);font-weight:600;">安全</td><td>糯米/粮食发酵</td></tr>
+            <tr><td>沙拉酱/蛋黄酱</td><td style="color:var(--c-danger);font-weight:600;">不能用</td><td><strong>含鸡蛋和奶粉</strong>，绝对避免</td></tr>
+            <tr><td>浓汤宝/鸡精</td><td style="color:var(--c-danger);font-weight:600;">不能用</td><td>可能含乳清粉、奶粉、蛋粉</td></tr>
+            <tr><td>咖喱块/咖喱粉</td><td style="color:var(--c-danger);font-weight:600;">不能用</td><td>多数含奶粉/黄油增香</td></tr>
+            <tr><td>面包糠</td><td style="color:var(--c-warning);font-weight:600;">需看配料</td><td>有些含奶粉或蛋液</td></tr>
+            <tr><td>番茄酱/番茄沙司</td><td style="color:var(--c-warning);font-weight:600;">需看配料</td><td>大部分安全，个别品牌加乳清粉</td></tr>
+            <tr><td>芝麻油/花椒油</td><td style="color:var(--c-success);font-weight:600;">安全</td><td>纯植物油</td></tr>
+            <tr><td>蒸肉米粉</td><td style="color:var(--c-success);font-weight:600;">安全</td><td>大米磨粉，通常不含奶蛋</td></tr>
+            <tr><td>火锅底料</td><td style="color:var(--c-danger);font-weight:600;">不能用</td><td>大多含牛油/黄油，大人单独用</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tip-box warning">
+        <div class="tip-label">原则</div>
+        <p>不确定的调味料一律翻到配料表看：有"乳、奶、酪、乳清、蛋黄、蛋清"字样就不用。天然香料（姜蒜葱、花椒、辣椒、醋、酱油、盐糖）放心用。加工酱料（沙拉酱、浓汤宝、咖喱、火锅底料）高风险。</p>
+      </div>
+    </section>
+
+    <!-- 安全食物清单 -->
+    <section class="section" id="sec9">
+      <h2 class="section-title"><span class="num">9</span>日常安全食物清单</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>可以放心多吃</h3>
+          <ul>
+            <li>米饭、馒头、面条、燕麦、小米、玉米</li>
+            <li>鸡胸肉、瘦猪肉、牛肉</li>
+            <li>鳕鱼、三文鱼、虾仁</li>
+            <li>豆腐、豆浆、豆干</li>
+            <li>南瓜、胡萝卜、红薯、山药、冬瓜</li>
+            <li>西兰花、小油菜、藤菜、莲花白</li>
+            <li>苹果、梨、香蕉、橙子、猕猴桃</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>严格避免</h3>
+          <ul>
+            <li>牛奶、酸奶、奶酪、黄油、奶油、炼乳</li>
+            <li>普通奶粉、羊奶粉、驼奶粉</li>
+            <li>鸡蛋、蛋清、蛋黄、全蛋</li>
+            <li>蛋糕、饼干、蛋卷、沙琪玛、冰淇淋</li>
+            <li>含乳清蛋白、酪蛋白的加工食品</li>
+            <li>含蛋黄酱、溶菌酶的加工食品</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>建议常备</h3>
+          <ul>
+            <li>无糖豆浆</li>
+            <li>燕麦奶/米奶/豆奶（配料干净）</li>
+            <li>豆腐、豆干</li>
+            <li>芝麻酱</li>
+            <li>无盐鱼肉松</li>
+            <li>蒸糕、米糕、无蛋小饼干</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 外出就餐 -->
+    <section class="section" id="sec10">
+      <h2 class="section-title"><span class="num">10</span>外出就餐指南</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>相对安全的餐厅</h3>
+          <ul>
+            <li>家庭式餐馆、粥店、面馆</li>
+            <li>蒸菜、炖菜店</li>
+            <li>粤式茶楼（蒸点、炖汤、清蒸鱼）</li>
+            <li>四川中餐馆（清炒、蒸菜、炖汤类）</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>谨慎选择</h3>
+          <ul>
+            <li>西餐厅：奶油汤、意面酱、奶酪、披萨</li>
+            <li>甜品店：蛋糕、蛋卷、冰淇淋</li>
+            <li>油炸小吃：面糊可能含蛋奶</li>
+            <li>火锅：调料、肉丸可能含隐藏成分</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>优先点的菜</h3>
+          <ul>
+            <li>清蒸鱼、白灼虾</li>
+            <li>豆腐煲、蒸肉饼</li>
+            <li>蒸南瓜/山药/红薯</li>
+            <li>清炒时蔬、粥、米饭</li>
+            <li>番茄豆腐汤、排骨汤</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>必问服务员的话</h3>
+          <ul>
+            <li>"这道菜有没有鸡蛋？"</li>
+            <li>"有没有牛奶、奶粉、乳清蛋白？"</li>
+            <li>"奶油、黄油、奶酪有没有？"</li>
+            <li>"面条/馄饨皮有没有加蛋？"</li>
+            <li>"炸物用公共油锅吗？"</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 鸡蛋替代技巧 -->
+    <section class="section" id="sec11">
+      <h2 class="section-title"><span class="num">11</span>无鸡蛋烘焙替代技巧</h2>
+      <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--space-16);">鸡蛋在烘焙中起黏合、蓬松、保湿作用，以下食材可替代。</p>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr><th>替代品</th><th>适合做法</th><th>用量（替代1个鸡蛋）</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>香蕉泥</td><td>米糕、松糕、小蛋糕</td><td>半根香蕉</td></tr>
+            <tr><td>苹果泥/梨泥</td><td>蒸糕、小点心</td><td>30-50克果泥</td></tr>
+            <tr><td>豆腐泥</td><td>蒸糕、煎饼、肉饼</td><td>50克</td></tr>
+            <tr><td>亚麻籽粉+水</td><td>饼干、面包</td><td>1茶匙+2-3倍水</td></tr>
+            <tr><td>藕粉/玉米淀粉</td><td>蒸糕、软饼</td><td>适量增加黏性</td></tr>
+            <tr><td>植物奶</td><td>代替牛奶做米糕、粥</td><td>等量替换</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 孩子挑食应对 -->
+    <section class="section" id="sec12">
+      <h2 class="section-title"><span class="num">12</span>孩子挑食应对</h2>
+      <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--space-16);">3岁半孩子有自己偏好很正常。不要强迫吃，不要追喂，用小技巧把不爱的食材变"看不见"。</p>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>不爱吃豆腐？</h3>
+          <ul>
+            <li>豆腐剁碎混进肉丸、肉饼里</li>
+            <li>豆腐泥拌进米糕、蒸糕</li>
+            <li>豆腐切小丁混进炒饭、焖饭</li>
+            <li>嫩豆腐打碎拌进粥里，孩子喝不出来</li>
+            <li>用豆干切丝混炒肉丝，口感更接近肉</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>不爱吃蔬菜？</h3>
+          <ul>
+            <li>蔬菜剁碎混进肉丸、肉饼、饺子馅</li>
+            <li>蔬菜泥拌进粥、面糊、蒸糕</li>
+            <li>菠菜/小油菜切碎混进蛋炒饭（无蛋版）</li>
+            <li>胡萝卜磨成丝混进焖饭，颜色好看</li>
+            <li>西兰花切碎拌进土豆泥</li>
+            <li>蔬菜做成小饼（豆腐蔬菜饼、红薯饼）</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>不爱吃肉？</h3>
+          <ul>
+            <li>肉剁成末混进粥、面、焖饭</li>
+            <li>肉末做成蒸肉饼，口感软嫩</li>
+            <li>鱼去刺做成鱼丸，蘸点酱油</li>
+            <li>虾仁剁碎混进炒饭、蔬菜饼</li>
+            <li>排骨炖烂，肉撕碎混进汤粥</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>只吃白米饭？</h3>
+          <ul>
+            <li>米饭里加南瓜/红薯一起煮，带甜味</li>
+            <li>焖饭里加土豆/胡萝卜丁，颜色丰富</li>
+            <li>肉末酱油炒饭，味道香</li>
+            <li>小米/玉米混进白米，营养更全</li>
+            <li>粥里加肉末/菜末，少量开始</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">应对原则</div>
+        <p>1. <strong>不强迫</strong>——越逼越不吃。2. <strong>不替代</strong>——不吃这道菜就只吃白饭，不要马上给饼干/零食替代。3. <strong>反复暴露</strong>——同一道菜要出现8-10次孩子才可能接受，每次放一小碟在旁边，不要求吃。4. <strong>大人做榜样</strong>——大人吃得香，孩子才想试。5. <strong>让孩子参与</strong>——帮忙洗菜、搅面糊，自己做的更愿意尝。</p>
+      </div>
+
+      <div class="tip-box warning">
+        <div class="tip-label">不要这样做</div>
+        <p>追喂、哄喂、看电视喂、用零食奖励吃饭、"不吃就饿一顿"硬来——这些做法短期看似有效，长期会让孩子更抗拒吃饭，甚至引发进食焦虑。</p>
+      </div>
+    </section>
+
+    <!-- 幼儿园食谱参考 -->
+    <section class="section" id="sec13">
+      <h2 class="section-title"><span class="num">13</span>幼儿园食谱参考（无敏版）</h2>
+      <p class="section-desc">参照幼儿园小班/中班/大班标准食谱，将含奶含蛋菜品全部替换为无敏版本。孩子在家吃的和园里吃的结构一致，更容易适应集体就餐。每天按"三餐两点"安排，午餐遵循<strong>一主食+一荤+一素+一汤</strong>四件套。</p>
+
+      <h3 class="block-title">一日餐次安排（三餐两点制）</h3>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr><th>餐次</th><th>时间</th><th>食物类型</th><th>营养贡献</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>早餐</td><td>7:30-8:00</td><td>粥/面/馒头/包子 + 肉末/豆腐 + 蔬菜</td><td>约20-25%</td></tr>
+            <tr><td>早点</td><td>9:30-10:00</td><td><strong style="color:var(--c-danger);">豆浆/植物奶</strong>（替代牛奶） + 水果/饼干</td><td>约5-10%</td></tr>
+            <tr><td>午餐</td><td>11:30-12:00</td><td>米饭/面 + 一荤一素一汤</td><td>约30-35%（核心）</td></tr>
+            <tr><td>午点</td><td>14:30-15:00</td><td><strong style="color:var(--c-danger);">豆浆/植物奶</strong> + 蒸薯/水果/小面包</td><td>约5-10%</td></tr>
+            <tr><td>晚餐</td><td>17:30-18:00</td><td>粥/面/饭 + 软菜 + 肉/鱼/豆制品</td><td>约20-25%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tip-box" style="margin-bottom:var(--space-20);">
+        <div class="tip-label">无敏替换要点</div>
+        <p>① 早点/午点的<strong>牛奶→豆浆或强化植物奶</strong>，小班120ml、中大班160ml。② 汤里的<strong>鸡蛋→豆腐丁或淀粉勾芡</strong>替代，如番茄蛋汤改番茄豆腐汤。③ 烘焙类点心用<strong>豆浆+植物油</strong>替代牛奶黄油，香蕉/亚麻籽糊替代鸡蛋。④ 所有菜品<strong>不加奶酪/奶油/酸奶</strong>。</p>
+      </div>
+
+      <h3 class="block-title">小班/中班/大班食谱区别</h3>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr><th>对比维度</th><th>小班 3-4岁</th><th>中班 4-5岁</th><th>大班 5-6岁</th></tr>
+          </thead>
+          <tbody>
+            <tr><td style="font-weight:600;color:var(--c-text);white-space:nowrap;">食物质地</td><td>软烂、碎末、泥状</td><td>小丁、小块、丝状</td><td>小块、小片，接近家常菜</td></tr>
+            <tr><td style="font-weight:600;color:var(--c-text);white-space:nowrap;">蛋白质</td><td>肉末、豆腐泥、鱼肉碎</td><td>肉丝、肉片、虾仁、豆干</td><td>鱼块、肉丸、鸡腿、豆腐</td></tr>
+            <tr><td style="font-weight:600;color:var(--c-text);white-space:nowrap;">主食</td><td>软饭、粥、小馒头、小馄饨</td><td>米饭、杂粮饭、面条、包子</td><td>米饭、杂粮、饺子、花卷</td></tr>
+            <tr><td style="font-weight:600;color:var(--c-text);white-space:nowrap;">蔬菜</td><td>菜末、菜泥、番茄碎</td><td>菜丁、菜丝、西兰花</td><td>菜片、多种时蔬、菌菇</td></tr>
+            <tr><td style="font-weight:600;color:var(--c-text);white-space:nowrap;">份量</td><td>最少（米饭50-75g）</td><td>中等（米饭75-100g）</td><td>最多（米饭100-125g）</td></tr>
+            <tr><td style="font-weight:600;color:var(--c-text);white-space:nowrap;">口味</td><td>清淡、极少盐油</td><td>可适度调味</td><td>接近家庭清淡菜</td></tr>
+            <tr><td style="font-weight:600;color:var(--c-text);white-space:nowrap;">咀嚼训练</td><td>以吞咽为主</td><td>增加咀嚼刺激</td><td>接近成人餐桌</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="block-title">无敏版一周午餐食谱</h3>
+      <p class="section-desc" style="font-size:13px;color:var(--c-text-muted);">点击切换班段查看对应食谱。每道菜均已去除牛奶和鸡蛋，用豆腐/豆浆/淀粉替代。</p>
+
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab(this,'tab-small')">小班 3-4岁</button>
+        <button class="tab-btn" onclick="switchTab(this,'tab-middle')">中班 4-5岁</button>
+        <button class="tab-btn" onclick="switchTab(this,'tab-large')">大班 5-6岁</button>
+      </div>
+
+      <div class="tab-panel active" id="tab-small">
+        <p class="section-desc" style="font-size:13px;color:var(--c-text-muted);">食物质地软烂碎末，米饭偏软，肉切碎末，蔬菜切细碎。份量小，少盐少油。</p>
+        <div class="meal-week-grid">
+          <div class="meal-day-card">
+            <div class="meal-day-head"><div class="meal-day-num">1</div><div class="meal-day-title">周一·软烂豆腐餐</div></div>
+            <div class="meal-day-body">
+              <div class="meal-item"><span class="meal-item-label">主食</span><span class="meal-item-text"><strong>软米饭</strong>（大米+小米）</span></div>
+              <div class="meal-item"><span class="meal-item-label">荤菜</span><span class="meal-item-text"><strong>鸡肉末烧豆腐</strong>，鸡胸肉剁碎，嫩豆腐切小丁，少酱油焖</span></div>
+              <div class="meal-item"><span class="meal-item-label">素菜</span><span class="meal-item-text"><strong>胡萝卜南瓜泥</strong>，蒸熟压泥</span></div>
+              <div class="meal-item"><span class="meal-item-label">汤</span><span class="meal-item-text"><strong>番茄蔬菜汤</strong>（无蛋版），番茄碎煮汤，加青菜碎</span></div>
+            </div>
+          </div>
+          <div class="meal-day-card">
+            <div class="meal-day-head"><div class="meal-day-num">2</div><div class="meal-day-title">周二·鱼肉碎粥</div></div>
+            <div class="meal-day-body">
+              <div class="meal-item"><span class="meal-item-label">主食</span><span class="meal-item-text"><strong>小馒头 + 小米粥</strong></span></div>
+              <div class="meal-item"><span class="meal-item-label">荤菜</span><span class="meal-item-text"><strong>鱼肉碎蒸豆腐</strong>，无刺鱼剁碎，铺豆腐蒸</span></div>
+              <div class="meal-item"><span class="meal-item-label">素菜</span><span class="meal-item-text"><strong>菠菜碎末</strong>，焯后切碎拌香油</span></div>
+              <div class="meal-item"><span class="meal-item-label">汤</span><span class="meal-item-text"><strong>冬瓜肉末汤</strong></span></div>
+            </div>
+          </div>
+          <div class="meal-day-card">
+            <div class="meal-day-head"><div class="meal-day-num">3</div><div class="meal-day-title">周三·肉末茄子</div></div>
+            <div class="meal-day-body">
+              <div class="meal-item"><span class="meal-item-label">主食</span><span class="meal-item-text"><strong>软米饭</strong></span></div>
+              <div class="meal-item"><span class="meal-item-label">荤菜</span><span class="meal-item-text"><strong>肉末烧茄子</strong>，茄子去皮切小丁，猪肉末炖软</span></div>
+              <div class="meal-item"><span class="meal-item-label">素菜</span><span class="meal-item-text"><strong>西兰花碎</strong>，煮软切小朵</span></div>
+              <div class="meal-item"><span class="meal-item-label">汤</span><span class="meal-item-text"><strong>紫菜豆腐汤</strong>（替代紫菜蛋汤）</span></div>
+            </div>
+          </div>
+          <div class="meal-day-card">
+            <div class="meal-day-head"><div class="meal-day-num">4</div><div class="meal-day-title">周四·南瓜鸡茸</div></div>
+            <div class="meal-day-body">
+              <div class="meal-item"><span class="meal-item-label">主食</span><span class="meal-item-text"><strong>小米南瓜粥</strong></span></div>
+              <div class="meal-item"><span class="meal-item-label">荤菜</span><span class="meal-item-text"><strong>鸡胸肉末蒸南瓜</strong>，铺在南瓜片上蒸</span></div>
+              <div class="meal-item"><span class="meal-item-label">素菜</span><span class="meal-item-text"><strong>番茄碎烩</strong>，番茄去皮切碎炖软</span></div>
+              <div class="meal-item"><span class="meal-item-label">汤</span><span class="meal-item-text"><strong>山药排骨汤</strong>，山药切小段炖软</span></div>
+            </div>
+          </div>
+          <div class="meal-day-card">
+            <div class="meal-day-head"><div class="meal-day-num">5</div><div class="meal-day-title">周五·虾仁豆腐</div></div>
+            <div class="meal-day-body">
+              <div class="meal-item"><span class="meal-item-label">主食</span><span class="meal-item-text"><strong>软米饭 + 小馄饨</strong>（无蛋皮版）</span></div>
+              <div class="meal-item"><span class="meal-item-label">荤菜</span><span class="meal-item-text"><strong>虾仁碎烩豆腐</strong>，虾仁剁碎，嫩豆腐小丁</span></div>
+              <div class="meal-item"><span class="meal-item-label">素菜</span><span class="meal-item-text"><strong>土豆胡萝卜泥</strong>，蒸熟压泥</span></div>
+              <div class="meal-item"><span class="meal-item-label">汤</span><span class="meal-item-text"><strong>蘑菇蔬菜汤</strong>，香菇碎煮汤</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-middle">
+        <p class="section-desc" style="font-size:13px;color:var(--c-text-muted);">食物开始有形状，肉切小丁/丝，蔬菜切丁/段，可适度调味。份量中等。</p>
+        <div class="meal-week-grid">
+          <div class="meal-day-card">
+            <div class="meal-day-head"><div class="meal-day-num">1</div><div class="meal-day-title">周一·香菇鸡丁</div></div>
+            <div class="meal-day-body">
+              <div class="meal-item"><span class="meal-item-label">主食</span><span class="meal-item-text"><strong>米饭</strong>（大米+少量糙米）</span></div>
+              <div class="meal-item"><span class="meal-item-label">荤菜</span><span class="meal-item-text"><strong>香菇炒鸡丁</strong>，鸡腿肉切丁，香菇切丁</span></div>
+              <div class="meal-item"><span class="meal-item-label">素菜</span><span class="meal-item-text"><strong>清炒西兰花</strong>，切小朵</span></div>
+              <div class="meal-item"><span class="meal-item-label">汤</span><span class="meal-item-text"><strong>冬瓜肉丸汤</strong>（肉丸不加蛋，淀粉替代）</span></div>
+            </div>
+          </div>
+          <div class="meal-day-card">
+            <div class="meal-day-head"><div class="meal-day-num">2</div><div class="meal-day-title">周二·番茄牛肉</div></div>
+            <div class="meal-day-body">
+              <div class="meal-item"><span class="meal-item-label">主食</span><span class="meal-item-text"><strong>杂粮饭</strong>（大米+小米+红豆）</span></div>
+              <div class="meal-item"><span class="meal-item-label">荤菜</span><span class="meal-item-text"><strong>番茄炖牛肉</strong>，牛肉切小丁炖软</span></div>
+              <div class="meal-item"><span class="meal-item-label">素菜</span><span class="meal-item-text"><strong>木耳炒山药</strong>，山药切片，木耳切小朵</span></div>
+              <div class="meal-item"><span class="meal-item-label">汤</span><span class="meal-item-text"><strong>紫菜豆腐汤</strong></span></div>
+            </div>
+          </div>
+          <div class="meal-day-card">
+            <div class="meal-day-head"><div class="meal-day-num">3</div><div class="meal-day-title">周三·糖醋肉丁</div></div>
+            <div class="meal-day-body">
+              <div class="meal-item"><span class="meal-item-label">主食</span><span class="meal-item-text"><strong>米饭</strong></span></div>
+              <div class="meal-item"><span class="meal-item-label">荤菜</span><span class="meal-item-text"><strong>糖醋肉丁</strong>（无蛋糊版，淀粉挂糊）</span></div>
+              <div class="meal-item"><span class="meal-item-label">素菜</span><span class="meal-item-text"><strong>蒜蓉炒菠菜</strong></span></div>
+              <div class="meal-item"><span class="meal-item-label">汤</span><span class="meal-item-text"><strong>蘑菇豆腐羹</strong>，淀粉勾芡</span></div>
+            </div>
+          </div>
+          <div class="meal-day-card">
+            <div class="meal-day-head"><div class="meal-day-num">4</div><div class="meal-day-title">周四·肉酱拌面</div></div>
+            <div class="meal-day-body">
+              <div class="meal-item"><span class="meal-item-label">主食</span><span class="meal-item-text"><strong>面条</strong>（无蛋面）</span></div>
+              <div class="meal-item"><span class="meal-item-label">荤菜</span><span class="meal-item-text"><strong>肉酱拌面</strong>，猪肉末炒香加酱</span></div>
+              <div class="meal-item"><span class="meal-item-label">素菜</span><span class="meal-item-text"><strong>黄瓜丁炒火腿</strong></span></div>
+              <div class="meal-item"><span class="meal-item-label">汤</span><span class="meal-item-text"><strong>番茄土豆汤</strong></span></div>
+            </div>
+          </div>
+          <div class="meal-day-card">
+            <div class="meal-day-head"><div class="meal-day-num">5</div><div class="meal-day-title">周五·红烧鱼块</div></div>
+            <div class="meal-day-body">
+              <div class="meal-item"><span class="meal-item-label">主食</span><span class="meal-item-text"><strong>米饭</strong></span></div>
+              <div class="meal-item"><span class="meal-item-label">荤菜</span><span class="meal-item-text"><strong>红烧鱼块</strong>，无刺鱼切段红烧</span></div>
+              <div class="meal-item"><span class="meal-item-label">素菜</span><span class="meal-item-text"><strong>清炒时蔬</strong>（生菜/油麦菜/小白菜）</span></div>
+              <div class="meal-item"><span class="meal-item-label">汤</span><span class="meal-item-text"><strong>山药排骨汤</strong></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-large">
+        <p class="section-desc" style="font-size:13px;color:var(--c-text-muted);">食物接近家常菜形态，肉切小块/片，可做饺子包子。份量最大，接近小学餐。</p>
+        <div class="meal-week-grid">
+          <div class="meal-day-card">
+            <div class="meal-day-head"><div class="meal-day-num">1</div><div class="meal-day-title">周一·红烧排骨</div></div>
+            <div class="meal-day-body">
+              <div class="meal-item"><span class="meal-item-label">主食</span><span class="meal-item-text"><strong>杂粮饭</strong>（大米+糙米+燕麦）</span></div>
+              <div class="meal-item"><span class="meal-item-label">荤菜</span><span class="meal-item-text"><strong>红烧排骨</strong>，小段排骨炖软</span></div>
+              <div class="meal-item"><span class="meal-item-label">素菜</span><span class="meal-item-text"><strong>蒜蓉炒菠菜</strong></span></div>
+              <div class="meal-item"><span class="meal-item-label">汤</span><span class="meal-item-text"><strong>冬瓜虾仁汤</strong></span></div>
+            </div>
+          </div>
+          <div class="meal-day-card">
+            <div class="meal-day-head"><div class="meal-day-num">2</div><div class="meal-day-title">周二·咖喱鸡肉</div></div>
+            <div class="meal-day-body">
+              <div class="meal-item"><span class="meal-item-label">主食</span><span class="meal-item-text"><strong>米饭</strong></span></div>
+              <div class="meal-item"><span class="meal-item-label">荤菜</span><span class="meal-item-text"><strong>咖喱鸡肉</strong>（无奶版，用豆浆椰奶替代）</span></div>
+              <div class="meal-item"><span class="meal-item-label">素菜</span><span class="meal-item-text"><strong>凉拌三丝</strong>（海带丝+胡萝卜丝+豆干丝）</span></div>
+              <div class="meal-item"><span class="meal-item-label">汤</span><span class="meal-item-text"><strong>番茄豆腐汤</strong></span></div>
+            </div>
+          </div>
+          <div class="meal-day-card">
+            <div class="meal-day-head"><div class="meal-day-num">3</div><div class="meal-day-title">周三·酱爆肉丁</div></div>
+            <div class="meal-day-body">
+              <div class="meal-item"><span class="meal-item-label">主食</span><span class="meal-item-text"><strong>馒头 + 杂粮粥</strong></span></div>
+              <div class="meal-item"><span class="meal-item-label">荤菜</span><span class="meal-item-text"><strong>酱爆肉丁</strong>，猪肉切丁爆炒</span></div>
+              <div class="meal-item"><span class="meal-item-label">素菜</span><span class="meal-item-text"><strong>芹菜炒香干</strong></span></div>
+              <div class="meal-item"><span class="meal-item-label">汤</span><span class="meal-item-text"><strong>萝卜骨头汤</strong></span></div>
+            </div>
+          </div>
+          <div class="meal-day-card">
+            <div class="meal-day-head"><div class="meal-day-num">4</div><div class="meal-day-title">周四·清蒸鱼块</div></div>
+            <div class="meal-day-body">
+              <div class="meal-item"><span class="meal-item-label">主食</span><span class="meal-item-text"><strong>米饭</strong></span></div>
+              <div class="meal-item"><span class="meal-item-label">荤菜</span><span class="meal-item-text"><strong>清蒸鱼块</strong>，葱姜蒸鱼</span></div>
+              <div class="meal-item"><span class="meal-item-label">素菜</span><span class="meal-item-text"><strong>白灼菜心</strong></span></div>
+              <div class="meal-item"><span class="meal-item-label">汤</span><span class="meal-item-text"><strong>蘑菇浓汤</strong>（豆浆版，替代奶油）</span></div>
+            </div>
+          </div>
+          <div class="meal-day-card">
+            <div class="meal-day-head"><div class="meal-day-num">5</div><div class="meal-day-title">周五·饺子日</div></div>
+            <div class="meal-day-body">
+              <div class="meal-item"><span class="meal-item-label">主食</span><span class="meal-item-text"><strong>饺子/包子</strong>（无蛋皮，猪肉白菜馅）</span></div>
+              <div class="meal-item"><span class="meal-item-label">荤菜</span><span class="meal-item-text"><strong>酱牛肉</strong>切片（可选）</span></div>
+              <div class="meal-item"><span class="meal-item-label">素菜</span><span class="meal-item-text"><strong>凉拌黄瓜</strong></span></div>
+              <div class="meal-item"><span class="meal-item-label">汤</span><span class="meal-item-text"><strong>蔬菜汤</strong>，饺子汤煮蔬菜</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="block-title" style="margin-top:var(--space-24);">无敏版幼儿园点心</h3>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>上午点 9:30-10:00</h3>
+          <ul>
+            <li><strong>豆浆 120-160ml</strong>（替代牛奶，小班120ml/中大班160ml）</li>
+            <li><strong>水果</strong>：苹果块/香蕉/小番茄/橙子</li>
+            <li><strong>小饼干</strong>：查看配料表无奶无蛋</li>
+            <li><strong>蒸红薯/紫薯</strong>小块</li>
+            <li><strong>海苔片</strong>（查看无奶配料）</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>下午点 14:30-15:00</h3>
+          <ul>
+            <li><strong>豆浆/植物奶 120-160ml</strong></li>
+            <li><strong>蒸红薯/玉米</strong>小段</li>
+            <li><strong>水果拼盘</strong>：西瓜/哈密瓜/葡萄/猕猴桃</li>
+            <li><strong>小面包</strong>（无奶无蛋配方，豆浆和面）</li>
+            <li><strong>坚果碎</strong>：核桃/腰果碾碎（中大班，小班不用）</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>不能带的点心</h3>
+          <ul>
+            <li>含牛奶/酸奶/奶酪的一切食品</li>
+            <li>含鸡蛋的蛋糕/面包/饼干</li>
+            <li>蛋挞、布丁、卡仕达酱</li>
+            <li>含乳清蛋白的能量棒</li>
+            <li>夹心饼干（多数含奶）</li>
+            <li>巧克力（多数含乳脂）</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="block-title" style="margin-top:var(--space-24);">每日营养达标对照表</h3>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr><th>营养素</th><th>每日推荐量</th><th>无敏食物来源</th><th>一日搭配建议</th></tr>
+          </thead>
+          <tbody>
+            <tr><td style="font-weight:600;color:var(--c-primary);">蛋白质</td><td>25-30g</td><td>瘦肉、鱼、虾、豆腐、豆浆</td><td>早餐肉末粥 + 午餐豆腐/肉 + 晚餐鱼/虾</td></tr>
+            <tr><td style="font-weight:600;color:var(--c-primary);">钙</td><td>600-800mg</td><td>豆腐、深绿蔬菜、强化豆浆、虾皮</td><td>午餐豆腐 + 午点豆浆 + 晚餐深绿蔬菜</td></tr>
+            <tr><td style="font-weight:600;color:var(--c-primary);">铁</td><td>9-10mg</td><td>红肉、动物血、菠菜、木耳</td><td>每周3-4次红肉，搭配维C助吸收</td></tr>
+            <tr><td style="font-weight:600;color:var(--c-primary);">锌</td><td>4-5.5mg</td><td>瘦肉、鱼、豆类、坚果</td><td>每日有肉或豆制品，每周1-2次坚果</td></tr>
+            <tr><td style="font-weight:600;color:var(--c-primary);">维生素A</td><td>310-360μg</td><td>胡萝卜、南瓜、菠菜、猪肝</td><td>每周2-3次深色蔬菜，每月1-2次猪肝</td></tr>
+            <tr><td style="font-weight:600;color:var(--c-primary);">维生素D</td><td>10μg</td><td>日晒、强化豆浆、鱼</td><td>每天户外1-2小时，按医嘱补充制剂</td></tr>
+            <tr><td style="font-weight:600;color:var(--c-primary);">维生素C</td><td>40-50mg</td><td>番茄、西兰花、橙子、猕猴桃</td><td>每餐有蔬菜 + 每日1-2种水果</td></tr>
+            <tr><td style="font-weight:600;color:var(--c-primary);">能量</td><td>1200-1700kcal</td><td>谷物、肉、油、水果</td><td>三餐按3:4:3分配，两点补充10-20%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">家园一致建议</div>
+        <p>1. 在家也按"三餐两点"节奏安排，和幼儿园同步。2. 午餐坚持<strong>一主食+一荤+一素+一汤</strong>四件套，孩子到园里不会陌生。3. 周末可以让孩子参与包饺子/做馒头（无蛋配方），培养吃饭兴趣。4. 和幼儿园老师确认间餐安排，告诉老师<strong>不能吃含奶含蛋的集体点心</strong>，需自备替代品。5. 小班阶段食物质地软烂，中班开始逐步过渡到小块，在家做菜时注意切法调整。</p>
+      </div>
+    </section>
+
+    <div class="tip-box">
+      <div class="tip-label">最后提醒</div>
+      <p>1. 严格回避牛奶蛋白和鸡蛋。2. 全家一锅出，加辣前先盛孩子的份。3. 蛋白质靠肉、鱼、虾、豆腐替代。4. 钙靠豆腐、深绿蔬菜、强化植物奶。5. 维生素D按医生建议补充。6. 任何零食、酱料先看配料表。7. 面条/抄手皮一定要翻到背面看配料表有没有蛋。</p>
+    </div>
+    </div>
+  </div>
+</Base>
+
+<script>
+  window.switchTab = function (btn, panelId) {
+    var tabs = btn.parentElement;
+    var panels = tabs.parentElement.querySelectorAll('.tab-panel');
+    tabs.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
+    panels.forEach(function (p) { p.classList.remove('active'); });
+    btn.classList.add('active');
+    document.getElementById(panelId).classList.add('active');
+  };
+
+  window.filterRecipes = function (btn, tag) {
+    document.querySelectorAll('.filter-btn').forEach(function (b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+
+    var cards = document.querySelectorAll('.recipe-card');
+    var calciumKeys = ['豆腐', '虾', '芝麻', '紫菜', '虾皮', '豆浆', '牛奶'];
+    var proteinKeys = ['肉', '鱼', '虾', '豆腐', '豆干', '牛肉', '鸡', '排骨', '豆浆'];
+
+    cards.forEach(function (card) {
+      var show = false;
+      var name = (card.querySelector('.recipe-name') || {}).textContent || '';
+      var ings = (card.querySelector('.recipe-ingredients') || {}).textContent || '';
+      var meta = (card.querySelector('.recipe-meta') || {}).textContent || '';
+      var hasSplit = !!card.querySelector('.recipe-tag.split');
+      var hasFamily = !!card.querySelector('.recipe-tag.family');
+
+      if (tag === 'all') {
+        show = true;
+      } else if (tag === 'split') {
+        show = hasSplit;
+      } else if (tag === 'family') {
+        show = hasFamily;
+      } else if (tag === 'quick') {
+        // 从 meta 中提取分钟数判断，避免子串误匹配（如「25分钟」含「5分钟」）
+        var mins = meta.match(/(\d+)\s*分钟/);
+        show = !!mins && parseInt(mins[1], 10) <= 10;
+      } else if (tag === 'calcium') {
+        show = calciumKeys.some(function (k) { return name.indexOf(k) >= 0 || ings.indexOf(k) >= 0; });
+      } else if (tag === 'protein') {
+        show = proteinKeys.some(function (k) { return name.indexOf(k) >= 0 || ings.indexOf(k) >= 0; });
+      } else if (tag === 'breakfast') {
+        show = card.dataset.scene === '早餐';
+      } else if (tag === 'share') {
+        show = card.dataset.scene === '班级分享';
+      } else if (tag === 'sick') {
+        show = card.dataset.scene === '生病照护';
+      }
+
+      card.style.display = show ? '' : 'none';
+    });
+
+    document.querySelectorAll('.recipe-cat-title').forEach(function (title) {
+      var grid = title.nextElementSibling;
+      if (grid && grid.classList.contains('recipe-grid')) {
+        var visible = grid.querySelectorAll('.recipe-card:not([style*="display: none"])');
+        var hasVisible = visible.length > 0;
+        title.style.display = hasVisible ? '' : 'none';
+        grid.style.display = hasVisible ? '' : 'none';
+      }
+    });
+  };
+</script>

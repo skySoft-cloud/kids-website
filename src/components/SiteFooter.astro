@@ -1,0 +1,58 @@
+---
+import { SITE } from '../data/site';
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-mark">育</span>
+      <span class="footer-name">{SITE.name} · {SITE.tagline}</span>
+    </div>
+    <p class="footer-meta">{SITE.edition} · 持续更新中 · 最后更新 {SITE.lastUpdated}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--c-line);
+    background: var(--c-surface);
+  }
+
+  .footer-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--space-32) var(--space-20);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-12);
+  }
+
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    font-family: var(--font-serif);
+    font-size: 14px;
+    color: var(--c-ink-2);
+  }
+
+  .footer-mark {
+    width: 24px;
+    height: 24px;
+    border-radius: var(--radius-full);
+    background: var(--c-clay);
+    color: var(--c-surface);
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footer-meta {
+    font-size: 12px;
+    letter-spacing: .5px;
+    color: var(--c-ink-3);
+  }
+</style>

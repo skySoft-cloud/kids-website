@@ -1,0 +1,168 @@
+---
+// 全站交互增强：滚动浮现动效 + 清单打卡记忆
+// 通过 astro:page-load 驱动，View Transitions 换页后自动重新初始化
+---
+
+<style is:global>
+  /* 滚动浮现：.rv 类由 JS 添加（渐进增强，无 JS 时内容完整可见） */
+  .rv {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity .55s cubic-bezier(.22, 1, .36, 1),
+      transform .55s cubic-bezier(.22, 1, .36, 1);
+  }
+
+  .rv.in {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rv {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* 清单打卡 */
+  .checklist .check-item {
+    cursor: pointer;
+    transition: border-color .15s ease, background .15s ease;
+  }
+
+  .checklist .check-item:hover {
+    border-color: var(--c-line-strong);
+  }
+
+  .checklist .check-item.done .check-text {
+    color: var(--c-ink-3);
+  }
+
+  .checklist .check-item.done .check-text .check-label {
+    text-decoration: line-through;
+    text-decoration-color: var(--c-line-strong);
+  }
+
+  /* 组进度条（由 JS 插入清单顶部） */
+  .check-progress {
+    display: flex;
+    align-items: center;
+    gap: var(--space-12);
+    padding: var(--space-8) var(--space-16);
+    background: var(--c-surface-muted);
+    border: 1px solid var(--c-line);
+    border-radius: var(--radius-full);
+    font-size: 13px;
+    color: var(--c-ink-2);
+    margin-bottom: var(--space-4);
+  }
+
+  .check-progress .cp-track {
+    flex: 1;
+    height: 6px;
+    border-radius: var(--radius-full);
+    background: var(--c-line);
+    overflow: hidden;
+  }
+
+  .check-progress .cp-fill {
+    display: block;
+    height: 100%;
+    width: 0;
+    border-radius: var(--radius-full);
+    background: var(--c-sage);
+    transition: width .4s cubic-bezier(.22, 1, .36, 1);
+  }
+
+  .check-progress .cp-num {
+    font-weight: 600;
+    color: var(--c-ink);
+    flex-shrink: 0;
+  }
+</style>
+
+<script>
+  const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function hashText(t: string): string {
+    let h = 0;
+    for (let i = 0; i < t.length; i++) h = (h * 31 + t.charCodeAt(i)) | 0;
+    return (h >>> 0).toString(36);
+  }
+
+  /** 滚动浮现 */
+  function initReveal() {
+    if (REDUCED) return;
+    const cards = document.querySelectorAll(
+      '.game-card, .recipe-card, .info-card, .pillar-card, .day-card, .role-play, .allergy-card, .tip-box, .site-note, .hero > *, .data-table-wrap'
+    );
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((en) => {
+          if (en.isIntersecting) {
+            en.target.classList.add('in');
+            io.unobserve(en.target);
+          }
+        });
+      },
+      { rootMargin: '0px 0px -4% 0px', threshold: 0.04 }
+    );
+    cards.forEach((el) => {
+      el.classList.add('rv');
+      io.observe(el);
+    });
+    // 同组卡片错峰浮现
+    document
+      .querySelectorAll('.game-grid, .recipe-grid, .info-grid, .pillar-grid, .checklist')
+      .forEach((group) => {
+        Array.from(group.children).forEach((el, i) => {
+          (el as HTMLElement).style.transitionDelay = (i % 8) * 45 + 'ms';
+        });
+      });
+  }
+
+  /** 清单打卡：点击切换 + localStorage 记忆 + 组进度条 */
+  function initChecklists() {
+    const path = location.pathname;
+    document.querySelectorAll('.checklist').forEach((group) => {
+      const g = group as HTMLElement;
+      const items = Array.from(g.querySelectorAll<HTMLElement>(':scope > .check-item'));
+      if (!items.length || g.dataset.ckInit) return;
+      g.dataset.ckInit = '1';
+
+      const bar = document.createElement('div');
+      bar.className = 'check-progress';
+      bar.innerHTML =
+        '<span>已完成</span><span class="cp-track"><span class="cp-fill"></span></span><span class="cp-num"></span>';
+      g.prepend(bar);
+      const fill = bar.querySelector('.cp-fill') as HTMLElement;
+      const num = bar.querySelector('.cp-num') as HTMLElement;
+
+      const sync = () => {
+        const done = items.filter((it) => it.classList.contains('done')).length;
+        fill.style.width = Math.round((done / items.length) * 100) + '%';
+        num.textContent = done + ' / ' + items.length;
+      };
+
+      items.forEach((item, i) => {
+        // 键：路径 + 组序 + 条目序 + 内容摘要（内容改动后自动失效，不串状态）
+        const key = 'pgck:' + path + ':' + i + ':' + hashText(item.textContent!.trim().slice(0, 24));
+        if (localStorage.getItem(key) === '1') item.classList.add('done');
+        item.addEventListener('click', () => {
+          const on = item.classList.toggle('done');
+          localStorage.setItem(key, on ? '1' : '0');
+          sync();
+        });
+      });
+      sync();
+    });
+  }
+
+  // astro:page-load：首次加载与每次 VT 换页后都会触发
+  document.addEventListener('astro:page-load', () => {
+    initReveal();
+    initChecklists();
+  });
+</script>
