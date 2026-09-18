@@ -7,16 +7,26 @@ import Base from '../layouts/Base.astro';
 <Base title="长期规划">
   <div class="container">
     <div class="legacy-content">
-<div class="page-header">
-      <div class="breadcrumb">
-        <a href="/">首页</a> <span>/</span> 长期规划
+<div class="page-header has-art">
+      <img class="header-art" src="/art/planning.svg" alt="成长树与相框的黏土风插画" width="480" height="360" loading="lazy" />
+      <div class="ph-text">
+        <div class="breadcrumb">
+          <a href="/">首页</a> <span>/</span> 长期规划
+        </div>
+        <h1>长期规划</h1>
+        <p class="subtitle">教育储蓄保险、证件资料归档、育儿书单、成长记录——32岁开始，趁早规划</p>
       </div>
-      <h1>长期规划</h1>
-      <p class="subtitle">教育储蓄保险、证件资料归档、育儿书单、成长记录——32岁开始，趁早规划</p>
     </div>
 
     <!-- 教育储蓄与保险 -->
-    <section class="section">
+    <nav class="sub-nav" aria-label="本页小节">
+      <a href="#sec1" class="active">储蓄保险</a>
+      <a href="#sec2">证件归档</a>
+      <a href="#sec3">书单课程</a>
+      <a href="#sec4">成长记录</a>
+    </nav>
+
+    <section class="section" id="sec1">
       <h2 class="section-title"><span class="num">1</span>教育储蓄与保险</h2>
       <div class="info-grid">
         <div class="info-card">
@@ -63,7 +73,7 @@ import Base from '../layouts/Base.astro';
     </section>
 
     <!-- 证件资料 -->
-    <section class="section">
+    <section class="section" id="sec2">
       <h2 class="section-title"><span class="num">2</span>证件资料归档</h2>
       <div class="checklist">
         <div class="check-item">
@@ -126,7 +136,7 @@ import Base from '../layouts/Base.astro';
     </section>
 
     <!-- 育儿书单 -->
-    <section class="section">
+    <section class="section" id="sec3">
       <h2 class="section-title"><span class="num">3</span>育儿书单与课程</h2>
       <div class="info-grid">
         <div class="info-card">
@@ -171,7 +181,7 @@ import Base from '../layouts/Base.astro';
     </section>
 
     <!-- 成长记录 -->
-    <section class="section">
+    <section class="section" id="sec4">
       <h2 class="section-title"><span class="num">4</span>成长记录与影像</h2>
       <div class="info-grid">
         <div class="info-card">

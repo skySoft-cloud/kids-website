@@ -607,6 +607,75 @@
   margin-bottom: var(--space-20);
 }
 
+/* 食谱搜索框 */
+.recipe-search {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  max-width: 420px;
+  margin-bottom: var(--space-12);
+  padding: 10px var(--space-16);
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-full);
+  transition: border-color .15s ease;
+}
+
+.recipe-search:focus-within {
+  border-color: var(--c-clay);
+}
+
+.recipe-search .rs-icon {
+  flex-shrink: 0;
+  color: var(--c-ink-3);
+}
+
+.recipe-search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--c-ink);
+}
+
+.recipe-search input::placeholder {
+  color: var(--c-ink-3);
+}
+
+.recipe-search input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.recipe-search button {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: var(--c-surface-muted);
+  color: var(--c-ink-2);
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.recipe-search button:hover {
+  background: var(--c-clay-light);
+  color: var(--c-clay-dark);
+}
+
+.search-info {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--c-clay);
+  margin: 0 0 var(--space-16);
+}
+
 .filter-btn {
   background: var(--c-surface);
   border: 1px solid var(--c-line);
@@ -1112,8 +1181,9 @@
 
   .page-header.has-art .header-art {
     width: 100%;
-    height: 120px;
+    height: 150px;
     object-fit: cover;
+    object-position: 50% 58%;
     align-self: auto;
   }
 }

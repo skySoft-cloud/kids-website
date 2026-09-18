@@ -1,31 +1,11 @@
 ---
-// 全站交互增强：滚动浮现动效 + 清单打卡记忆
-// 通过 astro:page-load 驱动，View Transitions 换页后自动重新初始化
+// 全站交互增强（GSAP 驱动）：
+// 滚动浮现 batch / hero 入场编排 / 页头插画视差 / 逐日时间线生长 / 数字滚动
+// 以及：清单打卡记忆、sub-nav scrollspy、可滚动行渐隐自适应
+// 全部通过 astro:page-load 驱动，View Transitions 换页后自动重建
 ---
 
 <style is:global>
-  /* 滚动浮现：.rv 类由 JS 添加（渐进增强，无 JS 时内容完整可见） */
-  .rv {
-    opacity: 0;
-    transform: translateY(14px);
-    transition:
-      opacity .55s cubic-bezier(.22, 1, .36, 1),
-      transform .55s cubic-bezier(.22, 1, .36, 1);
-  }
-
-  .rv.in {
-    opacity: 1;
-    transform: none;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .rv {
-      opacity: 1;
-      transform: none;
-      transition: none;
-    }
-  }
-
   /* 清单打卡 */
   .checklist .check-item {
     cursor: pointer;
@@ -81,10 +61,80 @@
     color: var(--c-ink);
     flex-shrink: 0;
   }
+
+  /* 可滚动行的右缘渐隐：仅当确实可滚动时由 JS 添加 .can-scroll */
+  .sub-nav.can-scroll,
+  .cat-nav.can-scroll,
+  .recipe-filter.can-scroll {
+    -webkit-mask: linear-gradient(90deg, #000 0%, #000 calc(100% - 16px), transparent 100%);
+    mask: linear-gradient(90deg, #000 0%, #000 calc(100% - 16px), transparent 100%);
+  }
+
+  /* 逐日时间线（kg-first-week）：左侧铁轨 + 节点 */
+  .day-timeline {
+    position: relative;
+    padding-left: var(--space-28);
+  }
+
+  .day-timeline::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    border-radius: 2px;
+    background: var(--c-line);
+  }
+
+  .day-timeline .tl-progress {
+    position: absolute;
+    left: 15px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    border-radius: 2px;
+    background: var(--c-clay);
+    transform-origin: top;
+    transform: scaleY(0);
+  }
+
+  .day-timeline .day-card {
+    position: relative;
+  }
+
+  .day-timeline .day-card::before {
+    content: '';
+    position: absolute;
+    left: calc(-1 * var(--space-28) + 10px);
+    top: 26px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--c-bg);
+    border: 3px solid var(--c-clay);
+    box-shadow: 0 0 0 4px var(--c-bg);
+  }
+
+  @media (max-width: 640px) {
+    .day-timeline { padding-left: var(--space-20); }
+    .day-timeline::before,
+    .day-timeline .tl-progress { left: 8px; }
+    .day-timeline .day-card::before {
+      left: calc(-1 * var(--space-20) + 3px);
+    }
+  }
 </style>
 
 <script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
   const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let ctx: gsap.Context | null = null;
+  let cleanups: Array<() => void> = [];
 
   function hashText(t: string): string {
     let h = 0;
@@ -92,35 +142,57 @@
     return (h >>> 0).toString(36);
   }
 
-  /** 滚动浮现 */
-  function initReveal() {
-    if (REDUCED) return;
-    const cards = document.querySelectorAll(
-      '.game-card, .recipe-card, .info-card, .pillar-card, .day-card, .role-play, .allergy-card, .tip-box, .site-note, .hero > *, .data-table-wrap'
-    );
+  /** 可滚动行渐隐自适应：只有真的能横向滚动时才显示右缘渐隐 */
+  function initScrollMasks() {
+    const rows = document.querySelectorAll<HTMLElement>('.sub-nav, .cat-nav, .recipe-filter');
+    const check = () => {
+      rows.forEach((el) => {
+        el.classList.toggle('can-scroll', el.scrollWidth > el.clientWidth + 4);
+      });
+    };
+    check();
+    window.addEventListener('resize', check, { passive: true });
+    cleanups.push(() => window.removeEventListener('resize', check));
+  }
+
+  /** sub-nav scrollspy：滚动时高亮当前所在小节 */
+  function initScrollSpy() {
+    const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('.sub-nav a[href^="#"]'));
+    if (links.length < 2) return;
+    const map = new Map<string, HTMLAnchorElement>();
+    links.forEach((a) => {
+      const id = a.getAttribute('href')!.slice(1);
+      const sec = document.getElementById(id);
+      if (sec) map.set(id, a);
+    });
+    if (map.size < 2) return;
+
+    const setActive = (id: string | null) => {
+      links.forEach((a) => a.classList.remove('active'));
+      if (id) map.get(id)?.classList.add('active');
+    };
+
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((en) => {
-          if (en.isIntersecting) {
-            en.target.classList.add('in');
-            io.unobserve(en.target);
-          }
+          if (en.isIntersecting) setActive(en.target.id);
         });
       },
-      { rootMargin: '0px 0px -4% 0px', threshold: 0.04 }
+      { rootMargin: '-20% 0px -65% 0px', threshold: 0 }
     );
-    cards.forEach((el) => {
-      el.classList.add('rv');
-      io.observe(el);
+    map.forEach((_a, id) => {
+      const sec = document.getElementById(id);
+      if (sec) io.observe(sec);
     });
-    // 同组卡片错峰浮现
-    document
-      .querySelectorAll('.game-grid, .recipe-grid, .info-grid, .pillar-grid, .checklist')
-      .forEach((group) => {
-        Array.from(group.children).forEach((el, i) => {
-          (el as HTMLElement).style.transitionDelay = (i % 8) * 45 + 'ms';
-        });
-      });
+    // 回到页顶时恢复第一项
+    const onScroll = () => {
+      if (window.scrollY < 120) {
+        links.forEach((a) => a.classList.remove('active'));
+        links[0].classList.add('active');
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    cleanups.push(() => window.removeEventListener('scroll', onScroll));
   }
 
   /** 清单打卡：点击切换 + localStorage 记忆 + 组进度条 */
@@ -147,7 +219,6 @@
       };
 
       items.forEach((item, i) => {
-        // 键：路径 + 组序 + 条目序 + 内容摘要（内容改动后自动失效，不串状态）
         const key = 'pgck:' + path + ':' + i + ':' + hashText(item.textContent!.trim().slice(0, 24));
         if (localStorage.getItem(key) === '1') item.classList.add('done');
         item.addEventListener('click', () => {
@@ -160,9 +231,111 @@
     });
   }
 
-  // astro:page-load：首次加载与每次 VT 换页后都会触发
+  /** GSAP 动效：滚动浮现 / hero 入场 / 视差 / 时间线 / 数字滚动 */
+  function initMotion() {
+    if (REDUCED) return;
+    ctx?.revert();
+    ctx = gsap.context(() => {
+      // 1. 卡片滚动浮现（批量 + 组内错峰）
+      const cards = gsap.utils.toArray<HTMLElement>(
+        '.game-card, .recipe-card, .info-card, .pillar-card, .role-play, .allergy-card, .tip-box, .site-note, .data-table-wrap, .day-timeline .day-card'
+      );
+      if (cards.length) {
+        gsap.set(cards, { opacity: 0, y: 20, scale: 0.985 });
+        ScrollTrigger.batch(cards, {
+          start: 'top 92%',
+          once: true,
+          onEnter: (batch) =>
+            gsap.to(batch, {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.6,
+              ease: 'power3.out',
+              stagger: 0.055,
+              overwrite: true,
+              clearProps: 'transform',
+            }),
+        });
+      }
+
+      // 2. 首页 hero 入场编排
+      const heroParts = gsap.utils.toArray<HTMLElement>(
+        '.hero .hero-kicker, .hero .hero-title, .hero .hero-lead, .hero .hero-edition, .hero .hero-art'
+      );
+      if (heroParts.length) {
+        gsap.set(heroParts, { opacity: 0, y: 24 });
+        gsap.to(heroParts, {
+          opacity: 1,
+          y: 0,
+          duration: 0.75,
+          ease: 'power3.out',
+          stagger: 0.09,
+          delay: 0.05,
+          clearProps: 'transform',
+        });
+      }
+
+      // 3. 页头插画轻微视差（hero 插画由入场编排负责，避免 transform 冲突）
+      gsap.utils.toArray<HTMLElement>('.page-header .header-art').forEach((art) => {
+        gsap.fromTo(
+          art,
+          { yPercent: -3 },
+          {
+            yPercent: 3,
+            ease: 'none',
+            scrollTrigger: { trigger: art, start: 'top top', end: 'bottom top', scrub: 0.6 },
+          }
+        );
+      });
+
+      // 4. 逐日时间线：陶土进度线随滚动生长
+      const tl = document.querySelector<HTMLElement>('.day-timeline');
+      if (tl) {
+        const prog = tl.querySelector<HTMLElement>('.tl-progress');
+        if (prog) {
+          gsap.to(prog, {
+            scaleY: 1,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: tl,
+              start: 'top 70%',
+              end: 'bottom 60%',
+              scrub: 0.5,
+            },
+          });
+        }
+      }
+
+      // 5. 数字滚动（[data-count]）
+      gsap.utils.toArray<HTMLElement>('[data-count]').forEach((el) => {
+        const end = parseFloat(el.dataset.count || '0');
+        if (!end) return;
+        const state = { v: 0 };
+        gsap.to(state, {
+          v: end,
+          duration: 1.1,
+          ease: 'power2.out',
+          scrollTrigger: { trigger: el, start: 'top 92%', once: true },
+          onUpdate: () => {
+            el.textContent = String(Math.round(state.v));
+          },
+        });
+      });
+    });
+  }
+
   document.addEventListener('astro:page-load', () => {
-    initReveal();
+    initScrollMasks();
+    initScrollSpy();
     initChecklists();
+    initMotion();
+  });
+
+  document.addEventListener('astro:before-swap', () => {
+    ctx?.revert();
+    ctx = null;
+    cleanups.forEach((fn) => fn());
+    cleanups = [];
   });
 </script>

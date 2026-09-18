@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" role="img" aria-label="三代人手牵手放风筝的黏土风插画">
+  <!-- 背景 -->
+  <rect width="480" height="360" fill="#FBF3E4"/>
+  <ellipse cx="240" cy="330" rx="210" ry="26" fill="#E9DFC8"/>
+  <ellipse cx="240" cy="330" rx="150" ry="18" fill="#D9CDAF" opacity=".5"/>
+
+  <!-- 云 -->
+  <g fill="#F1E6CF">
+    <ellipse cx="86" cy="70" rx="34" ry="16"/>
+    <ellipse cx="112" cy="60" rx="24" ry="13"/>
+  </g>
+  <g fill="#F1E6CF">
+    <ellipse cx="392" cy="96" rx="28" ry="13"/>
+    <ellipse cx="414" cy="88" rx="19" ry="10"/>
+  </g>
+
+  <!-- 风筝 -->
+  <g>
+    <path d="M382 74 L410 40 L438 74 L410 108 Z" fill="#B4593B"/>
+    <path d="M382 74 L410 40 L410 108 Z" fill="#A04C31"/>
+    <path d="M396 74 L410 60 L424 74 L410 88 Z" fill="#E3B23C"/>
+    <path d="M410 108 C 400 130, 424 140, 410 164" stroke="#B4593B" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="1 10"/>
+    <circle cx="410" cy="164" r="5" fill="#E3B23C"/>
+    <path d="M410 108 C 360 180, 330 200, 300 224" stroke="#C9BC9C" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- 奶奶 -->
+  <g>
+    <circle cx="96" cy="196" r="30" fill="#F2D8BE"/>
+    <path d="M66 192 a30 30 0 0 1 60 0 l-4 -18 a30 30 0 0 0 -52 0 Z" fill="#CFC7B8"/>
+    <circle cx="92" cy="196" r="3.4" fill="#6B4A36"/>
+    <circle cx="104" cy="196" r="3.4" fill="#6B4A36"/>
+    <path d="M96 204 q6 5 12 0" stroke="#6B4A36" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    <circle cx="82" cy="170" r="8" fill="#B4593B"/>
+    <path d="M70 232 q26 -14 52 0 l6 52 a6 6 0 0 1 -6 6 h-52 a6 6 0 0 1 -6 -6 Z" fill="#8FA98A"/>
+  </g>
+
+  <!-- 妈妈 -->
+  <g>
+    <circle cx="176" cy="206" r="28" fill="#F2D8BE"/>
+    <path d="M148 202 a28 28 0 0 1 56 0 l-3 -16 a28 28 0 0 0 -50 0 Z" fill="#6B4A36"/>
+    <path d="M148 206 q-6 26 6 34" stroke="#6B4A36" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <circle cx="170" cy="206" r="3.2" fill="#6B4A36"/>
+    <circle cx="182" cy="206" r="3.2" fill="#6B4A36"/>
+    <path d="M176 214 q5 4 10 0" stroke="#6B4A36" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+    <path d="M152 240 q24 -12 48 0 l5 46 a6 6 0 0 1 -6 6 h-46 a6 6 0 0 1 -6 -6 Z" fill="#E3B23C"/>
+  </g>
+
+  <!-- 小女孩 -->
+  <g>
+    <circle cx="248" cy="230" r="23" fill="#F7E3CB"/>
+    <circle cx="228" cy="222" r="9" fill="#6B4A36"/>
+    <circle cx="268" cy="222" r="9" fill="#6B4A36"/>
+    <path d="M228 230 q-8 14 0 20 M268 230 q8 14 0 20" stroke="#6B4A36" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <circle cx="242" cy="230" r="2.8" fill="#6B4A36"/>
+    <circle cx="254" cy="230" r="2.8" fill="#6B4A36"/>
+    <path d="M248 237 q4 4 8 0" stroke="#6B4A36" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+    <path d="M230 258 q18 -10 36 0 l4 34 a5 5 0 0 1 -5 5 h-34 a5 5 0 0 1 -5 -5 Z" fill="#B4593B"/>
+  </g>
+
+  <!-- 牵手 -->
+  <path d="M122 244 Q 150 238 152 244" stroke="#F2D8BE" stroke-width="9" fill="none" stroke-linecap="round"/>
+  <path d="M200 252 Q 226 250 228 254" stroke="#F7E3CB" stroke-width="8" fill="none" stroke-linecap="round"/>
+
+  <!-- 草叶 -->
+  <g stroke="#8FA98A" stroke-width="3" stroke-linecap="round" fill="none">
+    <path d="M70 316 q-2 -12 -8 -16"/>
+    <path d="M76 316 q2 -12 8 -16"/>
+    <path d="M330 320 q-2 -12 -8 -16"/>
+    <path d="M336 320 q2 -12 8 -16"/>
+  </g>
+
+  <!-- 星星点缀 -->
+  <g fill="#E3B23C">
+    <circle cx="58" cy="140" r="4"/>
+    <circle cx="300" cy="60" r="3.4"/>
+    <circle cx="446" cy="150" r="4"/>
+  </g>
+</svg>

@@ -13,7 +13,7 @@ const allGames = gamesData.games;
   <div class="container">
     <div class="legacy-content">
       <div class="page-header has-art">
-        <img class="header-art" src="/art/games.svg" alt="" width="480" height="360" loading="lazy" />
+        <img class="header-art" src="/art/games.svg" alt="积木与小船等玩具的黏土风插画" width="480" height="360" loading="lazy" />
         <div class="ph-text">
           <div class="breadcrumb">
             <a href="/">首页</a> <span>/</span> 亲子游戏
@@ -41,7 +41,7 @@ const allGames = gamesData.games;
         <section class="section game-scene" id={`scene-${scene.id}`}>
           <h2 class="section-title">
             <span class="num">{idx + 1}</span>{scene.name}
-            <span class="game-chip">{allGames.filter((g) => g.scene === scene.id).length} 个</span>
+            <span class="game-chip"><span data-count={allGames.filter((g) => g.scene === scene.id).length}>{allGames.filter((g) => g.scene === scene.id).length}</span> 个</span>
           </h2>
           <div class="game-grid">
             {allGames.filter((g) => g.scene === scene.id).map((g) => (

@@ -13,7 +13,7 @@ const allRecipes = recipesData.recipes;
   <div class="container">
     <div class="legacy-content">
 <div class="page-header has-art">
-      <img class="header-art" src="/art/meals.svg" alt="" width="480" height="360" loading="lazy" />
+      <img class="header-art" src="/art/meals.svg" alt="米饭和蔬菜的黏土风插画" width="480" height="360" loading="lazy" />
       <div class="ph-text">
         <div class="breadcrumb">
           <a href="/">首页</a> <span>/</span> 健康守护 <span>/</span> 无敏食谱搭配
@@ -212,6 +212,12 @@ const allRecipes = recipesData.recipes;
       <h2 class="section-title"><span class="num">3</span>无敏家常食谱库</h2>
       <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--space-16);">77道食谱，全部无牛奶无鸡蛋，按全家3-4人份设计。<strong>橙色标记"一锅两吃"</strong>的食谱在关键步骤会提醒先盛孩子的份；<strong>绿色标记"全家统一"</strong>的食谱大人小孩吃一样的。<strong>蓝色标记</strong>是新场景系列：早餐、班级分享（生日会/节日带去幼儿园的无敏零食）、生病照护（对症食疗）。</p>
 
+      <div class="recipe-search">
+        <svg class="rs-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="recipeSearch" type="search" placeholder="搜菜名或食材，如：南瓜、面条" autocomplete="off" />
+        <button id="recipeSearchClear" type="button" aria-label="清空搜索" style="display:none">&times;</button>
+      </div>
+      <p class="search-info" id="recipeSearchInfo" hidden></p>
       <div class="recipe-filter" id="recipeFilter">
         <button class="filter-btn active" onclick="filterRecipes(this,'all')">全部</button>
         <button class="filter-btn" onclick="filterRecipes(this,'split')">一锅两吃</button>
@@ -981,13 +987,23 @@ const allRecipes = recipesData.recipes;
     document.getElementById(panelId).classList.add('active');
   };
 
-  window.filterRecipes = function (btn, tag) {
-    document.querySelectorAll('.filter-btn').forEach(function (b) { b.classList.remove('active'); });
-    btn.classList.add('active');
+  var currentTag = 'all';
+  var searchInput = document.getElementById('recipeSearch');
+  var searchInfo = document.getElementById('recipeSearchInfo');
+
+  function matchSearch(card, q) {
+    if (!q) return true;
+    return (card.textContent || '').toLowerCase().indexOf(q) >= 0;
+  }
+
+  function applyFilters() {
+    var q = (searchInput && searchInput.value || '').trim().toLowerCase();
+    var tag = currentTag;
 
     var cards = document.querySelectorAll('.recipe-card');
     var calciumKeys = ['豆腐', '虾', '芝麻', '紫菜', '虾皮', '豆浆', '牛奶'];
     var proteinKeys = ['肉', '鱼', '虾', '豆腐', '豆干', '牛肉', '鸡', '排骨', '豆浆'];
+    var visibleCount = 0;
 
     cards.forEach(function (card) {
       var show = false;
@@ -1019,6 +1035,8 @@ const allRecipes = recipesData.recipes;
         show = card.dataset.scene === '生病照护';
       }
 
+      show = show && matchSearch(card, q);
+      if (show) visibleCount++;
       card.style.display = show ? '' : 'none';
     });
 
@@ -1031,5 +1049,36 @@ const allRecipes = recipesData.recipes;
         grid.style.display = hasVisible ? '' : 'none';
       }
     });
+
+    if (searchInfo) {
+      var filtered = q || tag !== 'all';
+      searchInfo.hidden = !filtered;
+      if (filtered) {
+        searchInfo.textContent = visibleCount > 0
+          ? '找到 ' + visibleCount + ' 道食谱' + (q ? '（含「' + searchInput.value.trim() + '」）' : '')
+          : '没有匹配的食谱，换个关键词试试';
+      }
+    }
+  }
+
+  window.filterRecipes = function (btn, tag) {
+    document.querySelectorAll('.filter-btn').forEach(function (b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    currentTag = tag;
+    applyFilters();
   };
+
+  if (searchInput) {
+    var clearBtn = document.getElementById('recipeSearchClear');
+    searchInput.addEventListener('input', function () {
+      clearBtn.style.display = searchInput.value ? '' : 'none';
+      applyFilters();
+    });
+    clearBtn.addEventListener('click', function () {
+      searchInput.value = '';
+      clearBtn.style.display = 'none';
+      applyFilters();
+      searchInput.focus();
+    });
+  }
 </script>

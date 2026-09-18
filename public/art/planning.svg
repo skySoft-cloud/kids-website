@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" role="img" aria-label="书本上的成长树与相框的黏土风插画">
+  <!-- 背景 -->
+  <rect width="480" height="360" fill="#FBF3E4"/>
+  <ellipse cx="240" cy="330" rx="210" ry="26" fill="#E9DFC8"/>
+
+  <!-- 书堆 -->
+  <g>
+    <rect x="64" y="286" width="190" height="26" rx="8" fill="#B4593B"/>
+    <rect x="78" y="260" width="162" height="26" rx="8" fill="#8FA98A"/>
+    <rect x="92" y="234" width="134" height="26" rx="8" fill="#E3B23C"/>
+    <rect x="70" y="292" width="178" height="6" rx="3" fill="#A04C31" opacity=".6"/>
+    <rect x="84" y="266" width="150" height="6" rx="3" fill="#7C9478" opacity=".6"/>
+    <rect x="98" y="240" width="122" height="6" rx="3" fill="#CDA02F" opacity=".6"/>
+  </g>
+
+  <!-- 成长树 -->
+  <g>
+    <path d="M158 234 q-4 -30 -10 -44 M170 234 q2 -34 10 -48 M164 232 q0 -26 0 -40" stroke="#9A6B4F" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <circle cx="150" cy="158" r="26" fill="#8FA98A"/>
+    <circle cx="184" cy="146" r="30" fill="#9DB48F"/>
+    <circle cx="214" cy="164" r="22" fill="#8FA98A"/>
+    <circle cx="178" cy="120" r="20" fill="#A9BE97"/>
+    <circle cx="206" cy="176" r="4" fill="#E3B23C"/>
+    <circle cx="152" cy="150" r="4" fill="#E3B23C"/>
+    <circle cx="186" cy="136" r="4" fill="#E3B23C"/>
+  </g>
+
+  <!-- 相框 -->
+  <g>
+    <circle cx="356" cy="170" r="58" fill="#FFF9EC" stroke="#C9BC9C" stroke-width="6"/>
+    <circle cx="356" cy="170" r="44" fill="#F2D8BE"/>
+    <circle cx="356" cy="120" r="14" fill="#6B4A36"/>
+    <path d="M342 122 q14 -16 28 0 l-2 8 q-12 -10 -24 0 Z" fill="#6B4A36"/>
+    <circle cx="344" cy="172" r="3.4" fill="#6B4A36"/>
+    <circle cx="368" cy="172" r="3.4" fill="#6B4A36"/>
+    <path d="M348 186 q8 7 16 0" stroke="#6B4A36" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+    <circle cx="330" cy="196" r="5" fill="#E8A48C"/>
+    <circle cx="382" cy="196" r="5" fill="#E8A48C"/>
+    <rect x="330" y="236" width="52" height="60" rx="6" fill="#B4593B" transform="rotate(6 356 266)"/>
+  </g>
+
+  <!-- 存钱罐 -->
+  <g>
+    <ellipse cx="416" cy="286" rx="34" ry="26" fill="#E3B23C"/>
+    <rect x="404" y="252" width="24" height="7" rx="3.5" fill="#B4593B"/>
+    <path d="M414 244 q8 -10 16 -2" stroke="#B4593B" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <circle cx="430" cy="278" r="3" fill="#B4593B"/>
+    <path d="M388 278 q-10 2 -10 10" stroke="#B4593B" stroke-width="5" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- 硬币与星星 -->
+  <g fill="#E3B23C">
+    <circle cx="60" cy="90" r="5"/>
+    <circle cx="300" cy="66" r="4"/>
+    <circle cx="452" cy="120" r="4"/>
+  </g>
+  <g stroke="#C9BC9C" stroke-width="3" stroke-linecap="round" fill="none">
+    <path d="M262 96 q6 -10 12 0"/>
+    <path d="M66 180 q6 -10 12 0"/>
+  </g>
+</svg>

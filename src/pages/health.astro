@@ -8,7 +8,7 @@ import Base from '../layouts/Base.astro';
   <div class="container">
     <div class="legacy-content">
 <div class="page-header has-art">
-      <img class="header-art" src="/art/health.svg" alt="" width="480" height="360" loading="lazy" />
+      <img class="header-art" src="/art/health.svg" alt="药品与听诊器的黏土风插画" width="480" height="360" loading="lazy" />
       <div class="ph-text">
         <div class="breadcrumb">
           <a href="/">首页</a> <span>/</span> 健康守护
@@ -18,7 +18,15 @@ import Base from '../layouts/Base.astro';
       </div>
     </div>
 
-    <section class="section">
+    <nav class="sub-nav" aria-label="本页小节">
+      <a href="#sec1" class="active">体检疫苗</a>
+      <a href="#sec2">口腔保健</a>
+      <a href="#sec3">视力保护</a>
+      <a href="#sec4">安全急救</a>
+      <a href="#sec5">生病照护</a>
+    </nav>
+
+    <section class="section" id="sec1">
       <h2 class="section-title"><span class="num">1</span>定期体检与疫苗</h2>
       <div class="data-table-wrap">
         <table class="data-table">
@@ -39,7 +47,7 @@ import Base from '../layouts/Base.astro';
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="sec2">
       <h2 class="section-title"><span class="num">2</span>口腔保健</h2>
       <div class="info-grid">
         <div class="info-card">
@@ -72,7 +80,7 @@ import Base from '../layouts/Base.astro';
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="sec3">
       <h2 class="section-title"><span class="num">3</span>视力保护</h2>
       <div class="info-grid">
         <div class="info-card">
@@ -104,7 +112,7 @@ import Base from '../layouts/Base.astro';
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="sec4">
       <h2 class="section-title"><span class="num">4</span>安全急救</h2>
       <div class="info-grid">
         <div class="info-card">
@@ -147,7 +155,7 @@ import Base from '../layouts/Base.astro';
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="sec5">
       <h2 class="section-title"><span class="num">5</span>生病照护</h2>
       <p class="section-intro">入园后接触面扩大，生病频率上升是免疫建设的正常过程。家庭护理的原则：不硬扛也不过度就医，重点掌握「就医信号、喂药技巧、病中饮食」三件事。</p>
       <div class="info-grid">

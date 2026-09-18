@@ -7,16 +7,26 @@ import Base from '../layouts/Base.astro';
 <Base title="家庭生活">
   <div class="container">
     <div class="legacy-content">
-<div class="page-header">
-      <div class="breadcrumb">
-        <a href="/">首页</a> <span>/</span> 家庭生活
+<div class="page-header has-art">
+      <img class="header-art" src="/art/family.svg" alt="三代人放风筝的黏土风插画" width="480" height="360" loading="lazy" />
+      <div class="ph-text">
+        <div class="breadcrumb">
+          <a href="/">首页</a> <span>/</span> 家庭生活
+        </div>
+        <h1>家庭生活</h1>
+        <p class="subtitle">老人带娃协调、亲子时间、周末假期、情绪社交——双职工家庭的日常运营</p>
       </div>
-      <h1>家庭生活</h1>
-      <p class="subtitle">老人带娃协调、亲子时间、周末假期、情绪社交——双职工家庭的日常运营</p>
     </div>
 
     <!-- 老人带娃协调 -->
-    <section class="section">
+    <nav class="sub-nav" aria-label="本页小节">
+      <a href="#sec1" class="active">老人带娃</a>
+      <a href="#sec2">亲子时间</a>
+      <a href="#sec3">周末活动</a>
+      <a href="#sec4">情绪社交</a>
+    </nav>
+
+    <section class="section" id="sec1">
       <h2 class="section-title"><span class="num">1</span>老人带娃协调</h2>
       <div class="tip-box">
         <div class="tip-label">现状</div>
@@ -63,7 +73,7 @@ import Base from '../layouts/Base.astro';
     </section>
 
     <!-- 亲子时间 -->
-    <section class="section">
+    <section class="section" id="sec2">
       <h2 class="section-title"><span class="num">2</span>亲子时间安排</h2>
       <div class="data-table-wrap">
         <table class="data-table">
@@ -85,7 +95,7 @@ import Base from '../layouts/Base.astro';
     </section>
 
     <!-- 周末活动 -->
-    <section class="section">
+    <section class="section" id="sec3">
       <h2 class="section-title"><span class="num">3</span>周末亲子活动</h2>
       <div class="info-grid">
         <div class="info-card">
@@ -128,7 +138,7 @@ import Base from '../layouts/Base.astro';
     </section>
 
     <!-- 情绪社交 -->
-    <section class="section">
+    <section class="section" id="sec4">
       <h2 class="section-title"><span class="num">4</span>情绪引导与社交发展</h2>
       <div class="info-grid">
         <div class="info-card">
