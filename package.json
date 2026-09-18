@@ -1,0 +1,18 @@
+{
+  "name": "parenting-guide",
+  "type": "module",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^5.12.0"
+  },
+  "devDependencies": {
+    "@iconify-json/ph": "^1.2.2",
+    "astro-icon": "^1.2.0"
+  }
+}
