@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360">
+  <rect width="480" height="360" fill="#FBF5EA"/>
+  <ellipse cx="240" cy="298" rx="200" ry="36" fill="#F0E7D2"/>
+  <circle cx="410" cy="60" r="20" fill="#F2CE7B" opacity="0.8"/>
+  <!-- 左边小朋友 -->
+  <circle cx="150" cy="140" r="34" fill="#F5D3A8"/>
+  <circle cx="139" cy="134" r="4" fill="#5B4632"/>
+  <circle cx="161" cy="134" r="4" fill="#5B4632"/>
+  <path d="M138 152q12 9 24 0" stroke="#5B4632" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M120 138q-14-18 4-26" stroke="#5B4632" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <path d="M180 138q14-18 -4-26" stroke="#5B4632" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <rect x="122" y="174" width="56" height="82" rx="24" fill="#D97941"/>
+  <path d="M122 212q28 14 56 0" stroke="#C05F33" stroke-width="6" fill="none"/>
+  <!-- 右边小朋友 -->
+  <circle cx="330" cy="140" r="34" fill="#F5D3A8"/>
+  <circle cx="319" cy="134" r="4" fill="#5B4632"/>
+  <circle cx="341" cy="134" r="4" fill="#5B4632"/>
+  <path d="M318 152q12 9 24 0" stroke="#5B4632" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M300 140q-12-20 6-28" stroke="#5B4632" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <path d="M360 138q14-18 -4-28" stroke="#5B4632" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <rect x="302" y="174" width="56" height="82" rx="24" fill="#8A9B7A"/>
+  <path d="M302 214q28 14 56 0" stroke="#7A8A6B" stroke-width="6" fill="none"/>
+  <!-- 手拉手 -->
+  <path d="M178 226q62-18 124 0" stroke="#E8935C" stroke-width="9" fill="none" stroke-linecap="round"/>
+  <!-- 朋友之间的爱心 -->
+  <path d="M240 196c-5-14-26-11-26 4 0 12 16 22 26 28 10-6 26-14 26-28 0-15-21-18-26-4Z" fill="#D97B57"/>
+  <!-- 漂浮小爱心 -->
+  <path d="M84 96c-3-8-14-6-14 2 0 7 9 12 14 15 5-3 14-8 14-15 0-10-11-12-14-2Z" fill="#D97B57" opacity="0.5"/>
+  <path d="M396 120c-3-8-14-7-14 2 0 7 9 12 14 15 5-3 14-8 14-15 0-9-11-10-14-2Z" fill="#D9A648" opacity="0.6"/>
+  <!-- 小皮球 -->
+  <circle cx="240" cy="286" r="14" fill="#E8935C"/>
+  <path d="M226 286h28" stroke="#FBF5EA" stroke-width="3"/>
+</svg>

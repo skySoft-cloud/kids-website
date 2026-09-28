@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360">
+  <rect width="480" height="360" fill="#FBF5EA"/>
+  <ellipse cx="240" cy="298" rx="200" ry="36" fill="#F0E7D2"/>
+  <circle cx="70" cy="64" r="20" fill="#F2CE7B" opacity="0.8"/>
+  <!-- 大闹钟 -->
+  <circle cx="196" cy="150" r="66" fill="#D97941"/>
+  <circle cx="196" cy="150" r="50" fill="#FBF5EA"/>
+  <path d="M196 116v34l24 16" stroke="#B85A2E" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <circle cx="196" cy="150" r="5" fill="#B85A2E"/>
+  <path d="M156 92l-16-16M236 92l16-16" stroke="#B85A2E" stroke-width="9" stroke-linecap="round"/>
+  <!-- 对勾标签 -->
+  <rect x="288" y="96" width="72" height="72" rx="18" fill="#8A9B7A"/>
+  <path d="M306 132l14 14 24-28" stroke="#FBF5EA" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- 叠好的衣服 -->
+  <rect x="104" y="238" width="150" height="26" rx="10" fill="#E8935C"/>
+  <rect x="112" y="212" width="134" height="24" rx="10" fill="#D9A648"/>
+  <rect x="120" y="188" width="118" height="22" rx="10" fill="#8A9B7A"/>
+  <!-- 牙刷杯 -->
+  <rect x="300" y="238" width="44" height="42" rx="9" fill="#D9A648"/>
+  <rect x="308" y="208" width="7" height="34" rx="3.5" fill="#D97B57"/>
+  <rect x="322" y="216" width="7" height="26" rx="3.5" fill="#8A9B7A"/>
+  <!-- 小袜子 -->
+  <path d="M372 262c0-16 0-26 10-26s10 10 10 26v14c0 8-6 14-14 14h-12c-6 0-8-8-3-11l9-6Z" fill="#E8935C" opacity="0.85"/>
+  <path d="M368 268h10" stroke="#FBF5EA" stroke-width="4" stroke-linecap="round"/>
+</svg>
