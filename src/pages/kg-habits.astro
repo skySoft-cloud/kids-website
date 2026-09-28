@@ -1,0 +1,275 @@
+---
+// 习惯力：园内成长三力之二——作息、自理进阶、整理归位，习惯是最好的起跑线
+import Base from '../layouts/Base.astro';
+import { kgSubNav } from '../data/site';
+
+const cur = Astro.url.pathname.replace(/\/+$/, '');
+---
+
+<Base title="习惯力：作息与自理进阶">
+  <div class="container">
+    <div class="legacy-content">
+<div class="page-header has-art">
+      <img class="header-art" src="/art/kg-habits.svg" alt="闹钟和叠好的衣服的黏土风插画" width="480" height="360" loading="lazy" />
+      <div class="ph-text">
+        <div class="breadcrumb">
+          <a href="/">首页</a> <span>/</span> <a href="/kindergarten/">园内成长</a> <span>/</span> 习惯力
+        </div>
+        <h1>习惯力</h1>
+        <p class="subtitle">入园自理已过关，接下来是进阶与坚持：稳定的作息、自己的事自己做、用完归位——小班到中班，习惯就是最好的起跑线</p>
+      </div>
+    </div>
+
+    <nav class="sub-nav">
+      {kgSubNav.map((item) => (
+        <a href={item.href} class={item.href.replace(/\/+$/, '') === cur ? 'active' : ''}>{item.label}</a>
+      ))}
+    </nav>
+
+    <!-- 三个在坚持的习惯 -->
+    <section class="section">
+      <h2 class="section-title"><span class="num">1</span>这个阶段只抓三件事</h2>
+      <p class="section-desc">习惯养成的秘诀是「少而稳」：一次只抓 2-3 件，稳定一个月再加新的。这个阶段抓这三件。</p>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>作息不漂移</h3>
+          <ul>
+            <li>晚上 21:00 前入睡，早上 7:00 左右起床</li>
+            <li>周末赖床不超过 1 小时，午睡不取消</li>
+            <li>生病后的作息回退，病好后一周内调回来</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>自己的事自己做</h3>
+          <ul>
+            <li>吃饭、穿衣、如厕已过关——开始进阶</li>
+            <li>大人忍住不代劳：慢 10 分钟也要等她</li>
+            <li>做了就具体表扬，不做不吼只重申</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>用完归位</h3>
+          <ul>
+            <li>玩具玩完「送回家」</li>
+            <li>鞋子进鞋柜、外套挂钩上</li>
+            <li>书包每天睡前三件事检查</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 作息表 -->
+    <section class="section">
+      <h2 class="section-title"><span class="num">2</span>作息时间表：工作日 vs 周末</h2>
+      <p class="section-desc">周末「补觉」是习惯的头号杀手——周五熬到 23 点、周六睡到 10 点，周一早上就是灾难片。差距控制在 1 小时以内。</p>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>时间</th>
+              <th>工作日（上幼儿园）</th>
+              <th>周末</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>7:00</td><td>起床、洗脸刷牙</td><td>8:00 前起床</td></tr>
+            <tr><td>7:30</td><td>早餐</td><td>早餐后户外活动</td></tr>
+            <tr><td>8:30</td><td>入园</td><td>兴趣班 / 玩耍</td></tr>
+            <tr><td>12:00-14:00</td><td>园内午睡</td><td>13:00 午睡（可以短一点，不取消）</td></tr>
+            <tr><td>17:30</td><td>接园、路上寻宝游戏</td><td>下午户外 / 亲子游戏</td></tr>
+            <tr><td>18:30</td><td>晚餐（全家到齐）</td><td>晚餐（全家到齐）</td></tr>
+            <tr><td>19:30</td><td>洗澡、自由玩</td><td>洗澡、家庭时间</td></tr>
+            <tr><td>20:30</td><td>睡前流程（见下）</td><td>睡前流程（同工作日）</td></tr>
+            <tr><td>21:00</td><td>关灯入睡</td><td>21:00-21:30 入睡</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tip-box">
+        <div class="tip-label">给老人的口径</div>
+        <p>周末老人带娃最容易「随便吃、随便睡」——把这张表打印出来贴冰箱上，只强调两条：午睡别取消（哪怕提前到 13:00）、晚上 21:00 准时关大灯。别的都可以弹性。</p>
+      </div>
+    </section>
+
+    <!-- 自理进阶 -->
+    <section class="section">
+      <h2 class="section-title"><span class="num">3</span>自理进阶清单（小班下→中班）</h2>
+      <p class="section-desc">入园自理是「会了」，进阶目标是「熟练」。点一下打勾，全部完成就升下一级难度。</p>
+      <div class="checklist">
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">独立如厕全套：脱裤-如厕-擦屁屁-提裤-冲水-洗手</div>
+            <div class="check-desc">擦屁屁不要求干净，方向对了就表扬</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">自己系大颗扣子、拉拉链</div>
+            <div class="check-desc">从外套大扣子练起，衬衫小扣子放最后</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">自己穿袜子、分清左右鞋</div>
+            <div class="check-desc">袜子后跟对准脚后跟的小技巧教一次</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">开始学用筷子（练习筷）</div>
+            <div class="check-desc">晚餐用筷子夹豆豆，一天 2 分钟就好</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">会擤鼻涕（按住一边擤另一边）</div>
+            <div class="check-desc">换季和感冒季的实用技能</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">收拾书包三件事：水杯归位、脏衣进袋、明早衣物备好</div>
+            <div class="check-desc">每晚睡前固定流程，配「小小播音员」报明天安排</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">叠小毛巾、叠自己的小外套</div>
+            <div class="check-desc">对折再对折，叠不好没关系</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">饭前帮厨、饭后送碗已固定成岗位</div>
+            <div class="check-desc">详见<a href="/meals/#sec6">食谱专题·餐桌素养</a></div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">（中班目标）系鞋带、分辨衣物正反面</div>
+            <div class="check-desc">小班阶段不要求，列入中班愿望单</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 整理系统 -->
+    <section class="section">
+      <h2 class="section-title"><span class="num">4</span>整理系统：让「归位」不靠记性</h2>
+      <p class="section-desc">靠记性的习惯会累，靠「位置」的习惯不会。给每样东西一个她够得着的固定位置，归位就变成顺手的事。</p>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>玩具：每晚回家</h3>
+          <p>收纳箱贴名字和图案，睡前玩「<a href="/games/">玩具回家日</a>」——躺在地上的玩具是「走丢了」，送去救援。10 分钟内结束。</p>
+        </div>
+        <div class="info-card">
+          <h3>书包：睡前三件事</h3>
+          <p>水杯洗干净放侧袋、脏衣服掏出来进洗衣篮、明早要穿的衣服搭在床头椅子上。做完三件事才能开始读绘本。</p>
+        </div>
+        <div class="info-card">
+          <h3>衣物：低位挂钩</h3>
+          <p>进门处装她够得着的小钩子，外套进门就挂上；鞋柜留她自己的最底层。够得着，才做得成。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 晨间睡前流程 -->
+    <section class="section">
+      <h2 class="section-title"><span class="num">5</span>晨间四步 · 睡前四步</h2>
+      <p class="section-desc">把流程固定成「口令」，谁带娃都一样执行——包括老人。</p>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>晨间四步（7:00-8:00）</th>
+              <th>睡前四步（20:30-21:00）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                1. 自己穿衣（前一晚备好的）<br />
+                2. 刷牙洗脸<br />
+                3. 吃早餐<br />
+                4. 检查小书包，出门
+              </td>
+              <td>
+                1. 收玩具「回家」<br />
+                2. 洗漱（刷牙重点盯）<br />
+                3. 1-2 本绘本 + 故事接龙<br />
+                4. 道晚安仪式：抱一下，说一句今天最喜欢的事
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tip-box">
+        <div class="tip-label">让流程自己跑起来的技巧</div>
+        <p>把四步画成小图贴在墙上门后（图画大于文字）；用<a href="/games/">小小播音员</a>让她自己播报「接下来该做什么」；每完成一步让她自己挪一个磁贴——她要的是「我自己完成了」，不是被催。</p>
+      </div>
+    </section>
+
+    <!-- 本周打卡 -->
+    <section class="section">
+      <h2 class="section-title"><span class="num">6</span>本周习惯打卡</h2>
+      <p class="section-desc">不求全勾——一周稳定完成 4 天就算成功，月底回头看会吓一跳。</p>
+      <div class="checklist">
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">21:00 前关灯入睡</div>
+            <div class="check-desc">周末同标准，最多宽限半小时</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">晨间四步她自己走完，大人没催</div>
+            <div class="check-desc">迟到的早晨允许跳过第 4 步</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">睡前三件事：水杯、脏衣、明早衣物</div>
+            <div class="check-desc">做完才开绘本</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">玩具回家（10 分钟内收完）</div>
+            <div class="check-desc">大人只提醒一次，不代收</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">外套进门挂上自己的钩子</div>
+            <div class="check-desc">位置低了才够得着，够不着就调钩子</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">大人全程没代劳（最难的一条）</div>
+            <div class="check-desc">慢 10 分钟换「她会了」，值得</div>
+          </div>
+        </div>
+      </div>
+      <div class="tip-box warning">
+        <div class="tip-label">退步是正常的</div>
+        <p>生病、旅行、换季、家里来客人之后，习惯回退太正常了。规则：不说「你怎么又退步了」，直接重启一周打卡就行。习惯是马拉松，中途休息不算输。</p>
+      </div>
+    </section>
+    </div>
+  </div>
+</Base>

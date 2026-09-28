@@ -1,7 +1,9 @@
----
-// 本文件由 scripts/migrate.mjs 从 _legacy/kg-psychology.html 迁移生成
-// 修改内容请编辑源文件后重新运行脚本，或直接调整下方标记
+﻿---
+// 入园心理准备（入园回顾：分离焦虑三阶段与角色扮演剧本）
 import Base from '../layouts/Base.astro';
+import { kgSubNav } from '../data/site';
+
+const cur = Astro.url.pathname.replace(/\/+$/, '');
 ---
 
 <Base title="入园心理准备">
@@ -9,27 +11,22 @@ import Base from '../layouts/Base.astro';
     <div class="legacy-content">
 <div class="page-header">
       <div class="breadcrumb">
-        <a href="/">首页</a> <span>/</span> <a href="/kindergarten/">幼儿园适应</a> <span>/</span> 入园心理准备
+        <a href="/">首页</a> <span>/</span> <a href="/kindergarten/">园内成长</a> <span>/</span> 入园心理准备
       </div>
       <h1>入园心理准备</h1>
       <p class="subtitle">分离焦虑三阶段 + 角色扮演剧本 + 绘本共读计划——帮孩子（和家长）做好心理建设</p>
     </div>
 
     <nav class="sub-nav">
-      <a href="/kindergarten/">总览</a>
-      <a href="/kg-items/">物品准备</a>
-      <a href="/kg-allergy/">过敏管理</a>
-      <a href="/kg-first-week/">第一周逐日</a>
-      <a href="/kg-grandparents/">老人接送</a>
-      <a href="/kg-ability/">能力训练</a>
-      <a href="/kg-psychology/" class="active">心理准备</a>
-      <a href="/kg-communication/">家校沟通</a>
+      {kgSubNav.map((item) => (
+        <a href={item.href} class={item.href.replace(/\/+$/, '') === cur ? 'active' : ''}>{item.label}</a>
+      ))}
     </nav>
 
     <!-- 分离焦虑三阶段 -->
     <section class="section">
       <h2 class="section-title"><span class="num">1</span>分离焦虑三阶段及应对</h2>
-      <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--space-16);">3岁半孩子第一次长时间离开家人，出现哭闹、怕生、拒食都正常。了解焦虑的三个阶段，就知道每个阶段该做什么。</p>
+      <p class="section-desc">3岁半孩子第一次长时间离开家人，出现哭闹、怕生、拒食都正常。了解焦虑的三个阶段，就知道每个阶段该做什么。</p>
 
       <div class="day-card">
         <div class="day-head">
@@ -106,7 +103,7 @@ import Base from '../layouts/Base.astro';
     <!-- 角色扮演剧本 -->
     <section class="section">
       <h2 class="section-title"><span class="num">2</span>角色扮演剧本</h2>
-      <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--space-16);">入园前2周开始，每天玩1-2个场景，每次5-10分钟。妈妈当"老师"，孩子当"自己"，玩完互换角色。让孩子在游戏中熟悉流程、练习表达。</p>
+      <p class="section-desc">入园前2周开始，每天玩1-2个场景，每次5-10分钟。妈妈当"老师"，孩子当"自己"，玩完互换角色。让孩子在游戏中熟悉流程、练习表达。</p>
 
       <div class="role-play">
         <h3>场景一：早晨入园告别</h3>
@@ -115,7 +112,7 @@ import Base from '../layouts/Base.astro';
         <div class="rp-line"><span class="rp-who parent">妈妈（当妈妈）</span><span class="rp-text">"宝贝，妈妈要去上班了，下午放学准时来接你。来，亲一下。"</span></div>
         <div class="rp-line"><span class="rp-who child">孩子（当自己）</span><span class="rp-text">"妈妈再见！"（转身走进"教室"）</span></div>
         <div class="rp-line"><span class="rp-who parent">妈妈（当老师）</span><span class="rp-text">"真棒，自己走进来了。我们先去洗手，然后和小朋友一起玩。"</span></div>
-        <div class="tip-box" style="margin-top:var(--space-12);">
+        <div class="tip-box">
           <p><strong>练习要点：</strong>告别不超过30秒，不拖泥带水。孩子练习"转身走进去"这个动作。互换角色时让孩子当老师，体会老师是友善的。</p>
         </div>
       </div>
@@ -128,7 +125,7 @@ import Base from '../layouts/Base.astro';
         <div class="rp-line"><span class="rp-who parent">妈妈（当老师）</span><span class="rp-text">"谁要上厕所？"</span></div>
         <div class="rp-line"><span class="rp-who child">孩子（当自己）</span><span class="rp-text">"老师，我想上厕所！"</span></div>
         <div class="rp-line"><span class="rp-who parent">妈妈（当老师）</span><span class="rp-text">"好，快去吧，老师在门口等你。"</span></div>
-        <div class="tip-box" style="margin-top:var(--space-12);">
+        <div class="tip-box">
           <p><strong>练习要点：</strong>反复练习三句话——"老师我要喝水""老师我要上厕所""老师我不舒服"。让孩子养成主动表达的习惯，不憋着不说。</p>
         </div>
       </div>
@@ -140,7 +137,7 @@ import Base from '../layouts/Base.astro';
         <div class="rp-line"><span class="rp-who parent">妈妈（当小朋友）</span><span class="rp-text">"可以呀，你坐这里。"</span></div>
         <div class="rp-line"><span class="rp-who parent">妈妈（当小朋友）</span><span class="rp-text">"这是我先拿的，该你了。"</span></div>
         <div class="rp-line"><span class="rp-who child">孩子（当自己）</span><span class="rp-text">"谢谢！轮到我了。"</span></div>
-        <div class="tip-box" style="margin-top:var(--space-12);">
+        <div class="tip-box">
           <p><strong>练习要点：</strong>教孩子用"我可以一起玩吗"加入游戏，用"轮到我了吗"争取轮流，用"谢谢"表达感恩。不抢玩具、不打人。</p>
         </div>
       </div>
@@ -152,7 +149,7 @@ import Base from '../layouts/Base.astro';
         <div class="rp-line"><span class="rp-who parent">妈妈（当老师）</span><span class="rp-text">"乖乖躺着，闭上眼睛，老师在这里陪你们。"</span></div>
         <div class="rp-line"><span class="rp-who child">孩子（当自己）</span><span class="rp-text">"老师，我睡不着。"</span></div>
         <div class="rp-line"><span class="rp-who parent">妈妈（当老师）</span><span class="rp-text">"没关系，安静躺着休息也是可以的。"</span></div>
-        <div class="tip-box" style="margin-top:var(--space-12);">
+        <div class="tip-box">
           <p><strong>练习要点：</strong>让孩子知道"睡不着也没关系，安静躺着就好"。在家用幼儿园同款小被子练习，减少入园后的陌生感。</p>
         </div>
       </div>
@@ -164,7 +161,7 @@ import Base from '../layouts/Base.astro';
         <div class="rp-line"><span class="rp-who parent">妈妈（当妈妈）</span><span class="rp-text">"宝贝，今天在幼儿园开心吗？"</span></div>
         <div class="rp-line"><span class="rp-who child">孩子（当自己）</span><span class="rp-text">"开心！我吃了饭，还和小朋友玩了。"</span></div>
         <div class="rp-line"><span class="rp-who parent">妈妈（当妈妈）</span><span class="rp-text">"真棒！妈妈准时来接你了，说到做到。"</span></div>
-        <div class="tip-box" style="margin-top:var(--space-12);">
+        <div class="tip-box">
           <p><strong>练习要点：</strong>强调"妈妈准时来接你"——这是孩子最大的安全感来源。让孩子期待放学，而不是恐惧入园。</p>
         </div>
       </div>
@@ -173,7 +170,7 @@ import Base from '../layouts/Base.astro';
     <!-- 绘本共读计划 -->
     <section class="section">
       <h2 class="section-title"><span class="num">3</span>入园绘本共读计划（2周）</h2>
-      <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--space-16);">入园前2周开始，每晚睡前共读1本，读完后简单聊2-3个问题。同一本可以反复读，孩子会越读越有安全感。</p>
+      <p class="section-desc">入园前2周开始，每晚睡前共读1本，读完后简单聊2-3个问题。同一本可以反复读，孩子会越读越有安全感。</p>
 
       <div class="tracker-grid">
         <div class="tracker-item">
@@ -289,7 +286,7 @@ import Base from '../layouts/Base.astro';
     <!-- 入园仪式 -->
     <section class="section">
       <h2 class="section-title"><span class="num">5</span>建立"入园仪式"</h2>
-      <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--space-16);">固定的告别仪式能给孩子确定性和安全感。每天重复同样的动作，孩子知道"做完这些妈妈就走，下午一定来接"。</p>
+      <p class="section-desc">固定的告别仪式能给孩子确定性和安全感。每天重复同样的动作，孩子知道"做完这些妈妈就走，下午一定来接"。</p>
       <div class="info-grid">
         <div class="info-card">
           <h3>推荐仪式流程</h3>

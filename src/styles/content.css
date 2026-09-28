@@ -82,7 +82,7 @@
   font-size: 17px;
   font-weight: 700;
   color: var(--c-ink);
-  margin-bottom: var(--space-12);
+  margin: var(--space-24) 0 var(--space-12);
 }
 
 .section-desc {
@@ -90,6 +90,25 @@
   color: var(--c-ink-2);
   margin-bottom: var(--space-20);
   line-height: 1.7;
+}
+
+/* 小号灰字导语：表格 / 标签页 / 图片下的补充说明 */
+.desc-small {
+  font-size: 13px;
+  color: var(--c-ink-3);
+  line-height: 1.7;
+}
+
+/* 卡片底部「查看详细 →」链接行 */
+.card-link {
+  margin-top: var(--space-8);
+}
+
+/* 表格首列行标签 */
+.td-label {
+  font-weight: 600;
+  color: var(--c-ink);
+  white-space: nowrap;
 }
 
 /* ---- 清单 ---- */
@@ -337,37 +356,39 @@
   -webkit-overflow-scrolling: touch;
 }
 
-/* ---- 选项卡 ---- */
+/* ---- 选项卡（与筛选 pill 同一视觉语言） ---- */
 .tabs {
   display: flex;
-  gap: var(--space-4);
-  margin-bottom: var(--space-24);
-  border-bottom: 1px solid var(--c-line);
+  gap: var(--space-8);
+  margin-bottom: var(--space-20);
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
 
 .tab-btn {
-  background: none;
-  border: none;
+  flex-shrink: 0;
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-full);
   cursor: pointer;
   font-family: inherit;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
-  color: var(--c-ink-3);
-  padding: var(--space-12) var(--space-16);
-  border-bottom: 2px solid transparent;
+  color: var(--c-ink-2);
+  padding: 8px var(--space-16);
   white-space: nowrap;
-  transition: color .15s, border-color .15s;
+  transition: all .15s;
 }
 
 .tab-btn:hover {
-  color: var(--c-ink);
+  border-color: var(--c-clay);
+  color: var(--c-clay);
 }
 
 .tab-btn.active {
-  color: var(--c-clay);
-  border-bottom-color: var(--c-clay);
+  background: var(--c-clay);
+  border-color: var(--c-clay);
+  color: var(--c-surface);
   font-weight: 600;
 }
 
@@ -699,6 +720,12 @@
   background: var(--c-clay);
   border-color: var(--c-clay);
   color: var(--c-surface);
+}
+
+/* 游戏库能力行选中态用鼠尾草绿，与卡片上的能力标签同色系（素养行保持陶土橘） */
+.skill-filter .filter-btn.active {
+  background: var(--c-sage);
+  border-color: var(--c-sage);
 }
 
 /* ---- 过敏警示卡 ---- */
@@ -1034,8 +1061,8 @@
 .game-badge-row {
   display: flex;
   align-items: center;
-  gap: var(--space-6);
-  margin-bottom: var(--space-10);
+  gap: var(--space-8);
+  margin-bottom: var(--space-12);
   flex-wrap: wrap;
 }
 
@@ -1073,6 +1100,15 @@
   color: #9A6B1F;
 }
 
+.game-virtue {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px var(--space-8);
+  border-radius: var(--radius-full);
+  background: var(--c-clay-light);
+  color: var(--c-clay-dark);
+}
+
 /* 图标尺寸（astro-icon 构建期内联 SVG） */
 .game-chip svg,
 .game-elder svg {
@@ -1105,6 +1141,20 @@
   color: var(--c-ink-3);
   margin-bottom: var(--space-12);
   line-height: 1.7;
+}
+
+.game-lesson {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--c-clay-dark);
+  background: var(--c-clay-light);
+  border-radius: var(--radius-sm);
+  padding: var(--space-8) var(--space-12);
+  margin: 0 0 var(--space-12);
+}
+
+.game-lesson strong {
+  font-weight: 700;
 }
 
 .game-steps {
@@ -1210,16 +1260,10 @@
   .sub-nav a {
     flex-shrink: 0;
     white-space: nowrap;
-    padding: 8px var(--space-14);
+    padding: 8px var(--space-12);
   }
 
-  /* 可滚动行右缘渐隐，暗示可滑动 */
-  .sub-nav,
-  .cat-nav,
-  .recipe-filter {
-    -webkit-mask: linear-gradient(90deg, #000 0%, #000 calc(100% - 16px), transparent 100%);
-    mask: linear-gradient(90deg, #000 0%, #000 calc(100% - 16px), transparent 100%);
-  }
+  /* 可滚动行渐隐由 SiteEnhance 依滚动位置动态添加（fade-l / fade-r），全端统一 */
 
   /* 筛选按钮移动端改为一行横滑，避免换行占满一屏 */
   .recipe-filter {
@@ -1238,7 +1282,7 @@
     flex-shrink: 0;
   }
 
-  .tab-btn { padding: 10px var(--space-14); font-size: 13px; }
+  .tab-btn { padding: 8px var(--space-12); font-size: 13px; }
 
   .recipe-grid,
   .game-grid,
@@ -1277,4 +1321,188 @@
 
   .tracker-week { width: 42px; font-size: 11px; }
   .recipe-cat-title { font-size: 16px; margin-top: var(--space-24); }
+
+  .mp-days { grid-template-columns: 1fr; }
+  .mp-actions { flex-wrap: wrap; }
+  .mp-btn { flex: 1 1 auto; }
+}
+
+/* ===== 本周菜单生成器 ===== */
+.menu-picker {
+  margin-top: var(--space-24);
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius);
+  padding: var(--space-20);
+}
+
+.mp-title {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--c-ink);
+  margin: 0 0 var(--space-8);
+}
+
+.mp-sub {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--c-ink-2);
+  margin: 0 0 var(--space-16);
+}
+
+.mp-days {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-12);
+  margin-bottom: var(--space-16);
+}
+
+.mp-day {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+}
+
+.mp-day-label {
+  flex-shrink: 0;
+  width: 40px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--c-ink-2);
+  text-align: center;
+  padding: var(--space-8) 0;
+  background: var(--c-sage-light);
+  border-radius: var(--radius-sm);
+}
+
+.mp-select {
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--c-ink);
+  padding: var(--space-8) var(--space-12);
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--c-bg);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23B4593B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--space-12) center;
+  background-size: 14px;
+  padding-right: var(--space-32);
+  cursor: pointer;
+}
+
+.mp-select:focus-visible {
+  outline: 2px solid var(--c-clay);
+  outline-offset: 1px;
+}
+
+.mp-actions {
+  display: flex;
+  gap: var(--space-12);
+  margin-bottom: var(--space-4);
+}
+
+.mp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--c-clay);
+  background: var(--c-clay-light);
+  border: 1px solid transparent;
+  border-radius: var(--radius-full);
+  padding: var(--space-8) var(--space-20);
+  cursor: pointer;
+  transition: background .15s ease, transform .12s ease;
+}
+
+.mp-btn svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.mp-btn:hover { background: #EED8C9; }
+.mp-btn:active { transform: scale(.97); }
+
+.mp-btn-primary {
+  color: var(--c-surface);
+  background: var(--c-clay);
+}
+
+.mp-btn-primary:hover { background: var(--c-clay-dark); }
+
+.mp-result { margin-top: var(--space-16); }
+
+.mp-result-title {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--c-ink);
+  margin: 0 0 var(--space-12);
+}
+
+.mp-table .mp-dish { font-weight: 600; color: var(--c-ink); }
+.mp-table .mp-empty { color: var(--c-ink-3); font-size: 13px; }
+
+.mp-shop {
+  font-size: 13px;
+  line-height: 1.9;
+  color: var(--c-ink-2);
+  background: var(--c-honey-light);
+  border-radius: var(--radius-sm);
+  padding: var(--space-12) var(--space-16);
+  margin: var(--space-16) 0 0;
+}
+
+.mp-note {
+  font-size: 12px;
+  color: var(--c-ink-3);
+  margin: var(--space-12) 0 0;
+}
+
+/* 打印模式：body.print-menu 时只输出菜单表 */
+@media print {
+  body.print-menu .site-header,
+  body.print-menu .site-footer,
+  body.print-menu .fab-nav,
+  body.print-menu .fab-sheet,
+  body.print-menu .page-header,
+  body.print-menu .sub-nav,
+  body.print-menu .section { display: none !important; }
+
+  body.print-menu .section.print-target {
+    display: block !important;
+    padding: 0;
+  }
+
+  body.print-menu .section.print-target > *:not(#menu-picker),
+  body.print-menu .mp-title,
+  body.print-menu .mp-sub,
+  body.print-menu .mp-days,
+  body.print-menu .mp-actions { display: none !important; }
+
+  body.print-menu #menu-picker {
+    border: none;
+    padding: 0;
+    background: none;
+  }
+
+  body.print-menu .mp-result { margin-top: 0; }
+
+  body.print-menu .mp-result-title {
+    font-size: 20px;
+    margin-bottom: var(--space-16);
+  }
+
+  body.print-menu .mp-table { font-size: 13px; }
+  body.print-menu .mp-shop { font-size: 12px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body.print-menu .mp-note { font-size: 11px; }
 }

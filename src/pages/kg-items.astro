@@ -1,7 +1,9 @@
----
-// 本文件由 scripts/migrate.mjs 从 _legacy/kg-items.html 迁移生成
-// 修改内容请编辑源文件后重新运行脚本，或直接调整下方标记
+﻿---
+// 物品准备：入园物品清单与贴标收纳（换季、升班时回来复查）
 import Base from '../layouts/Base.astro';
+import { kgSubNav } from '../data/site';
+
+const cur = Astro.url.pathname.replace(/\/+$/, '');
 ---
 
 <Base title="入园物品准备">
@@ -9,21 +11,16 @@ import Base from '../layouts/Base.astro';
     <div class="legacy-content">
 <div class="page-header">
       <div class="breadcrumb">
-        <a href="/">首页</a> <span>/</span> <a href="/kindergarten/">幼儿园适应</a> <span>/</span> 入园物品准备
+        <a href="/">首页</a> <span>/</span> <a href="/kindergarten/">园内成长</a> <span>/</span> 入园物品准备
       </div>
       <h1>入园物品准备</h1>
       <p class="subtitle">清单分类 + 品牌参考 + 购物追踪表 + 贴标攻略——照着买不踩坑</p>
     </div>
 
     <nav class="sub-nav">
-      <a href="/kindergarten/">总览</a>
-      <a href="/kg-items/" class="active">物品准备</a>
-      <a href="/kg-allergy/">过敏管理</a>
-      <a href="/kg-first-week/">第一周逐日</a>
-      <a href="/kg-grandparents/">老人接送</a>
-      <a href="/kg-ability/">能力训练</a>
-      <a href="/kg-psychology/">心理准备</a>
-      <a href="/kg-communication/">家校沟通</a>
+      {kgSubNav.map((item) => (
+        <a href={item.href} class={item.href.replace(/\/+$/, '') === cur ? 'active' : ''}>{item.label}</a>
+      ))}
     </nav>
 
     <!-- 第一步：先问园方 -->
@@ -63,9 +60,9 @@ import Base from '../layouts/Base.astro';
     <!-- 物品清单 -->
     <section class="section">
       <h2 class="section-title"><span class="num">2</span>物品清单分类</h2>
-      <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--space-16);">以下清单基于常见幼儿园要求整理，最终请以园方官方清单为准。</p>
+      <p class="section-desc">以下清单基于常见幼儿园要求整理，最终请以园方官方清单为准。</p>
 
-      <h3 style="font-size:15px;font-weight:600;margin-bottom:var(--space-12);">必备物品</h3>
+      <h3 class="block-title">必备物品</h3>
       <div class="data-table-wrap">
         <table class="data-table">
           <thead>
@@ -84,7 +81,7 @@ import Base from '../layouts/Base.astro';
         </table>
       </div>
 
-      <h3 style="font-size:15px;font-weight:600;margin:var(--space-24) 0 var(--space-12);">选配物品（视园所规定）</h3>
+      <h3 class="block-title">选配物品（视园所规定）</h3>
       <div class="data-table-wrap">
         <table class="data-table">
           <thead>
@@ -101,7 +98,7 @@ import Base from '../layouts/Base.astro';
         </table>
       </div>
 
-      <div class="tip-box warning" style="margin-top:var(--space-24);">
+      <div class="tip-box warning">
         <div class="tip-label">不建议带</div>
         <p>玻璃水杯、拉杆书包、过重物品、贵重玩具、长绳珠链、亮片多的衣物、零食饮料、不熟悉的药物。</p>
       </div>
@@ -110,7 +107,7 @@ import Base from '../layouts/Base.astro';
     <!-- 品牌参考 -->
     <section class="section">
       <h2 class="section-title"><span class="num">3</span>品牌参考推荐</h2>
-      <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--space-16);">以下品牌为常见选择，可根据预算和喜好自行挑选，非强制推荐。</p>
+      <p class="section-desc">以下品牌为常见选择，可根据预算和喜好自行挑选，非强制推荐。</p>
       <div class="info-grid">
         <div class="info-card">
           <h3>书包</h3>
@@ -170,7 +167,7 @@ import Base from '../layouts/Base.astro';
     <!-- 购物追踪表 -->
     <section class="section">
       <h2 class="section-title"><span class="num">4</span>购物追踪表（可打印）</h2>
-      <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--space-16);">打印出来贴冰箱上，买一样勾一样。</p>
+      <p class="section-desc">打印出来贴冰箱上，买一样勾一样。</p>
       <div class="data-table-wrap">
         <table class="data-table">
           <thead>
@@ -252,7 +249,7 @@ import Base from '../layouts/Base.astro';
         </div>
       </div>
 
-      <div class="tip-box" style="margin-top:var(--space-16);">
+      <div class="tip-box">
         <div class="tip-label">贴标小技巧</div>
         <p>1. 先统一贴完再让孩子试穿/试用，避免遗漏。2. 熨烫贴要用中温压10秒，反复3次更牢固。3. 贴纸贴好后用吹风机加热5秒，增加粘性。4. 多备10-15张贴纸，学期中途随时补。</p>
       </div>

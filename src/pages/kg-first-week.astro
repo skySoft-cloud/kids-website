@@ -1,7 +1,9 @@
 ---
-// 本文件由 scripts/migrate.mjs 从 _legacy/kg-first-week.html 迁移生成
-// 修改内容请编辑源文件后重新运行脚本，或直接调整下方标记
+// 入园第一周逐日计划（入园回顾：已通关，留作记录与转发）
 import Base from '../layouts/Base.astro';
+import { kgSubNav } from '../data/site';
+
+const cur = Astro.url.pathname.replace(/\/+$/, '');
 ---
 
 <Base title="入园第一周逐日计划">
@@ -9,21 +11,16 @@ import Base from '../layouts/Base.astro';
     <div class="legacy-content">
 <div class="page-header">
       <div class="breadcrumb">
-        <a href="/">首页</a> <span>/</span> <a href="/kindergarten/">幼儿园适应</a> <span>/</span> 入园第一周逐日计划
+        <a href="/">首页</a> <span>/</span> <a href="/kindergarten/">园内成长</a> <span>/</span> 入园第一周逐日计划
       </div>
       <h1>入园第一周逐日计划</h1>
       <p class="subtitle">Day 1 到 Day 5 每天接送、观察、应对方案——比笼统的"前两周哭闹"实用得多</p>
     </div>
 
     <nav class="sub-nav">
-      <a href="/kindergarten/">总览</a>
-      <a href="/kg-items/">物品准备</a>
-      <a href="/kg-allergy/">过敏管理</a>
-      <a href="/kg-first-week/" class="active">第一周逐日</a>
-      <a href="/kg-grandparents/">老人接送</a>
-      <a href="/kg-ability/">能力训练</a>
-      <a href="/kg-psychology/">心理准备</a>
-      <a href="/kg-communication/">家校沟通</a>
+      {kgSubNav.map((item) => (
+        <a href={item.href} class={item.href.replace(/\/+$/, '') === cur ? 'active' : ''}>{item.label}</a>
+      ))}
     </nav>
 
     <div class="tip-box">

@@ -1,11 +1,12 @@
 ---
-// 亲子游戏库：28 个游戏，场景 × 能力双维筛选，数据来自 src/data/games.json
+// 亲子游戏库：42 个游戏，场景 × 能力 × 素养三维筛选，数据来自 src/data/games.json
 import { Icon } from 'astro-icon/components';
 import Base from '../layouts/Base.astro';
 import gamesData from '../data/games.json';
 
 const scenes = gamesData.scenes;
 const skills = gamesData.skills;
+const virtues = gamesData.virtues;
 const allGames = gamesData.games;
 ---
 
@@ -19,7 +20,7 @@ const allGames = gamesData.games;
             <a href="/">首页</a> <span>/</span> 亲子游戏
           </div>
           <h1>亲子游戏库</h1>
-          <p class="subtitle">28 个零门槛游戏，按「此刻的场景」找——晨起、放学、餐桌、睡前、周末、旅途、生病在家都有得玩</p>
+          <p class="subtitle">{allGames.length} 个零门槛游戏：按「此刻的场景」找，也能按素养选——玩着玩着，把诚实、分享、输得起这些立起来</p>
         </div>
       </div>
 
@@ -29,12 +30,19 @@ const allGames = gamesData.games;
         ))}
       </nav>
 
-      <div class="recipe-filter">
+      <div class="recipe-filter skill-filter">
         <button class="filter-btn active" onclick="filterGames(this, 'all')">全部能力</button>
         {skills.map((s) => (
           <button class="filter-btn" onclick={`filterGames(this, '${s}')`}>{s}</button>
         ))}
         <button class="filter-btn" onclick="filterGames(this, 'elder')">老人友好</button>
+      </div>
+
+      <div class="recipe-filter virtue-filter">
+        <button class="filter-btn active" onclick="filterVirtues(this, 'all')">全部素养</button>
+        {virtues.map((v) => (
+          <button class="filter-btn" onclick={`filterVirtues(this, '${v}')`}>{v}</button>
+        ))}
       </div>
 
       {scenes.map((scene, idx) => (
@@ -45,9 +53,10 @@ const allGames = gamesData.games;
           </h2>
           <div class="game-grid">
             {allGames.filter((g) => g.scene === scene.id).map((g) => (
-              <div class="game-card" data-skills={g.skills.join(',')} data-elder={g.elder ? '1' : ''}>
+              <div class="game-card" data-skills={g.skills.join(',')} data-virtues={g.virtues.join(',')} data-elder={g.elder ? '1' : ''}>
                 <div class="game-badge-row">
                   {g.skills.map((s) => <span class="game-skill">{s}</span>)}
+                  {g.virtues.map((v) => <span class="game-virtue">{v}</span>)}
                   <span class="game-chip"><Icon name="ph:clock" />{g.duration}</span>
                   <span class="game-chip"><Icon name="ph:users-three" />{g.players}</span>
                   <span class="game-chip"><Icon name="ph:package" />{g.prep}</span>
@@ -55,6 +64,7 @@ const allGames = gamesData.games;
                 </div>
                 <div class="game-name">{g.name}</div>
                 <p class="game-desc">{g.desc}</p>
+                <p class="game-lesson"><strong>教什么：</strong>{g.lesson}</p>
                 <div class="game-steps">
                   {g.steps.map((s, i) => <div class="step"><b>{i + 1}.</b>{s}</div>)}
                 </div>
@@ -74,20 +84,19 @@ const allGames = gamesData.games;
 </Base>
 
 <script is:inline>
-  function filterGames(btn, tag) {
-    document.querySelectorAll('.recipe-filter .filter-btn').forEach(function (b) {
-      b.classList.remove('active');
-    });
-    btn.classList.add('active');
+  // 能力行与素养行两组筛选取交集，场景章节随结果显隐
+  var gameFilter = { skill: 'all', virtue: 'all' };
 
+  function applyGameFilters() {
     document.querySelectorAll('.game-card').forEach(function (card) {
-      var show;
-      if (tag === 'all') {
-        show = true;
-      } else if (tag === 'elder') {
+      var show = true;
+      if (gameFilter.skill === 'elder') {
         show = card.dataset.elder === '1';
-      } else {
-        show = (card.dataset.skills || '').split(',').indexOf(tag) >= 0;
+      } else if (gameFilter.skill !== 'all') {
+        show = (card.dataset.skills || '').split(',').indexOf(gameFilter.skill) >= 0;
+      }
+      if (show && gameFilter.virtue !== 'all') {
+        show = (card.dataset.virtues || '').split(',').indexOf(gameFilter.virtue) >= 0;
       }
       card.style.display = show ? '' : 'none';
     });
@@ -103,5 +112,23 @@ const allGames = gamesData.games;
       var target = document.querySelector(a.getAttribute('href'));
       a.style.display = target && target.style.display === 'none' ? 'none' : '';
     });
+  }
+
+  function filterGames(btn, tag) {
+    document.querySelectorAll('.skill-filter .filter-btn').forEach(function (b) {
+      b.classList.remove('active');
+    });
+    btn.classList.add('active');
+    gameFilter.skill = tag;
+    applyGameFilters();
+  }
+
+  function filterVirtues(btn, tag) {
+    document.querySelectorAll('.virtue-filter .filter-btn').forEach(function (b) {
+      b.classList.remove('active');
+    });
+    btn.classList.add('active');
+    gameFilter.virtue = tag;
+    applyGameFilters();
   }
 </script>

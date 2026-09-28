@@ -7,36 +7,39 @@ import { SITE } from '../data/site';
 const pillars = [
   {
     no: '01',
-    kicker: '本期连载',
-    title: '教育启蒙',
-    focus: true,
-    isNew: false,
-    icon: 'ph:book-open',
-    desc: '幼儿园适应全记录：入园物品、能力训练、心理建设、第一周逐日安排与家校沟通。入园三周适应良好，专题进入日常维护模式。',
-    tags: ['入园清单', '第一周逐日', '分离焦虑', '家校沟通'],
-    links: [{ href: '/kindergarten/', label: '阅读专题' }],
-  },
-  {
-    no: '02',
-    kicker: '每周上新',
+    kicker: '当前重点',
     title: '亲子游戏',
-    focus: false,
+    focus: true,
     isNew: true,
     icon: 'ph:puzzle-piece',
-    desc: '28 个零门槛游戏，按「此刻的场景」找：晨起唤醒、放学衔接、餐桌互动、睡前陪伴、周末户外，老人也能独立带玩。',
-    tags: ['放学衔接', '睡前 20 分钟', '周末户外', '老人友好'],
+    desc: '42 个零门槛游戏，按「此刻的场景」找，也能按素养选：诚实、分享合作、输得起……每个游戏都标注了「教什么」，老人也能独立带玩。',
+    tags: ['素养筛选', '放学衔接', '输得起', '老人友好'],
     links: [{ href: '/games/', label: '进入游戏库' }],
   },
   {
-    no: '03',
-    kicker: '常备手册',
+    no: '02',
+    kicker: '每日必用',
     title: '无敏食谱',
     focus: false,
-    isNew: false,
+    isNew: true,
     icon: 'ph:cooking-pot',
-    desc: '过敏体质的一日三餐与加餐搭配，59+ 道无蛋无奶食谱，可直接转发给老人参考。',
-    tags: ['快手早餐', '晚餐', '加餐', '补钙'],
+    desc: '吃什么：77 道无蛋无奶食谱 + 一键排菜的本周菜单生成器；怎么吃：餐桌素养四件事；怎么聊：每天 10 分钟餐桌对话。吃饭和三观引导都在饭桌上解决，可直接转发给老人。',
+    tags: ['菜单生成器', '餐桌素养', '餐桌对话', '挑食应对'],
     links: [{ href: '/meals/', label: '阅读专题' }],
+  },
+  {
+    no: '03',
+    kicker: '成长连载',
+    title: '园内成长',
+    focus: false,
+    isNew: false,
+    icon: 'ph:book-open',
+    desc: '入园适应已通关，接下来是长期经营：社交力、习惯力、认知启蒙。入园物品与家校沟通等实用内容继续保留。',
+    tags: ['社交力', '习惯力', '认知启蒙', '家校沟通'],
+    links: [
+      { href: '/kindergarten/', label: '成长总览' },
+      { href: '/kg-social/', label: '社交力' },
+    ],
   },
   {
     no: '04',
@@ -76,7 +79,7 @@ const pillars = [
           陪她慢慢长大，<br />也把日子过成值得翻阅的样子
         </h1>
         <p class="hero-lead">
-          幼儿园适应、亲子游戏、无敏食谱、健康守护、家庭规划——一份持续更新的家庭成长指南，可分享给家人，手机电脑都能看。
+          园内成长、亲子游戏、无敏食谱、健康守护、家庭规划——一份持续更新的家庭成长指南，可分享给家人，手机电脑都能看。
         </p>
         <p class="hero-edition">
           <span class="dash" aria-hidden="true"></span>

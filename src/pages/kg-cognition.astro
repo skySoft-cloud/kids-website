@@ -1,0 +1,229 @@
+---
+// 认知启蒙：园内成长三力之三——保护提问欲、亲子阅读进阶、生活中的数学与汉字
+import Base from '../layouts/Base.astro';
+import { kgSubNav } from '../data/site';
+
+const cur = Astro.url.pathname.replace(/\/+$/, '');
+---
+
+<Base title="认知启蒙：玩中学，不提前学">
+  <div class="container">
+    <div class="legacy-content">
+<div class="page-header has-art">
+      <img class="header-art" src="/art/kg-cognition.svg" alt="摊开的书本和星星的黏土风插画" width="480" height="360" loading="lazy" />
+      <div class="ph-text">
+        <div class="breadcrumb">
+          <a href="/">首页</a> <span>/</span> <a href="/kindergarten/">园内成长</a> <span>/</span> 认知启蒙
+        </div>
+        <h1>认知启蒙</h1>
+        <p class="subtitle">不提前学，只把好奇心养大——提问欲、每天 20 分钟阅读、生活中的数学和汉字。小学前的认知任务，是把「我想学」种下去</p>
+      </div>
+    </div>
+
+    <nav class="sub-nav">
+      {kgSubNav.map((item) => (
+        <a href={item.href} class={item.href.replace(/\/+$/, '') === cur ? 'active' : ''}>{item.label}</a>
+      ))}
+    </nav>
+
+    <!-- 四条原则 -->
+    <section class="section">
+      <h2 class="section-title"><span class="num">1</span>四条原则，比任何教材都重要</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>提问欲 &gt; 答案</h3>
+          <p>这个年龄「问个不停」是最珍贵的学习引擎。保护她「想知道」的劲头，比让她记住十个答案有价值得多。</p>
+        </div>
+        <div class="info-card">
+          <h3>夸过程，不夸聪明</h3>
+          <p>说「你刚才试了三种办法」而不是「你真聪明」。被夸努力的孩子敢挑战难题，被夸聪明的孩子怕出错。</p>
+        </div>
+        <div class="info-card">
+          <h3>每天 20 分钟阅读雷打不动</h3>
+          <p>固定时间（建议睡前流程第 3 步）、固定地点（她的小角落）、她选书。阅读习惯一旦长上，后面全省心。</p>
+        </div>
+        <div class="info-card">
+          <h3>生活就是教材</h3>
+          <p>数楼梯、看日历、超市比价——真实生活里的认知练习，比识字卡和算术题有效十倍，还不费钱。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 提问欲 -->
+    <section class="section">
+      <h2 class="section-title"><span class="num">2</span>提问欲三步接法</h2>
+      <p class="section-desc">「为什么」阶段最考验大人耐心。记住三步：先接住、再反问、一起找。</p>
+      <div class="role-play">
+        <h3>场景：「妈妈，为什么天会黑？」</h3>
+        <div class="rp-line">
+          <div class="rp-who child">孩子：</div>
+          <div class="rp-text">"妈妈，为什么天会黑？"</div>
+        </div>
+        <div class="rp-line">
+          <div class="rp-who parent">第一步 · 接住（别敷衍）：</div>
+          <div class="rp-text">"哦？你想知道为什么天会黑呀，这个问题真好。"</div>
+        </div>
+        <div class="rp-line">
+          <div class="rp-who parent">第二步 · 反问：</div>
+          <div class="rp-text">"你觉得呢？"</div>
+        </div>
+        <div class="rp-line">
+          <div class="rp-who child">孩子：</div>
+          <div class="rp-text">"因为太阳睡觉去了！"</div>
+        </div>
+        <div class="rp-line">
+          <div class="rp-who parent">第三步 · 一起找答案：</div>
+          <div class="rp-text">"有道理！太阳下班了。那太阳去哪儿了呢？我们明天傍晚看一次太阳下山，再翻翻那本太空的书，好不好？"</div>
+        </div>
+      </div>
+      <div class="tip-box warning">
+        <div class="tip-label">三种错误接法</div>
+        <p>「这么简单都不知道」（让她以后不敢问）、「我忙着呢待会儿再说」（待会儿就忘了，问的火苗熄得快）、「直接背标准答案」（她学会的是闭嘴收答案，不是思考）。实在忙的时候，一句「好问题，记下来睡前聊」也好过敷衍。</p>
+      </div>
+      <div class="tip-box">
+        <div class="tip-label">「我不知道」是合法答案</div>
+        <p>大方说「这个妈妈也不知道，我们一起查查」——让她看到大人也在学习，「不懂就查」本身就是最重要的一课。</p>
+      </div>
+    </section>
+
+    <!-- 阅读进阶 -->
+    <section class="section">
+      <h2 class="section-title"><span class="num">3</span>亲子阅读：从「读给她听」到「一起读」</h2>
+      <p class="section-desc">入园适应期的「被动听」可以升级了。同样 20 分钟，换个玩法，收获翻倍。</p>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>读前：猜封面</h3>
+          <ul>
+            <li>看封面问：「你猜这本书讲什么？」</li>
+            <li>让她自己翻页控制节奏</li>
+            <li>熟悉的书让她当「讲解员」</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>读中：停下来</h3>
+          <ul>
+            <li>关键处停住：「你猜接下来会怎样？」</li>
+            <li>遇到她认识的字或数字，让她找出来</li>
+            <li>联系生活：「我们家有没有遇到过？」</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>读后三问</h3>
+          <ul>
+            <li>「你最喜欢谁？为什么？」</li>
+            <li>「如果你是他，你会怎么办？」</li>
+            <li>「哪里最好笑 / 最让你紧张？」</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>加餐：复述与表演</h3>
+          <ul>
+            <li>把故事复述给下班回家的爸爸听</li>
+            <li>用玩偶演绘本片段（配手影戏正好）</li>
+            <li>每周去一次图书馆，让她自己挑</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tip-box">
+        <div class="tip-label">书单与分级</div>
+        <p>按年龄分级的书单和共读计划见<a href="/planning/">长期规划专题</a>；入园主题绘本见<a href="/kg-psychology/">心理准备页</a>。原则：书架放 5-8 本「当前书」轮流读，一次性买太多反而不知道读哪本。</p>
+      </div>
+    </section>
+
+    <!-- 生活中的数学 -->
+    <section class="section">
+      <h2 class="section-title"><span class="num">4</span>生活中的数学：不教算术，先攒数感</h2>
+      <p class="section-desc">数学启蒙不是学加减法，是让数字长在生活里。这些练习每天顺手就做，一次 1-3 分钟。</p>
+      <div class="checklist">
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">上下楼梯数数（数到 20 就倒着数）</div>
+            <div class="check-desc">正数、倒数、单双数轮流来</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">摆碗筷时配对：几个人、几双筷子</div>
+            <div class="check-desc">餐桌素养里「摆碗筷小管家」的数学版</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">超市认数字：价签、电梯楼层、车牌</div>
+            <div class="check-desc">「找找 3 在哪里」比识字卡有趣</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">比高矮、比轻重（谁手里的菜更重？）</div>
+            <div class="check-desc">测量概念从「比」开始</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">看日历：今天几号、星期几、还有几天到周末</div>
+            <div class="check-desc">「还有几天」练的是数感也是期待感</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">分水果学分数雏形：一个苹果两个人分</div>
+            <div class="check-desc">「一人一半」就是最早的除法</div>
+          </div>
+        </div>
+      </div>
+      <div class="tip-box">
+        <div class="tip-label">配套游戏</div>
+        <p><a href="/games/">数数夹豆豆</a>（数感+精细动作）、<a href="/games/">跳格子</a>（数字+身体）、<a href="/games/">树叶收集分类</a>（分类是数学的根）、<a href="/games/">食物猜猜猜</a>（观察与推理）。</p>
+      </div>
+    </section>
+
+    <!-- 汉字兴趣 -->
+    <section class="section">
+      <h2 class="section-title"><span class="num">5</span>汉字与符号：只认「有用的字」</h2>
+      <p class="section-desc">这个阶段认字只有一个标准：和生活有关。看到就顺口说一句，不考核、不打卡、不追进度。</p>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>她自己的名字</h3>
+          <p>书包、水杯、绘本封面上的名字贴，是最先认识的字。玩「找名字」游戏：超市小票、快递单上找自己的名字。</p>
+        </div>
+        <div class="info-card">
+          <h3>路上的字</h3>
+          <p>常去店铺的招牌、小区名、公交站牌、「出口」「洗手间」——路牌识字是这个年龄最自然的途径。</p>
+        </div>
+        <div class="info-card">
+          <h3>包装上的字</h3>
+          <p>牛奶盒上的「牛奶」、她爱吃的零食名字。和生活挂钩的字自带「用得上」的动机，记起来不费劲。</p>
+        </div>
+      </div>
+      <div class="tip-box warning">
+        <div class="tip-label">只提醒一次：写字先不练</div>
+        <p>小班到中班孩子的手部小肌肉还没准备好握笔写字，提前练字容易养成错误握姿、磨掉兴趣。想玩「字的形状」可以：用手指在空中写、用积木摆、用水在地面画——画字可以，写字等到大班下学期再说。</p>
+      </div>
+    </section>
+
+    <!-- 呼应幼儿园 -->
+    <section class="section">
+      <h2 class="section-title"><span class="num">6</span>和幼儿园互相呼应</h2>
+      <div class="tip-box">
+        <div class="tip-label">每天一个「小老师」时间</div>
+        <p>放学路上问「今天老师教了什么新儿歌 / 新游戏」，回家玩<a href="/games/">幼儿园小老师</a>：她当老师教我们。当老师要求她「讲清楚、做示范」，比当学生学得深得多——这是最有效的复习。</p>
+      </div>
+      <div class="tip-box">
+        <div class="tip-label">分工建议</div>
+        <p>幼儿园负责系统教学和同伴学习，家里只做两件事：阅读习惯 + 保护好奇心。不提前教园里还没教的内容——她在课堂上「首次接触」的兴奋感，是幼儿园教学的宝贵燃料，别提前烧掉。</p>
+      </div>
+      <div class="tip-box warning">
+        <div class="tip-label">不要做的清单</div>
+        <p>提前写字、机械背古诗打卡、每天算术题、和别家孩子比识字量数数能力。这个阶段，毁掉「我想学」的劲头，比少认识一百个字严重一百倍。</p>
+      </div>
+    </section>
+    </div>
+  </div>
+</Base>

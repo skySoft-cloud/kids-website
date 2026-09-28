@@ -62,12 +62,29 @@
     flex-shrink: 0;
   }
 
-  /* 可滚动行的右缘渐隐：仅当确实可滚动时由 JS 添加 .can-scroll */
-  .sub-nav.can-scroll,
-  .cat-nav.can-scroll,
-  .recipe-filter.can-scroll {
-    -webkit-mask: linear-gradient(90deg, #000 0%, #000 calc(100% - 16px), transparent 100%);
-    mask: linear-gradient(90deg, #000 0%, #000 calc(100% - 16px), transparent 100%);
+  /* 可滚动行动态渐隐：JS 依据滚动位置添加 .fade-l / .fade-r，两侧都滚到底时不再渐隐 */
+  .sub-nav.fade-r,
+  .cat-nav.fade-r,
+  .tabs.fade-r,
+  .recipe-filter.fade-r {
+    -webkit-mask: linear-gradient(90deg, #000 0%, #000 calc(100% - 28px), transparent 100%);
+    mask: linear-gradient(90deg, #000 0%, #000 calc(100% - 28px), transparent 100%);
+  }
+
+  .sub-nav.fade-l,
+  .cat-nav.fade-l,
+  .tabs.fade-l,
+  .recipe-filter.fade-l {
+    -webkit-mask: linear-gradient(90deg, transparent 0%, #000 28px, #000 100%);
+    mask: linear-gradient(90deg, transparent 0%, #000 28px, #000 100%);
+  }
+
+  .sub-nav.fade-l.fade-r,
+  .cat-nav.fade-l.fade-r,
+  .tabs.fade-l.fade-r,
+  .recipe-filter.fade-l.fade-r {
+    -webkit-mask: linear-gradient(90deg, transparent 0%, #000 28px, #000 calc(100% - 28px), transparent 100%);
+    mask: linear-gradient(90deg, transparent 0%, #000 28px, #000 calc(100% - 28px), transparent 100%);
   }
 
   /* 逐日时间线（kg-first-week）：左侧铁轨 + 节点 */
@@ -142,15 +159,19 @@
     return (h >>> 0).toString(36);
   }
 
-  /** 可滚动行渐隐自适应：只有真的能横向滚动时才显示右缘渐隐 */
+  /** 可滚动行渐隐自适应：依滚动位置在左右缘显示/隐藏渐隐，滚动中实时更新 */
   function initScrollMasks() {
-    const rows = document.querySelectorAll<HTMLElement>('.sub-nav, .cat-nav, .recipe-filter');
-    const check = () => {
-      rows.forEach((el) => {
-        el.classList.toggle('can-scroll', el.scrollWidth > el.clientWidth + 4);
-      });
+    const rows = document.querySelectorAll<HTMLElement>('.sub-nav, .cat-nav, .tabs, .recipe-filter');
+    const update = (el: HTMLElement) => {
+      const max = el.scrollWidth - el.clientWidth;
+      el.classList.toggle('fade-l', max > 4 && el.scrollLeft > 4);
+      el.classList.toggle('fade-r', max > 4 && el.scrollLeft < max - 4);
     };
+    const check = () => rows.forEach(update);
     check();
+    rows.forEach((el) => {
+      el.addEventListener('scroll', () => update(el), { passive: true });
+    });
     window.addEventListener('resize', check, { passive: true });
     cleanups.push(() => window.removeEventListener('resize', check));
   }

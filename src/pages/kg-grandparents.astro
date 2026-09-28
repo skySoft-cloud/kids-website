@@ -1,7 +1,9 @@
----
-// 本文件由 scripts/migrate.mjs 从 _legacy/kg-grandparents.html 迁移生成
-// 修改内容请编辑源文件后重新运行脚本，或直接调整下方标记
+﻿---
+// 老人接送协调方案：双职工家庭老人帮接送的实操指南
 import Base from '../layouts/Base.astro';
+import { kgSubNav } from '../data/site';
+
+const cur = Astro.url.pathname.replace(/\/+$/, '');
 ---
 
 <Base title="老人接送协调方案">
@@ -9,21 +11,16 @@ import Base from '../layouts/Base.astro';
     <div class="legacy-content">
 <div class="page-header">
       <div class="breadcrumb">
-        <a href="/">首页</a> <span>/</span> <a href="/kindergarten/">幼儿园适应</a> <span>/</span> 老人接送协调方案
+        <a href="/">首页</a> <span>/</span> <a href="/kindergarten/">园内成长</a> <span>/</span> 老人接送协调方案
       </div>
       <h1>老人接送协调方案</h1>
       <p class="subtitle">双职工家庭老人帮接送的实操指南：传话机制、哭闹应对、物品检查、信息同步</p>
     </div>
 
     <nav class="sub-nav">
-      <a href="/kindergarten/">总览</a>
-      <a href="/kg-items/">物品准备</a>
-      <a href="/kg-allergy/">过敏管理</a>
-      <a href="/kg-first-week/">第一周逐日</a>
-      <a href="/kg-grandparents/" class="active">老人接送</a>
-      <a href="/kg-ability/">能力训练</a>
-      <a href="/kg-psychology/">心理准备</a>
-      <a href="/kg-communication/">家校沟通</a>
+      {kgSubNav.map((item) => (
+        <a href={item.href} class={item.href.replace(/\/+$/, '') === cur ? 'active' : ''}>{item.label}</a>
+      ))}
     </nav>
 
     <!-- 接送时间安排 -->
@@ -48,7 +45,7 @@ import Base from '../layouts/Base.astro';
     <!-- 传话记录表 -->
     <section class="section">
       <h2 class="section-title"><span class="num">2</span>传话记录机制</h2>
-      <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--space-16);">老人接送时，老师在门口交代的事项需要准确传给父母。建议用以下方式确保信息不遗漏。</p>
+      <p class="section-desc">老人接送时，老师在门口交代的事项需要准确传给父母。建议用以下方式确保信息不遗漏。</p>
       <div class="info-grid">
         <div class="info-card">
           <h3>方式一：接送记录本</h3>
@@ -126,9 +123,9 @@ import Base from '../layouts/Base.astro';
     <!-- 物品检查 -->
     <section class="section">
       <h2 class="section-title"><span class="num">4</span>每日物品检查清单</h2>
-      <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--space-16);">老人每天出门前和回家后对照检查，避免遗漏。</p>
+      <p class="section-desc">老人每天出门前和回家后对照检查，避免遗漏。</p>
 
-      <h3 style="font-size:15px;font-weight:600;margin-bottom:var(--space-12);">出门前检查</h3>
+      <h3 class="block-title">出门前检查</h3>
       <div class="checklist">
         <div class="check-item">
           <div class="check-box"></div>
@@ -174,7 +171,7 @@ import Base from '../layouts/Base.astro';
         </div>
       </div>
 
-      <h3 style="font-size:15px;font-weight:600;margin:var(--space-24) 0 var(--space-12);">回家后检查</h3>
+      <h3 class="block-title">回家后检查</h3>
       <div class="checklist">
         <div class="check-item">
           <div class="check-box"></div>

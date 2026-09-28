@@ -1,12 +1,23 @@
----
+﻿---
 // 食谱库已数据化：77 道食谱存于 src/data/recipes.json，加菜改菜直接编辑该文件
-// 页面其余区块由 scripts/migrate.mjs 从 _legacy/meals.html 迁移生成
+// 餐桌素养 / 餐桌对话两章与亲子游戏库的素养游戏互链，改游戏名记得同步
 import { Icon } from 'astro-icon/components';
 import Base from '../layouts/Base.astro';
 import recipesData from '../data/recipes.json';
 
 const cats = recipesData.categories;
 const allRecipes = recipesData.recipes;
+
+// 本周菜单生成器：精简索引（名称/用时/标签/食材）+ 晚餐随机池（主食荤素汤，不含饮品水果）
+const menuIndex = allRecipes.map((r) => ({
+  name: r.name,
+  time: r.meta.find((m) => m.indexOf('分钟') >= 0) ?? '',
+  tag: r.tag ?? '',
+  ingredients: r.ingredients,
+  cat: r.cat,
+}));
+const DINNER_CATS = ['quick', 'staple', 'steamed', 'fried', 'braised', 'soup'];
+const dinnerPool = menuIndex.filter((r) => DINNER_CATS.includes(r.cat)).map((r) => r.name);
 ---
 
 <Base title="无敏食谱搭配">
@@ -19,7 +30,7 @@ const allRecipes = recipesData.recipes;
           <a href="/">首页</a> <span>/</span> 健康守护 <span>/</span> 无敏食谱搭配
         </div>
         <h1>无敏食谱搭配</h1>
-        <p class="subtitle">牛奶蛋白+鸡蛋过敏儿童的家庭餐桌——77道家常食谱 + 幼儿园小中大班无敏食谱参考，全家份量，一锅两吃，四川味道，超市食材，老人也能轻松操作</p>
+        <p class="subtitle">牛奶蛋白+鸡蛋过敏儿童的家庭餐桌——77道家常食谱 + 餐桌素养与餐桌对话：吃什么、怎么吃、怎么聊，一页解决。全家份量，一锅两吃，四川味道，超市食材，老人也能轻松操作</p>
       </div>
     </div>
 
@@ -28,15 +39,17 @@ const allRecipes = recipesData.recipes;
       <a href="#sec2">买菜参考</a>
       <a href="#sec3">食谱库</a>
       <a href="#sec4">搭配公式</a>
-      <a href="#sec5">一周模板</a>
-      <a href="#sec6">幼儿园加餐</a>
-      <a href="#sec7">隐藏过敏原</a>
-      <a href="#sec8">调味料安全</a>
-      <a href="#sec9">安全清单</a>
-      <a href="#sec10">外出就餐</a>
-      <a href="#sec11">烘焙替代</a>
-      <a href="#sec12">挑食应对</a>
-      <a href="#sec13">幼儿园食谱</a>
+      <a href="#sec5">一周菜单</a>
+      <a href="#sec6">餐桌素养</a>
+      <a href="#sec7">挑食应对</a>
+      <a href="#sec8">餐桌对话</a>
+      <a href="#sec9">幼儿园加餐</a>
+      <a href="#sec10">隐藏过敏原</a>
+      <a href="#sec11">调味料安全</a>
+      <a href="#sec12">安全清单</a>
+      <a href="#sec13">外出就餐</a>
+      <a href="#sec14">烘焙替代</a>
+      <a href="#sec15">幼儿园食谱</a>
     </nav>
 
     <div class="tip-box">
@@ -120,7 +133,7 @@ const allRecipes = recipesData.recipes;
     <!-- 四川家庭买菜参考 -->
     <section class="section" id="sec2">
       <h2 class="section-title"><span class="num">2</span>四川家庭买菜参考</h2>
-      <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--space-16);">超市和菜市场都能买到，以下是一周采买建议量（3-4人家庭）。</p>
+      <p class="section-desc">超市和菜市场都能买到，以下是一周采买建议量（3-4人家庭）。</p>
       <div class="info-grid">
         <div class="info-card">
           <h3>蔬菜（每天买）</h3>
@@ -167,7 +180,7 @@ const allRecipes = recipesData.recipes;
         <p>四川超市的面条和抄手皮大部分不加蛋，但一定要看配料表——有些品牌会加鸡蛋液增色。买的时候翻到背面看一眼，有"鸡蛋""蛋清""蛋黄"字样就不买。无蛋面条和抄手皮在永辉、红旗等超市都能找到。</p>
       </div>
 
-      <h3 style="font-size:15px;font-weight:600;margin:var(--space-24) 0 var(--space-12);">季节性买菜参考</h3>
+      <h3 class="block-title">季节性买菜参考</h3>
       <div class="data-table-wrap">
         <table class="data-table">
           <thead>
@@ -210,7 +223,7 @@ const allRecipes = recipesData.recipes;
     <!-- 家常食谱库 -->
     <section class="section" id="sec3">
       <h2 class="section-title"><span class="num">3</span>无敏家常食谱库</h2>
-      <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--space-16);">77道食谱，全部无牛奶无鸡蛋，按全家3-4人份设计。<strong>橙色标记"一锅两吃"</strong>的食谱在关键步骤会提醒先盛孩子的份；<strong>绿色标记"全家统一"</strong>的食谱大人小孩吃一样的。<strong>蓝色标记</strong>是新场景系列：早餐、班级分享（生日会/节日带去幼儿园的无敏零食）、生病照护（对症食疗）。</p>
+      <p class="section-desc">77道食谱，全部无牛奶无鸡蛋，按全家3-4人份设计。<strong>橙色标记"一锅两吃"</strong>的食谱在关键步骤会提醒先盛孩子的份；<strong>绿色标记"全家统一"</strong>的食谱大人小孩吃一样的。<strong>蓝色标记</strong>是新场景系列：早餐、班级分享（生日会/节日带去幼儿园的无敏零食）、生病照护（对症食疗）。</p>
 
       <div class="recipe-search">
         <svg class="rs-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -286,7 +299,7 @@ const allRecipes = recipesData.recipes;
     <!-- 每日搭配公式 -->
     <section class="section" id="sec4">
       <h2 class="section-title"><span class="num">4</span>家庭每日搭配公式</h2>
-      <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--space-16);">全家一锅出，不用单独给孩子做。按"1主食 + 1-2菜 + 1汤 + 1水果/饮品"组合。</p>
+      <p class="section-desc">全家一锅出，不用单独给孩子做。按"1主食 + 1-2菜 + 1汤 + 1水果/饮品"组合。</p>
       <div class="info-grid">
         <div class="info-card">
           <h3>早餐</h3>
@@ -329,8 +342,8 @@ const allRecipes = recipesData.recipes;
 
     <!-- 一周食谱 -->
     <section class="section" id="sec5">
-      <h2 class="section-title"><span class="num">5</span>家庭一周食谱模板</h2>
-      <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--space-16);">全家共做一锅，在加辣前先给孩子盛。大人菜谱中标注的"加辣"为大人单独调味。</p>
+      <h2 class="section-title"><span class="num">5</span>家庭一周菜单</h2>
+      <p class="section-desc">上半是全家共做的参考模板（加辣前先给孩子盛），下半是生成器：每天挑一道「晚餐主打」，自动保存、生成采购参考、可打印。</p>
       <div class="data-table-wrap">
         <table class="data-table">
           <thead>
@@ -391,12 +404,283 @@ const allRecipes = recipesData.recipes;
         <div class="tip-label">一锅两吃操作要点</div>
         <p>标注"先盛"的菜在炒到8成熟或调味前，先给孩子盛出一碟，然后大人的锅再加豆瓣酱、干辣椒、花椒。汤类和蒸菜大多全家统一，不用分开。面条/抄手类在调味前先盛孩子的，大人碗里加辣椒油。</p>
       </div>
+
+      <div class="menu-picker" id="menu-picker">
+        <h3 class="mp-title">本周菜单生成器</h3>
+        <p class="mp-sub">每天挑一道「晚餐主打」——选择自动保存在本机，下周打开还在；不想挑就点「随机排一周」。下面会生成一张可打印的菜单表和采购参考。</p>
+        <div class="mp-days">
+          {[['mon', '周一'], ['tue', '周二'], ['wed', '周三'], ['thu', '周四'], ['fri', '周五'], ['sat', '周六'], ['sun', '周日']].map(([dayId, dayLabel]) => (
+            <label class="mp-day">
+              <span class="mp-day-label">{dayLabel}</span>
+              <select class="mp-select" data-day={dayId} onchange="onMenuPick(this)">
+                <option value="">＋ 点这里选菜</option>
+                {cats.map((cat) => {
+                  const items = menuIndex.filter((r) => r.cat === cat.id);
+                  return items.length > 0 && (
+                    <optgroup label={cat.name}>
+                      {items.map((r) => (
+                        <option value={r.name}>{r.name}</option>
+                      ))}
+                    </optgroup>
+                  );
+                })}
+              </select>
+            </label>
+          ))}
+        </div>
+        <div class="mp-actions">
+          <button type="button" class="mp-btn mp-btn-primary" onclick="randomWeek()"><Icon name="ph:shuffle" />随机排一周</button>
+          <button type="button" class="mp-btn" onclick="clearWeek()"><Icon name="ph:eraser" />清空</button>
+          <button type="button" class="mp-btn" onclick="printWeek()"><Icon name="ph:printer" />打印 / 存 PDF</button>
+        </div>
+        <div class="mp-result" id="menuResult" hidden></div>
+      </div>
+    </section>
+
+    <!-- 餐桌素养：怎么吃 -->
+    <section class="section" id="sec6">
+      <h2 class="section-title"><span class="num">6</span>餐桌素养：一日三餐就是素养课堂</h2>
+      <p class="section-desc">「吃什么」解决营养，「怎么吃」养成习惯和品格。不用专门上课，把下面四件小事固定下来，责任感、规则感、自主性每天都在饭桌上长一点。全家口径一致（含老人）比技巧本身更重要。</p>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>餐前有任务</h3>
+          <ul>
+            <li>固定岗位轮换：摆碗筷、擦桌子、端水果</li>
+            <li>上桌后由她报菜名：「青菜是我准备的！」</li>
+            <li>开饭一起道谢：谢谢帮厨，谢谢做饭的人</li>
+            <li><strong>配套游戏：</strong><a href="/games/">今天我帮厨、摆碗筷小管家、小小快递员</a></li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>自己吃，吃到饱</h3>
+          <ul>
+            <li>自己盛、自己吃，大人只示范不代劳</li>
+            <li>弄脏洒了没关系——围兜加湿巾伺候，不骂</li>
+            <li>一餐 20-30 分钟，到点平静收走，不追不补</li>
+            <li>吃饭时间大人也不看手机</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>等全家到齐再动筷</h3>
+          <ul>
+            <li>轮流当「发令员」：人齐了喊「开吃」</li>
+            <li>保留四川规矩：先给爷爷奶奶盛饭</li>
+            <li>想要什么先说「请」，递过去说「谢谢」</li>
+            <li><strong>配套游戏：</strong><a href="/games/">等一等更甜</a></li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>饭后三件事</h3>
+          <ul>
+            <li>送自己的碗筷到水槽（双手端）</li>
+            <li>擦嘴、漱口</li>
+            <li>小椅子推回原位，和「玩具回家」一个道理</li>
+            <li><strong>配套游戏：</strong><a href="/games/">玩具回家日</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="block-title">餐桌习惯打卡（点一下就是打卡，自动记住）</h3>
+      <div class="checklist">
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">餐前完成我的小任务（摆碗筷 / 擦桌子 / 端水果）</div>
+            <div class="check-desc">岗位可以轮换，但每天要有</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">等全家到齐，听发令员口令才动筷</div>
+            <div class="check-desc">今天她当发令员了吗？</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">这顿饭自己吃完，没有让人喂</div>
+            <div class="check-desc">30 分钟内完成，洒了也没关系</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">勇敢尝了一口以前不爱吃的菜</div>
+            <div class="check-desc">一口就算数，重点是不怕试</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">饭后三件事：送碗、擦嘴、推椅子</div>
+            <div class="check-desc">做完才算这顿饭结束</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">吃饭全程没开电视、没看手机</div>
+            <div class="check-desc">全家一起做到才算</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">给老人的配合口径（直接转发）</div>
+        <p>1. <strong>统一战线不追喂</strong>——她这顿少吃点不会营养不良，下顿饿了自然吃；追喂反而让她把「吃饭」当成大人的任务。2. <strong>允许弄脏</strong>——洒了不骂，把抹布递给她自己擦。3. <strong>到点收桌</strong>——超过半小时平静收走，不说「饿着活该」，也不额外给零食。4. <strong>夸具体行为</strong>——「今天自己把一碗饭吃完了」比「真乖」有用。</p>
+      </div>
+    </section>
+
+    <!-- 孩子挑食应对 -->
+    <section class="section" id="sec7">
+      <h2 class="section-title"><span class="num">7</span>孩子挑食应对</h2>
+      <p class="section-desc">挑食是「吃得进」的问题，和上一节的「怎么吃」配套做。3岁半孩子有偏好很正常：不强迫、不追喂，用小技巧把不爱的食材变"看不见"。</p>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>不爱吃豆腐？</h3>
+          <ul>
+            <li>豆腐剁碎混进肉丸、肉饼里</li>
+            <li>豆腐泥拌进米糕、蒸糕</li>
+            <li>豆腐切小丁混进炒饭、焖饭</li>
+            <li>嫩豆腐打碎拌进粥里，孩子喝不出来</li>
+            <li>用豆干切丝混炒肉丝，口感更接近肉</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>不爱吃蔬菜？</h3>
+          <ul>
+            <li>蔬菜剁碎混进肉丸、肉饼、饺子馅</li>
+            <li>蔬菜泥拌进粥、面糊、蒸糕</li>
+            <li>菠菜/小油菜切碎混进蛋炒饭（无蛋版）</li>
+            <li>胡萝卜磨成丝混进焖饭，颜色好看</li>
+            <li>西兰花切碎拌进土豆泥</li>
+            <li>蔬菜做成小饼（豆腐蔬菜饼、红薯饼）</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>不爱吃肉？</h3>
+          <ul>
+            <li>肉剁成末混进粥、面、焖饭</li>
+            <li>肉末做成蒸肉饼，口感软嫩</li>
+            <li>鱼去刺做成鱼丸，蘸点酱油</li>
+            <li>虾仁剁碎混进炒饭、蔬菜饼</li>
+            <li>排骨炖烂，肉撕碎混进汤粥</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>只吃白米饭？</h3>
+          <ul>
+            <li>米饭里加南瓜/红薯一起煮，带甜味</li>
+            <li>焖饭里加土豆/胡萝卜丁，颜色丰富</li>
+            <li>肉末酱油炒饭，味道香</li>
+            <li>小米/玉米混进白米，营养更全</li>
+            <li>粥里加肉末/菜末，少量开始</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">应对原则</div>
+        <p>1. <strong>不强迫</strong>——越逼越不吃。2. <strong>不替代</strong>——不吃这道菜就只吃白饭，不要马上给饼干/零食替代。3. <strong>反复暴露</strong>——同一道菜要出现8-10次孩子才可能接受，每次放一小碟在旁边，不要求吃。4. <strong>大人做榜样</strong>——大人吃得香，孩子才想试。5. <strong>让孩子参与</strong>——帮忙洗菜、搅面糊，自己做的更愿意尝；进阶玩法见游戏库的<a href="/games/">食物猜猜猜、今天我帮厨</a>。</p>
+      </div>
+
+      <div class="tip-box warning">
+        <div class="tip-label">不要这样做</div>
+        <p>追喂、哄喂、看电视喂、用零食奖励吃饭、"不吃就饿一顿"硬来——这些做法短期看似有效，长期会让孩子更抗拒吃饭，甚至引发进食焦虑。</p>
+      </div>
+    </section>
+
+    <!-- 餐桌对话：怎么聊 -->
+    <section class="section" id="sec8">
+      <h2 class="section-title"><span class="num">8</span>餐桌对话：每天10分钟，三观在饭桌上长</h2>
+      <p class="section-desc">讲道理不如常聊天。目标不是「考她」，是让她说、大人听——每天挑1-2个话题，全家轮流答，大人认真答，她自然跟上。话题按主题分四组轮着来，同一个话题隔段时间再问，答案会不一样，那就是成长。</p>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>情绪与表达</h3>
+          <ul>
+            <li>今天最开心的事是什么？最不舒服的一刻呢？</li>
+            <li>用天气说说你现在的心情，为什么？</li>
+            <li>今天有没有特别想被人抱一下的时候？</li>
+            <li>如果心情有颜色，晚饭时刻是什么颜色？</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>诚实与担当</h3>
+          <ul>
+            <li>说一件今天自己做得不太好的事（大人先说）</li>
+            <li>如果不小心打翻了水，该怎么办？</li>
+            <li>玩具玩坏了，要不要告诉妈妈？为什么？</li>
+            <li>答应别人的事没做到，怎么办？</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>分享与同理</h3>
+          <ul>
+            <li>今天帮过谁？今天谁帮过你？</li>
+            <li>如果旁边小朋友摔倒了，你会怎么做？</li>
+            <li>只有一个玩具、两个人都想玩，怎么办？</li>
+            <li>奶奶做的哪道菜最好吃？想对她说什么？</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>好奇与思考</h3>
+          <ul>
+            <li>今天学的新词是什么意思？教教我</li>
+            <li>如果你有魔法，最想变什么？</li>
+            <li>为什么天会黑？你先猜猜看</li>
+            <li>长大最想做的事，现在想到了什么？</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="role-play">
+        <h3>场景：她说「我不想说」的时候</h3>
+        <div class="rp-line">
+          <div class="rp-who parent">大人：</div>
+          <div class="rp-text">"今天有什么好玩的事吗？"</div>
+        </div>
+        <div class="rp-line">
+          <div class="rp-who child">孩子：</div>
+          <div class="rp-text">"不想说。"</div>
+        </div>
+        <div class="rp-line">
+          <div class="rp-who parent">大人（推荐接法）：</div>
+          <div class="rp-text">"好，那我说我的：我今天开会差点迟到，跑了两步赶上了，好险。"</div>
+        </div>
+        <div class="rp-line">
+          <div class="rp-who parent">大人（避免接法）：</div>
+          <div class="rp-text">"怎么会没有？今天在幼儿园到底干什么了？说！"</div>
+        </div>
+        <div class="rp-line">
+          <div class="rp-who child">孩子（几分钟后自己凑过来）：</div>
+          <div class="rp-text">"妈妈，其实今天……"</div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">三多问 · 三不说</div>
+        <p><strong>多问</strong>：「然后呢？」「你觉得呢？」「需要帮忙吗？」——把话头递回去，让她多说。<strong>不说</strong>：「这有什么好哭的」（否定情绪）、「你怎么又……」（翻旧账）、「快吃别说话」（关掉对话）。她说的每一句先接住再回应，评判可以晚一点，也可以没有。</p>
+      </div>
+
+      <div class="tip-box warning">
+        <div class="tip-label">餐桌禁语</div>
+        <p>不比较（「你看人家谁谁谁」）、不威胁（「再不吃妈妈就不喜欢你了」）、不审问（连环追问像查岗）。饭桌上的安全感比聊出「正确答案」重要一百倍——三观是长期聊出来的，不是一次说对的。</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">固定仪式</div>
+        <p>每周挑一晚办「<strong>家庭分享会</strong>」：毛绒玩具当话筒，全家轮流说今天最开心的一件事，她当主持人；睡前可加「<strong>感谢三连</strong>」和「<strong>诚实小勇士</strong>」。玩法都在<a href="/games/">亲子游戏库</a>里，配合使用效果最好。</p>
+      </div>
     </section>
 
     <!-- 幼儿园加餐/带饭方案 -->
-    <section class="section" id="sec6">
-      <h2 class="section-title"><span class="num">6</span>幼儿园加餐/带饭方案</h2>
-      <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--space-16);">过敏孩子在幼儿园不能吃园里统一发的含奶含蛋间餐，需要自己准备安全加餐。以下方案适用于间餐时间和放学后。</p>
+    <section class="section" id="sec9">
+      <h2 class="section-title"><span class="num">9</span>幼儿园加餐/带饭方案</h2>
+      <p class="section-desc">过敏孩子在幼儿园不能吃园里统一发的含奶含蛋间餐，需要自己准备安全加餐。以下方案适用于间餐时间和放学后。</p>
       <div class="tip-box warning">
         <div class="tip-label">入园前必须做</div>
         <p>和班主任确认：1.幼儿园是否提供间餐/点心；2.间餐内容是否含奶蛋；3.能否自带安全零食替代；4.孩子对什么过敏——给老师一份过敏信息卡。</p>
@@ -453,8 +737,8 @@ const allRecipes = recipesData.recipes;
     </section>
 
     <!-- 隐藏过敏原 -->
-    <section class="section" id="sec7">
-      <h2 class="section-title"><span class="num">7</span>隐藏过敏原速查</h2>
+    <section class="section" id="sec10">
+      <h2 class="section-title"><span class="num">10</span>隐藏过敏原速查</h2>
       <div class="info-grid">
         <div class="info-card">
           <h3>牛奶蛋白隐藏词</h3>
@@ -500,9 +784,9 @@ const allRecipes = recipesData.recipes;
     </section>
 
     <!-- 调味料/酱料安全清单 -->
-    <section class="section" id="sec8">
-      <h2 class="section-title"><span class="num">8</span>调味料/酱料安全清单</h2>
-      <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--space-16);">很多加工调味料藏有牛奶或鸡蛋成分。给老人一份"能用/不能用"清单，做饭时不踩坑。</p>
+    <section class="section" id="sec11">
+      <h2 class="section-title"><span class="num">11</span>调味料/酱料安全清单</h2>
+      <p class="section-desc">很多加工调味料藏有牛奶或鸡蛋成分。给老人一份"能用/不能用"清单，做饭时不踩坑。</p>
       <div class="data-table-wrap">
         <table class="data-table">
           <thead>
@@ -537,8 +821,8 @@ const allRecipes = recipesData.recipes;
     </section>
 
     <!-- 安全食物清单 -->
-    <section class="section" id="sec9">
-      <h2 class="section-title"><span class="num">9</span>日常安全食物清单</h2>
+    <section class="section" id="sec12">
+      <h2 class="section-title"><span class="num">12</span>日常安全食物清单</h2>
       <div class="info-grid">
         <div class="info-card">
           <h3>可以放心多吃</h3>
@@ -578,8 +862,8 @@ const allRecipes = recipesData.recipes;
     </section>
 
     <!-- 外出就餐 -->
-    <section class="section" id="sec10">
-      <h2 class="section-title"><span class="num">10</span>外出就餐指南</h2>
+    <section class="section" id="sec13">
+      <h2 class="section-title"><span class="num">13</span>外出就餐指南</h2>
       <div class="info-grid">
         <div class="info-card">
           <h3>相对安全的餐厅</h3>
@@ -623,9 +907,9 @@ const allRecipes = recipesData.recipes;
     </section>
 
     <!-- 鸡蛋替代技巧 -->
-    <section class="section" id="sec11">
-      <h2 class="section-title"><span class="num">11</span>无鸡蛋烘焙替代技巧</h2>
-      <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--space-16);">鸡蛋在烘焙中起黏合、蓬松、保湿作用，以下食材可替代。</p>
+    <section class="section" id="sec14">
+      <h2 class="section-title"><span class="num">14</span>无鸡蛋烘焙替代技巧</h2>
+      <p class="section-desc">鸡蛋在烘焙中起黏合、蓬松、保湿作用，以下食材可替代。</p>
       <div class="data-table-wrap">
         <table class="data-table">
           <thead>
@@ -643,69 +927,9 @@ const allRecipes = recipesData.recipes;
       </div>
     </section>
 
-    <!-- 孩子挑食应对 -->
-    <section class="section" id="sec12">
-      <h2 class="section-title"><span class="num">12</span>孩子挑食应对</h2>
-      <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--space-16);">3岁半孩子有自己偏好很正常。不要强迫吃，不要追喂，用小技巧把不爱的食材变"看不见"。</p>
-
-      <div class="info-grid">
-        <div class="info-card">
-          <h3>不爱吃豆腐？</h3>
-          <ul>
-            <li>豆腐剁碎混进肉丸、肉饼里</li>
-            <li>豆腐泥拌进米糕、蒸糕</li>
-            <li>豆腐切小丁混进炒饭、焖饭</li>
-            <li>嫩豆腐打碎拌进粥里，孩子喝不出来</li>
-            <li>用豆干切丝混炒肉丝，口感更接近肉</li>
-          </ul>
-        </div>
-        <div class="info-card">
-          <h3>不爱吃蔬菜？</h3>
-          <ul>
-            <li>蔬菜剁碎混进肉丸、肉饼、饺子馅</li>
-            <li>蔬菜泥拌进粥、面糊、蒸糕</li>
-            <li>菠菜/小油菜切碎混进蛋炒饭（无蛋版）</li>
-            <li>胡萝卜磨成丝混进焖饭，颜色好看</li>
-            <li>西兰花切碎拌进土豆泥</li>
-            <li>蔬菜做成小饼（豆腐蔬菜饼、红薯饼）</li>
-          </ul>
-        </div>
-        <div class="info-card">
-          <h3>不爱吃肉？</h3>
-          <ul>
-            <li>肉剁成末混进粥、面、焖饭</li>
-            <li>肉末做成蒸肉饼，口感软嫩</li>
-            <li>鱼去刺做成鱼丸，蘸点酱油</li>
-            <li>虾仁剁碎混进炒饭、蔬菜饼</li>
-            <li>排骨炖烂，肉撕碎混进汤粥</li>
-          </ul>
-        </div>
-        <div class="info-card">
-          <h3>只吃白米饭？</h3>
-          <ul>
-            <li>米饭里加南瓜/红薯一起煮，带甜味</li>
-            <li>焖饭里加土豆/胡萝卜丁，颜色丰富</li>
-            <li>肉末酱油炒饭，味道香</li>
-            <li>小米/玉米混进白米，营养更全</li>
-            <li>粥里加肉末/菜末，少量开始</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="tip-box">
-        <div class="tip-label">应对原则</div>
-        <p>1. <strong>不强迫</strong>——越逼越不吃。2. <strong>不替代</strong>——不吃这道菜就只吃白饭，不要马上给饼干/零食替代。3. <strong>反复暴露</strong>——同一道菜要出现8-10次孩子才可能接受，每次放一小碟在旁边，不要求吃。4. <strong>大人做榜样</strong>——大人吃得香，孩子才想试。5. <strong>让孩子参与</strong>——帮忙洗菜、搅面糊，自己做的更愿意尝。</p>
-      </div>
-
-      <div class="tip-box warning">
-        <div class="tip-label">不要这样做</div>
-        <p>追喂、哄喂、看电视喂、用零食奖励吃饭、"不吃就饿一顿"硬来——这些做法短期看似有效，长期会让孩子更抗拒吃饭，甚至引发进食焦虑。</p>
-      </div>
-    </section>
-
     <!-- 幼儿园食谱参考 -->
-    <section class="section" id="sec13">
-      <h2 class="section-title"><span class="num">13</span>幼儿园食谱参考（无敏版）</h2>
+    <section class="section" id="sec15">
+      <h2 class="section-title"><span class="num">15</span>幼儿园食谱参考（无敏版）</h2>
       <p class="section-desc">参照幼儿园小班/中班/大班标准食谱，将含奶含蛋菜品全部替换为无敏版本。孩子在家吃的和园里吃的结构一致，更容易适应集体就餐。每天按"三餐两点"安排，午餐遵循<strong>一主食+一荤+一素+一汤</strong>四件套。</p>
 
       <h3 class="block-title">一日餐次安排（三餐两点制）</h3>
@@ -724,7 +948,7 @@ const allRecipes = recipesData.recipes;
         </table>
       </div>
 
-      <div class="tip-box" style="margin-bottom:var(--space-20);">
+      <div class="tip-box">
         <div class="tip-label">无敏替换要点</div>
         <p>① 早点/午点的<strong>牛奶→豆浆或强化植物奶</strong>，小班120ml、中大班160ml。② 汤里的<strong>鸡蛋→豆腐丁或淀粉勾芡</strong>替代，如番茄蛋汤改番茄豆腐汤。③ 烘焙类点心用<strong>豆浆+植物油</strong>替代牛奶黄油，香蕉/亚麻籽糊替代鸡蛋。④ 所有菜品<strong>不加奶酪/奶油/酸奶</strong>。</p>
       </div>
@@ -736,19 +960,19 @@ const allRecipes = recipesData.recipes;
             <tr><th>对比维度</th><th>小班 3-4岁</th><th>中班 4-5岁</th><th>大班 5-6岁</th></tr>
           </thead>
           <tbody>
-            <tr><td style="font-weight:600;color:var(--c-text);white-space:nowrap;">食物质地</td><td>软烂、碎末、泥状</td><td>小丁、小块、丝状</td><td>小块、小片，接近家常菜</td></tr>
-            <tr><td style="font-weight:600;color:var(--c-text);white-space:nowrap;">蛋白质</td><td>肉末、豆腐泥、鱼肉碎</td><td>肉丝、肉片、虾仁、豆干</td><td>鱼块、肉丸、鸡腿、豆腐</td></tr>
-            <tr><td style="font-weight:600;color:var(--c-text);white-space:nowrap;">主食</td><td>软饭、粥、小馒头、小馄饨</td><td>米饭、杂粮饭、面条、包子</td><td>米饭、杂粮、饺子、花卷</td></tr>
-            <tr><td style="font-weight:600;color:var(--c-text);white-space:nowrap;">蔬菜</td><td>菜末、菜泥、番茄碎</td><td>菜丁、菜丝、西兰花</td><td>菜片、多种时蔬、菌菇</td></tr>
-            <tr><td style="font-weight:600;color:var(--c-text);white-space:nowrap;">份量</td><td>最少（米饭50-75g）</td><td>中等（米饭75-100g）</td><td>最多（米饭100-125g）</td></tr>
-            <tr><td style="font-weight:600;color:var(--c-text);white-space:nowrap;">口味</td><td>清淡、极少盐油</td><td>可适度调味</td><td>接近家庭清淡菜</td></tr>
-            <tr><td style="font-weight:600;color:var(--c-text);white-space:nowrap;">咀嚼训练</td><td>以吞咽为主</td><td>增加咀嚼刺激</td><td>接近成人餐桌</td></tr>
+            <tr><td class="td-label">食物质地</td><td>软烂、碎末、泥状</td><td>小丁、小块、丝状</td><td>小块、小片，接近家常菜</td></tr>
+            <tr><td class="td-label">蛋白质</td><td>肉末、豆腐泥、鱼肉碎</td><td>肉丝、肉片、虾仁、豆干</td><td>鱼块、肉丸、鸡腿、豆腐</td></tr>
+            <tr><td class="td-label">主食</td><td>软饭、粥、小馒头、小馄饨</td><td>米饭、杂粮饭、面条、包子</td><td>米饭、杂粮、饺子、花卷</td></tr>
+            <tr><td class="td-label">蔬菜</td><td>菜末、菜泥、番茄碎</td><td>菜丁、菜丝、西兰花</td><td>菜片、多种时蔬、菌菇</td></tr>
+            <tr><td class="td-label">份量</td><td>最少（米饭50-75g）</td><td>中等（米饭75-100g）</td><td>最多（米饭100-125g）</td></tr>
+            <tr><td class="td-label">口味</td><td>清淡、极少盐油</td><td>可适度调味</td><td>接近家庭清淡菜</td></tr>
+            <tr><td class="td-label">咀嚼训练</td><td>以吞咽为主</td><td>增加咀嚼刺激</td><td>接近成人餐桌</td></tr>
           </tbody>
         </table>
       </div>
 
       <h3 class="block-title">无敏版一周午餐食谱</h3>
-      <p class="section-desc" style="font-size:13px;color:var(--c-text-muted);">点击切换班段查看对应食谱。每道菜均已去除牛奶和鸡蛋，用豆腐/豆浆/淀粉替代。</p>
+      <p class="section-desc desc-small">点击切换班段查看对应食谱。每道菜均已去除牛奶和鸡蛋，用豆腐/豆浆/淀粉替代。</p>
 
       <div class="tabs">
         <button class="tab-btn active" onclick="switchTab(this,'tab-small')">小班 3-4岁</button>
@@ -757,7 +981,7 @@ const allRecipes = recipesData.recipes;
       </div>
 
       <div class="tab-panel active" id="tab-small">
-        <p class="section-desc" style="font-size:13px;color:var(--c-text-muted);">食物质地软烂碎末，米饭偏软，肉切碎末，蔬菜切细碎。份量小，少盐少油。</p>
+        <p class="section-desc desc-small">食物质地软烂碎末，米饭偏软，肉切碎末，蔬菜切细碎。份量小，少盐少油。</p>
         <div class="meal-week-grid">
           <div class="meal-day-card">
             <div class="meal-day-head"><div class="meal-day-num">1</div><div class="meal-day-title">周一·软烂豆腐餐</div></div>
@@ -808,7 +1032,7 @@ const allRecipes = recipesData.recipes;
       </div>
 
       <div class="tab-panel" id="tab-middle">
-        <p class="section-desc" style="font-size:13px;color:var(--c-text-muted);">食物开始有形状，肉切小丁/丝，蔬菜切丁/段，可适度调味。份量中等。</p>
+        <p class="section-desc desc-small">食物开始有形状，肉切小丁/丝，蔬菜切丁/段，可适度调味。份量中等。</p>
         <div class="meal-week-grid">
           <div class="meal-day-card">
             <div class="meal-day-head"><div class="meal-day-num">1</div><div class="meal-day-title">周一·香菇鸡丁</div></div>
@@ -859,7 +1083,7 @@ const allRecipes = recipesData.recipes;
       </div>
 
       <div class="tab-panel" id="tab-large">
-        <p class="section-desc" style="font-size:13px;color:var(--c-text-muted);">食物接近家常菜形态，肉切小块/片，可做饺子包子。份量最大，接近小学餐。</p>
+        <p class="section-desc desc-small">食物接近家常菜形态，肉切小块/片，可做饺子包子。份量最大，接近小学餐。</p>
         <div class="meal-week-grid">
           <div class="meal-day-card">
             <div class="meal-day-head"><div class="meal-day-num">1</div><div class="meal-day-title">周一·红烧排骨</div></div>
@@ -909,7 +1133,7 @@ const allRecipes = recipesData.recipes;
         </div>
       </div>
 
-      <h3 class="block-title" style="margin-top:var(--space-24);">无敏版幼儿园点心</h3>
+      <h3 class="block-title">无敏版幼儿园点心</h3>
       <div class="info-grid">
         <div class="info-card">
           <h3>上午点 9:30-10:00</h3>
@@ -944,21 +1168,21 @@ const allRecipes = recipesData.recipes;
         </div>
       </div>
 
-      <h3 class="block-title" style="margin-top:var(--space-24);">每日营养达标对照表</h3>
+      <h3 class="block-title">每日营养达标对照表</h3>
       <div class="data-table-wrap">
         <table class="data-table">
           <thead>
             <tr><th>营养素</th><th>每日推荐量</th><th>无敏食物来源</th><th>一日搭配建议</th></tr>
           </thead>
           <tbody>
-            <tr><td style="font-weight:600;color:var(--c-primary);">蛋白质</td><td>25-30g</td><td>瘦肉、鱼、虾、豆腐、豆浆</td><td>早餐肉末粥 + 午餐豆腐/肉 + 晚餐鱼/虾</td></tr>
-            <tr><td style="font-weight:600;color:var(--c-primary);">钙</td><td>600-800mg</td><td>豆腐、深绿蔬菜、强化豆浆、虾皮</td><td>午餐豆腐 + 午点豆浆 + 晚餐深绿蔬菜</td></tr>
-            <tr><td style="font-weight:600;color:var(--c-primary);">铁</td><td>9-10mg</td><td>红肉、动物血、菠菜、木耳</td><td>每周3-4次红肉，搭配维C助吸收</td></tr>
-            <tr><td style="font-weight:600;color:var(--c-primary);">锌</td><td>4-5.5mg</td><td>瘦肉、鱼、豆类、坚果</td><td>每日有肉或豆制品，每周1-2次坚果</td></tr>
-            <tr><td style="font-weight:600;color:var(--c-primary);">维生素A</td><td>310-360μg</td><td>胡萝卜、南瓜、菠菜、猪肝</td><td>每周2-3次深色蔬菜，每月1-2次猪肝</td></tr>
-            <tr><td style="font-weight:600;color:var(--c-primary);">维生素D</td><td>10μg</td><td>日晒、强化豆浆、鱼</td><td>每天户外1-2小时，按医嘱补充制剂</td></tr>
-            <tr><td style="font-weight:600;color:var(--c-primary);">维生素C</td><td>40-50mg</td><td>番茄、西兰花、橙子、猕猴桃</td><td>每餐有蔬菜 + 每日1-2种水果</td></tr>
-            <tr><td style="font-weight:600;color:var(--c-primary);">能量</td><td>1200-1700kcal</td><td>谷物、肉、油、水果</td><td>三餐按3:4:3分配，两点补充10-20%</td></tr>
+            <tr><td class="td-label">蛋白质</td><td>25-30g</td><td>瘦肉、鱼、虾、豆腐、豆浆</td><td>早餐肉末粥 + 午餐豆腐/肉 + 晚餐鱼/虾</td></tr>
+            <tr><td class="td-label">钙</td><td>600-800mg</td><td>豆腐、深绿蔬菜、强化豆浆、虾皮</td><td>午餐豆腐 + 午点豆浆 + 晚餐深绿蔬菜</td></tr>
+            <tr><td class="td-label">铁</td><td>9-10mg</td><td>红肉、动物血、菠菜、木耳</td><td>每周3-4次红肉，搭配维C助吸收</td></tr>
+            <tr><td class="td-label">锌</td><td>4-5.5mg</td><td>瘦肉、鱼、豆类、坚果</td><td>每日有肉或豆制品，每周1-2次坚果</td></tr>
+            <tr><td class="td-label">维生素A</td><td>310-360μg</td><td>胡萝卜、南瓜、菠菜、猪肝</td><td>每周2-3次深色蔬菜，每月1-2次猪肝</td></tr>
+            <tr><td class="td-label">维生素D</td><td>10μg</td><td>日晒、强化豆浆、鱼</td><td>每天户外1-2小时，按医嘱补充制剂</td></tr>
+            <tr><td class="td-label">维生素C</td><td>40-50mg</td><td>番茄、西兰花、橙子、猕猴桃</td><td>每餐有蔬菜 + 每日1-2种水果</td></tr>
+            <tr><td class="td-label">能量</td><td>1200-1700kcal</td><td>谷物、肉、油、水果</td><td>三餐按3:4:3分配，两点补充10-20%</td></tr>
           </tbody>
         </table>
       </div>
@@ -1081,4 +1305,117 @@ const allRecipes = recipesData.recipes;
       searchInput.focus();
     });
   }
+</script>
+
+<script is:inline define:vars={{ menuIndex, dinnerPool }}>
+  // 本周菜单生成器：选择存 localStorage，随机排菜，打印模式只出菜单表
+  (function () {
+    var byName = {};
+    menuIndex.forEach(function (r) { byName[r.name] = r; });
+    var DAYS = [['mon', '周一'], ['tue', '周二'], ['wed', '周三'], ['thu', '周四'], ['fri', '周五'], ['sat', '周六'], ['sun', '周日']];
+    var KEY = 'weeklyMenu.v1';
+
+    function load() {
+      try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { return {}; }
+    }
+    function save(d) {
+      try { localStorage.setItem(KEY, JSON.stringify(d)); } catch (e) { /* 隐私模式下静默失败 */ }
+    }
+    function esc(s) {
+      return String(s).replace(/[&<>"]/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+      });
+    }
+    function syncSelects(d) {
+      document.querySelectorAll('.mp-select').forEach(function (sel) {
+        sel.value = d[sel.dataset.day] || '';
+      });
+    }
+
+    function render() {
+      var box = document.getElementById('menuResult');
+      if (!box) return;
+      var d = load();
+      var picked = 0;
+      var rows = '';
+      var shop = [];
+      DAYS.forEach(function (day) {
+        var name = d[day[0]];
+        if (!name || !byName[name]) {
+          rows += '<tr><td>' + day[1] + '</td><td class="mp-empty">— 未选 —</td><td></td><td></td></tr>';
+          return;
+        }
+        picked++;
+        var r = byName[name];
+        var label = r.tag === 'split' ? '一锅两吃' : r.tag === 'family' ? '全家统一' : '';
+        rows += '<tr><td>' + day[1] + '</td><td class="mp-dish">' + esc(name) + '</td><td>' + esc(r.time) + '</td><td>' + label + '</td></tr>';
+        r.ingredients.split('、').forEach(function (item) {
+          var it = item.trim();
+          if (it && shop.indexOf(it) < 0) shop.push(it);
+        });
+      });
+
+      if (picked === 0) {
+        box.hidden = true;
+        box.innerHTML = '';
+        return;
+      }
+      var html = '<h4 class="mp-result-title">本周菜单（晚餐主打）</h4>';
+      html += '<div class="data-table-wrap"><table class="data-table"><thead><tr><th style="width:64px;">星期</th><th>晚餐主打</th><th style="width:110px;">用时</th><th style="width:90px;">备注</th></tr></thead><tbody>' + rows + '</tbody></table></div>';
+      html += '<p class="mp-shop"><strong>采购参考：</strong>' + (shop.length ? esc(shop.join('、')) : '—') + '</p>';
+      html += '<p class="mp-note">调料按家里存货核对分量；标注「一锅两吃」的菜记得先盛孩子的份。菜单保存在本机，换设备不同步。</p>';
+      box.hidden = false;
+      box.innerHTML = html;
+    }
+
+    window.onMenuPick = function (sel) {
+      var d = load();
+      if (sel.value) { d[sel.dataset.day] = sel.value; } else { delete d[sel.dataset.day]; }
+      save(d);
+      render();
+    };
+
+    window.randomWeek = function () {
+      var pool = dinnerPool.slice();
+      for (var i = pool.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var t = pool[i]; pool[i] = pool[j]; pool[j] = t;
+      }
+      var d = {};
+      DAYS.forEach(function (day, i) { d[day[0]] = pool[i % pool.length]; });
+      save(d);
+      syncSelects(d);
+      render();
+      var box = document.getElementById('menuResult');
+      if (box) box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    };
+
+    window.clearWeek = function () {
+      save({});
+      syncSelects({});
+      render();
+    };
+
+    window.printWeek = function () {
+      var box = document.getElementById('menuResult');
+      if (!box || box.hidden) {
+        alert('先给一周挑好菜（或点「随机排一周」），再打印。');
+        return;
+      }
+      var section = box.closest('.section');
+      if (section) section.classList.add('print-target');
+      document.body.classList.add('print-menu');
+      var done = function () {
+        document.body.classList.remove('print-menu');
+        if (section) section.classList.remove('print-target');
+        window.removeEventListener('afterprint', done);
+      };
+      window.addEventListener('afterprint', done);
+      window.print();
+      setTimeout(done, 2000); // 部分浏览器不触发 afterprint 的兜底
+    };
+
+    syncSelects(load());
+    render();
+  })();
 </script>

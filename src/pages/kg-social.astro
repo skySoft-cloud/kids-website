@@ -1,0 +1,263 @@
+---
+// 社交力：园内成长三力之一——交朋友、被拒绝、轮流分享、小冲突，在家就能练
+import Base from '../layouts/Base.astro';
+import { kgSubNav } from '../data/site';
+
+const cur = Astro.url.pathname.replace(/\/+$/, '');
+---
+
+<Base title="社交力：交朋友与小冲突">
+  <div class="container">
+    <div class="legacy-content">
+<div class="page-header has-art">
+      <img class="header-art" src="/art/kg-social.svg" alt="两个小朋友手拉手的黏土风插画" width="480" height="360" loading="lazy" />
+      <div class="ph-text">
+        <div class="breadcrumb">
+          <a href="/">首页</a> <span>/</span> <a href="/kindergarten/">园内成长</a> <span>/</span> 社交力
+        </div>
+        <h1>社交力</h1>
+        <p class="subtitle">3-4岁是交朋友的起点——会加入、能被拒、会轮流、能处理小冲突。这些不用报班，在家和小区里就能练</p>
+      </div>
+    </div>
+
+    <nav class="sub-nav">
+      {kgSubNav.map((item) => (
+        <a href={item.href} class={item.href.replace(/\/+$/, '') === cur ? 'active' : ''}>{item.label}</a>
+      ))}
+    </nav>
+
+    <!-- 交友规律 -->
+    <section class="section">
+      <h2 class="section-title"><span class="num">1</span>先懂规律再练习：3-4岁孩子怎么交朋友</h2>
+      <p class="section-desc">小班孩子的「交朋友」和大人想的不一样。理解规律，才不会用自己的标准要求她。</p>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>各玩各的也是社交</h3>
+          <p>3-4岁孩子大多在「平行游戏」：两个人挨着玩沙子但互不搭话，这是正常的必经阶段，不是「不合群」。共享空间、互相模仿，就是社交的第一步。</p>
+        </div>
+        <div class="info-card">
+          <h3>朋友 = 常一起玩的人</h3>
+          <p>这个年龄的「好朋友」标准很简单：经常一起玩、一起笑。今天和A好、明天和B好都很正常，别问「你最好的朋友是谁」。</p>
+        </div>
+        <div class="info-card">
+          <h3>冲突是练习场</h3>
+          <p>争抢玩具、被拒绝、闹别扭，是这个年龄每天都会发生的「社交课」。大人的任务不是消灭冲突，而是教她每次冲突后多会一句话。</p>
+        </div>
+        <div class="info-card">
+          <h3>慢热不是缺陷</h3>
+          <p>她入园适应用了三周，交朋友可能也需要几周。慢热的孩子更需要「提前排练话术」和「稳定的社交搭子」，而不是被推着「大方点」。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 自查清单 -->
+    <section class="section">
+      <h2 class="section-title"><span class="num">2</span>社交力自查清单</h2>
+      <p class="section-desc">每周对照一次（点一下打勾，自动记住）。「还没会」的项不用逼，挑一项放进本周的游戏里练。</p>
+      <div class="checklist">
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">说得出至少 2-3 个小朋友的名字</div>
+            <div class="check-desc">放学路上随口聊：「今天和谁玩得最多？」</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">会问「我可以一起玩吗？」</div>
+            <div class="check-desc">加入游戏的第一句话，在家先练熟</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">被拒绝了不哭闹，能换目标或再等等</div>
+            <div class="check-desc">「那我先玩别的，等会儿再来」</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">会说「轮到我了吗」「我们交换玩吧」</div>
+            <div class="check-desc">轮流和交换是这个年龄社交的核心技能</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">玩具被抢会先表达，再找老师</div>
+            <div class="check-desc">「这是我的，请还给我」——先说，不先哭</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">不小心碰到别人会道歉</div>
+            <div class="check-desc">「对不起，我不是故意的」+ 帮忙拍拍</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">能排队等待（滑梯、秋千、洗手）</div>
+            <div class="check-desc">轮流意识从「等得住」开始</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            <div class="check-label">放学能说出和朋友玩了什么</div>
+            <div class="check-desc">说不出来也没关系，用「选择题」问：搭积木还是滑梯？</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 场景话术 -->
+    <section class="section">
+      <h2 class="section-title"><span class="num">3</span>五个高频场景，提前排练好</h2>
+      <p class="section-desc">社交话术要在家「排练」过才用得出来。用玩偶或大人扮演角色，每周练一个场景就够。</p>
+
+      <div class="role-play">
+        <h3>场景一：想加入游戏</h3>
+        <div class="rp-line">
+          <div class="rp-who parent">大人（演小朋友）：</div>
+          <div class="rp-text">"我们在搭城堡，你别碰！"</div>
+        </div>
+        <div class="rp-line">
+          <div class="rp-who parent">大人：</div>
+          <div class="rp-text">"如果她说不行，你可以说什么？"</div>
+        </div>
+        <div class="rp-line">
+          <div class="rp-who child">孩子（练习）：</div>
+          <div class="rp-text">"我可以和你们一起玩吗？"</div>
+        </div>
+        <div class="rp-line">
+          <div class="rp-who parent">大人：</div>
+          <div class="rp-text">"如果她还是说'不行'呢？"</div>
+        </div>
+        <div class="rp-line">
+          <div class="rp-who child">孩子（练习）：</div>
+          <div class="rp-text">"那我在旁边看一会儿，等会儿再问。"</div>
+        </div>
+        <div class="rp-line">
+          <div class="rp-who parent">大人：</div>
+          <div class="rp-text">"对！被拒绝不是坏事，还可以换个地方玩、换个朋友玩。"</div>
+        </div>
+      </div>
+
+      <div class="role-play">
+        <h3>场景二：玩具被抢了</h3>
+        <div class="rp-line">
+          <div class="rp-who parent">大人：</div>
+          <div class="rp-text">"如果有人把你的小汽车拿走了，先做什么？"</div>
+        </div>
+        <div class="rp-line">
+          <div class="rp-who child">孩子（练习）：</div>
+          <div class="rp-text">"告诉他：这是我的，请还给我。"</div>
+        </div>
+        <div class="rp-line">
+          <div class="rp-who parent">大人：</div>
+          <div class="rp-text">"如果他不还呢？"</div>
+        </div>
+        <div class="rp-line">
+          <div class="rp-who child">孩子（练习）：</div>
+          <div class="rp-text">"找老师帮忙。"</div>
+        </div>
+        <div class="rp-line">
+          <div class="rp-who parent">大人：</div>
+          <div class="rp-text">"对。记住顺序：先说，再说不行就找老师。不推人、不咬人——推人了就变成你的不对了。"</div>
+        </div>
+      </div>
+
+      <div class="role-play">
+        <h3>场景三：撞到别人了</h3>
+        <div class="rp-line">
+          <div class="rp-who parent">大人（演被撞的小朋友）：</div>
+          <div class="rp-text">"哎呀！好痛！"</div>
+        </div>
+        <div class="rp-line">
+          <div class="rp-who child">孩子（练习）：</div>
+          <div class="rp-text">"对不起，我不是故意的。你哪里疼？我帮你揉揉。"</div>
+        </div>
+        <div class="rp-line">
+          <div class="rp-who parent">大人：</div>
+          <div class="rp-text">"没关系。道歉三句记得很棒：说对不起、说不是故意的、帮对方做点事。"</div>
+        </div>
+      </div>
+
+      <div class="role-play">
+        <h3>场景四：她说「她不跟我玩了」</h3>
+        <div class="rp-line">
+          <div class="rp-who child">孩子：</div>
+          <div class="rp-text">"欣欣今天不跟我玩，我要她跟我玩！"</div>
+        </div>
+        <div class="rp-line">
+          <div class="rp-who parent">大人（推荐接法）：</div>
+          <div class="rp-text">"想和她玩没成功，有点难过对不对？她今天可能是想自己玩。那今天你还可以跟谁玩？"</div>
+        </div>
+        <div class="rp-line">
+          <div class="rp-who parent">大人（避免接法）：</div>
+          <div class="rp-text">"不玩就不玩，谁稀罕！"或者"那我去找她妈妈说说"。</div>
+        </div>
+        <div class="rp-line">
+          <div class="rp-who parent">要点：</div>
+          <div class="rp-text">先接住情绪，再帮她把「一个人拒绝我」和「大家都不要我」分开——这个年龄的友谊天天变，第二天就和好了。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 在家练什么 -->
+    <section class="section">
+      <h2 class="section-title"><span class="num">4</span>在家练什么：社交力游戏搭配表</h2>
+      <p class="section-desc">游戏库里的这些游戏就是社交训练课，按「练什么」对号入座。</p>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>练什么</th>
+              <th>玩什么</th>
+              <th>什么时候玩</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>加入与等待</td><td><a href="/games/">轮流小队长</a>（排队、等待、服从安排）</td><td>放学后</td></tr>
+            <tr><td>轮流与规则</td><td><a href="/games/">等一等更甜</a>、<a href="/games/">红绿灯</a></td><td>餐桌 / 周末</td></tr>
+            <tr><td>分享的快乐</td><td><a href="/games/">分享盲盒</a>（把「给出去」变成期待）</td><td>周末出门</td></tr>
+            <tr><td>合作节奏</td><td><a href="/games/">合作运宝</a>（配合别人的速度）</td><td>周末户外</td></tr>
+            <tr><td>输得起</td><td><a href="/games/">石头剪刀布</a>、<a href="/games/">输了也开心</a></td><td>旅途 / 周末</td></tr>
+            <tr><td>道歉与修复</td><td><a href="/games/">魔法道歉语</a>（玩偶先犯错）</td><td>放学后</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 家长四不要 -->
+    <section class="section">
+      <h2 class="section-title"><span class="num">5</span>家长四不要</h2>
+      <div class="tip-box warning">
+        <div class="tip-label">这四件事比「不会社交」伤害更大</div>
+        <p>1. <strong>不强迫分享</strong>——被强迫「给弟弟玩一下」学到的不是分享，是「我的东西做不了主」。分享必须从自愿开始（玩法见分享盲盒）。2. <strong>不代替出面</strong>——滑梯被插队、玩具被抢，先让她自己说，说不动了大人再介入；每次代劳都是替她练习放弃。3. <strong>不贴标签</strong>——「胆小」「小气」「内向」说一次她记一年，换说法：「她需要先看一会儿，看明白了就去了」。4. <strong>不审问冲突</strong>——「谁欺负你了？他打你你怎么不打回去？」会把她推向受害者视角；改问「今天和朋友玩了什么」。</p>
+      </div>
+    </section>
+
+    <!-- 联动 -->
+    <section class="section">
+      <h2 class="section-title"><span class="num">6</span>和老师、餐桌联动</h2>
+      <div class="tip-box">
+        <div class="tip-label">问老师的具体问法（比「她和小朋友相处好吗」有用）</div>
+        <p>「她今天有没有主动和哪个小朋友一起玩？」「她玩的时候遇到分歧，是自己说的还是找的老师？」「有没有哪个小朋友她特别愿意接近？我们可以创造机会让他们多接触吗？」</p>
+      </div>
+      <div class="tip-box">
+        <div class="tip-label">餐桌对话联动</div>
+        <p>每周挑 1-2 个社交话题放進<a href="/meals/#sec8">餐桌对话</a>：「今天帮过谁？谁帮过你？」「如果小朋友摔倒了你会怎么做？」——饭桌上的闲聊，就是社交复盘。</p>
+      </div>
+      <div class="tip-box">
+        <div class="tip-label">本周小行动</div>
+        <p>本周只做一件事：周末约一个同班小朋友在小区玩 30 分钟——有「固定社交搭子」的孩子，在园里交朋友明显更快。玩的时候大人只旁观，冲突让他们自己解决。</p>
+      </div>
+    </section>
+    </div>
+  </div>
+</Base>

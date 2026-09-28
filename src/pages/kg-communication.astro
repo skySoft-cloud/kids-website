@@ -1,7 +1,9 @@
----
-// 本文件由 scripts/migrate.mjs 从 _legacy/kg-communication.html 迁移生成
-// 修改内容请编辑源文件后重新运行脚本，或直接调整下方标记
+﻿---
+// 家校沟通指南：信息卡、家长群礼仪、沟通话术与记录模板
 import Base from '../layouts/Base.astro';
+import { kgSubNav } from '../data/site';
+
+const cur = Astro.url.pathname.replace(/\/+$/, '');
 ---
 
 <Base title="家校沟通指南">
@@ -9,32 +11,27 @@ import Base from '../layouts/Base.astro';
     <div class="legacy-content">
 <div class="page-header">
       <div class="breadcrumb">
-        <a href="/">首页</a> <span>/</span> <a href="/kindergarten/">幼儿园适应</a> <span>/</span> 家校沟通指南
+        <a href="/">首页</a> <span>/</span> <a href="/kindergarten/">园内成长</a> <span>/</span> 家校沟通指南
       </div>
       <h1>家校沟通指南</h1>
       <p class="subtitle">可打印信息卡 + 家长群礼仪 + 沟通记录模板——和老师高效合作，帮孩子顺利适应</p>
     </div>
 
     <nav class="sub-nav">
-      <a href="/kindergarten/">总览</a>
-      <a href="/kg-items/">物品准备</a>
-      <a href="/kg-allergy/">过敏管理</a>
-      <a href="/kg-first-week/">第一周逐日</a>
-      <a href="/kg-grandparents/">老人接送</a>
-      <a href="/kg-ability/">能力训练</a>
-      <a href="/kg-psychology/">心理准备</a>
-      <a href="/kg-communication/" class="active">家校沟通</a>
+      {kgSubNav.map((item) => (
+        <a href={item.href} class={item.href.replace(/\/+$/, '') === cur ? 'active' : ''}>{item.label}</a>
+      ))}
     </nav>
 
     <!-- 可打印信息卡 -->
     <section class="section">
       <h2 class="section-title"><span class="num">1</span>孩子信息卡（可打印）</h2>
-      <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--space-16);">入园第一天交给班主任，让老师快速了解孩子。打印填写或手写均可。</p>
+      <p class="section-desc">入园第一天交给班主任，让老师快速了解孩子。打印填写或手写均可。</p>
 
       <div class="allergy-card">
         <div class="ac-header">
           <h3>幼儿信息卡</h3>
-          <p style="font-size:12px;color:var(--c-text-muted);">请老师参考，如有更新随时沟通</p>
+          <p class="desc-small">请老师参考，如有更新随时沟通</p>
         </div>
         <div class="ac-row">
           <div class="ac-label">姓名</div>
@@ -204,7 +201,7 @@ import Base from '../layouts/Base.astro';
     <!-- 沟通记录模板 -->
     <section class="section">
       <h2 class="section-title"><span class="num">5</span>沟通记录模板</h2>
-      <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--space-16);">用表格记录每次和老师沟通的内容，方便追踪孩子适应进度。可打印或在手机备忘录记录。</p>
+      <p class="section-desc">用表格记录每次和老师沟通的内容，方便追踪孩子适应进度。可打印或在手机备忘录记录。</p>
       <div class="data-table-wrap">
         <table class="data-table">
           <thead>
@@ -267,7 +264,7 @@ import Base from '../layouts/Base.astro';
     <!-- 适应期观察记录 -->
     <section class="section">
       <h2 class="section-title"><span class="num">6</span>适应期每日观察记录</h2>
-      <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--space-16);">入园前2周每天记录，看到孩子的进步，也方便和老师沟通。</p>
+      <p class="section-desc">入园前2周每天记录，看到孩子的进步，也方便和老师沟通。</p>
       <div class="data-table-wrap">
         <table class="data-table">
           <thead>
